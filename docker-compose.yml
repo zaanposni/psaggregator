@@ -1,0 +1,22 @@
+services:
+  db:
+    container_name: psaggregator_db
+    image: mysql:8.0
+    volumes:
+        - mysql:/var/lib/mysql
+    restart: unless-stopped
+    environment:
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+    expose:
+      - "3306"
+    ports:
+      - "127.0.0.1:3306:3306"
+    networks:
+      - appnetwork
+
+networks:
+  appnetwork:
+
+volumes:
+  mysql:

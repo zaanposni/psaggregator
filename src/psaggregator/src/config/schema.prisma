@@ -1,0 +1,57 @@
+datasource db {
+    url      = env("PRIVATE_DATABASE_URL")
+    provider = "mysql"
+}
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+enum ContentType {
+    Unknown
+    Video
+    TwitchStream
+}
+
+enum ContentImportType {
+    Unknown
+    PietSmietDE
+    Instagram
+    Twitter
+    Threads
+    Reddit
+    Custom
+}
+
+enum InformationImportType {
+    Unknown
+    PietSmietDE
+    Instagram
+    Twitter
+    Threads
+    Reddit
+    Custom
+}
+
+model ContentPiece {
+    id             String            @id @default(uuid())
+    title          String
+    description    String?
+    additionalInfo String?
+    startDate      DateTime?
+    imageUri       String?
+    href           String?
+    importedAt     DateTime
+    importedFrom   ContentImportType
+    type           ContentType
+}
+
+model Information {
+    id           String                @id @default(uuid())
+    text         String
+    imageUri     String?
+    href         String?
+    date         DateTime?
+    importedAt   DateTime
+    importedFrom InformationImportType
+}
