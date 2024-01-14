@@ -35,12 +35,14 @@ enum InformationImportType {
 
 model ContentPiece {
     id             String            @id @default(uuid())
+    remoteId     String?
     title          String
     description    String?
     additionalInfo String?
     startDate      DateTime?
     imageUri       String?
     href           String?
+    secondaryHref  String?
     importedAt     DateTime
     importedFrom   ContentImportType
     type           ContentType
@@ -48,6 +50,7 @@ model ContentPiece {
 
 model Information {
     id           String                @id @default(uuid())
+    remoteId     String?
     text         String
     imageUri     String?
     href         String?
