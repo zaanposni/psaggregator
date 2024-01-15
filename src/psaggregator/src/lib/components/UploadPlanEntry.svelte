@@ -19,10 +19,14 @@
             >{entry.title}</span>
     </a>
 {:else}
-    <div class="card card-hover flex items-center gap-x-4 p-4">
+    <div class="card card-hover flex items-center gap-x-4 p-4" title="Noch nicht veröffentlicht">
         <div class="shrink-0">
             <Video size={32} />
         </div>
+        {#if entry.startDate}
+            {@const date = moment(entry.startDate)}
+            <span class="shrink-0 font-bold">{date.format("HH:mm")}</span>
+        {/if}
         <span class="overflow-x-hidden text-ellipsis whitespace-nowrap" title={entry.title}
             >{entry.title}</span>
     </div>

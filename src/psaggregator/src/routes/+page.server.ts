@@ -2,10 +2,10 @@ import prisma from "$lib/prisma";
 import moment from "moment";
 
 export async function load() {
-    const upperBound = moment().add(4, "week").toDate();
-    const lowerBound = moment().subtract(1, "week").toDate();
+    const upperBound = moment().endOf("day").toDate();
+    const lowerBound = moment().startOf("day").toDate();
 
-    const contentPieces = await prisma.contentPiece.findMany({
+    let today = await prisma.contentPiece.findMany({
         where: {
             startDate: {
                 lt: upperBound,
@@ -17,12 +17,27 @@ export async function load() {
         }
     });
 
-    const today = contentPieces.filter((contentPiece) =>
-        moment().isSame(contentPiece.startDate, "day")
-    );
+    today = today.filter((contentPiece) => moment().isSame(contentPiece.startDate, "day"));
+
+    const videos = await prisma.contentPiece.findMany({
+        where: {
+            type: {
+                equals: "Video"
+            },
+            href: {
+                not: null
+            },
+            startDate: {
+                not: null
+            }
+        },
+        orderBy: {
+            startDate: "desc"
+        }
+    });
 
     return {
-        contentPieces,
+        videos,
         today
     };
 }
