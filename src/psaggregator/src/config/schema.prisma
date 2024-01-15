@@ -59,3 +59,13 @@ model Information {
     importedAt   DateTime
     importedFrom InformationImportType
 }
+
+model TwitchStatus {
+    id        String   @id @default(uuid())
+    title     String
+    gameName  String
+    viewers   Int
+    startedAt DateTime
+    live      Boolean
+    thumbnail String
+}
