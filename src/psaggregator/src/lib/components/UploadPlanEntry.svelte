@@ -1,6 +1,6 @@
 <script lang="ts">
     import type { ContentPiece } from "@prisma/client";
-    import { Video } from "carbon-icons-svelte";
+    import { Video, VideoPlayer } from "carbon-icons-svelte";
     import moment from "moment";
 
     export let entry: ContentPiece;
@@ -9,7 +9,11 @@
 {#if entry.href}
     <a class="card card-hover flex items-center gap-x-4 p-4" href={entry.href}>
         <div class="shrink-0">
-            <Video size={32} />
+            {#if entry.type === "TwitchStream"}
+                <Video size={32} />
+            {:else}
+                <VideoPlayer size={32} />
+            {/if}
         </div>
         {#if entry.startDate}
             {@const date = moment(entry.startDate)}
@@ -21,7 +25,11 @@
 {:else}
     <div class="card flex items-center gap-x-4 p-4" title="Noch nicht veröffentlicht">
         <div class="shrink-0">
-            <Video size={32} />
+            {#if entry.type === "TwitchStream"}
+                <Video size={32} />
+            {:else}
+                <VideoPlayer size={32} />
+            {/if}
         </div>
         {#if entry.startDate}
             {@const date = moment(entry.startDate)}
