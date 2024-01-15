@@ -19,7 +19,7 @@
             >{entry.title}</span>
     </a>
 {:else}
-    <div class="card card-hover flex items-center gap-x-4 p-4" title="Noch nicht veröffentlicht">
+    <div class="card flex items-center gap-x-4 p-4" title="Noch nicht veröffentlicht">
         <div class="shrink-0">
             <Video size={32} />
         </div>

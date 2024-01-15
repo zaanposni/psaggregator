@@ -1,7 +1,6 @@
 <script lang="ts">
     import type { ContentPiece } from "@prisma/client";
     import moment from "moment";
-    import "moment/min/locales";
 
     export let video: ContentPiece;
 

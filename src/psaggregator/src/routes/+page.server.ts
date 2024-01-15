@@ -36,8 +36,11 @@ export async function load() {
         }
     });
 
+    const twitchStatus = await prisma.twitchStatus.findFirst();
+
     return {
         videos,
-        today
+        today,
+        twitchStatus
     };
 }
