@@ -1,17 +1,15 @@
 <script lang="ts">
-	import type { PageServerData } from "./$types";
-    import { ProgressBar } from '@skeletonlabs/skeleton';
+    import type { PageServerData } from "./$types";
+    import UploadPlanEntry from "$lib/components/UploadPlanEntry.svelte";
 
     export let data: PageServerData;
 </script>
 
-Hello World
-
-
-<ProgressBar label="Progress Bar" value={50} max={100} />
-
-{#each data.contentPieces as content}
-    <div>
-        <p>{content.id}</p>
+<div class="p-8">
+    <div class="flex flex-col">
+        {#each data.today as content}
+            <UploadPlanEntry entry={content} />
+        {/each}
     </div>
-{/each}
+    <hr class="my-12 !border-t-4" />
+</div>

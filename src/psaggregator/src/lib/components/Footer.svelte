@@ -2,7 +2,7 @@
     import { LEGAL_URL } from "../../config/config";
 </script>
 
-<div class="flex w-full flex-row items-center gap-x-4 p-2">
+<div class="flex w-full flex-row flex-wrap items-center gap-x-4 p-2 lg:flex-nowrap">
     <span class="mr-12">
         <a href="https://github.com/zaanposni/psaggregator/" target="_blank">
             <span>PS Aggregator</span>
