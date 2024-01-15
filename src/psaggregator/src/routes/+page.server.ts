@@ -5,7 +5,7 @@ export async function load() {
     const upperBound = moment().endOf("day").toDate();
     const lowerBound = moment().startOf("day").toDate();
 
-    let today = await prisma.contentPiece.findMany({
+    const today = await prisma.contentPiece.findMany({
         where: {
             startDate: {
                 lt: upperBound,
@@ -16,8 +16,6 @@ export async function load() {
             startDate: "asc"
         }
     });
-
-    today = today.filter((contentPiece) => moment().isSame(contentPiece.startDate, "day"));
 
     const videos = await prisma.contentPiece.findMany({
         where: {
