@@ -17,7 +17,7 @@ export async function GET({ url }) {
     const upperBound = now.clone().endOf("day").toDate();
     const lowerBound = now.clone().startOf("day").toDate();
 
-    const data = await prisma.contentPiece.findMany({
+    const data = await prisma.scheduledContentPiece.findMany({
         where: {
             startDate: {
                 lt: upperBound,

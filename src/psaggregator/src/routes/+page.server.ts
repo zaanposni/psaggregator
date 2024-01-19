@@ -5,7 +5,7 @@ export async function load() {
     const upperBound = moment().endOf("day").toDate();
     const lowerBound = moment().startOf("day").toDate();
 
-    const today = await prisma.contentPiece.findMany({
+    const today = await prisma.scheduledContentPiece.findMany({
         where: {
             startDate: {
                 lt: upperBound,
@@ -20,7 +20,7 @@ export async function load() {
     const videos = await prisma.contentPiece.findMany({
         where: {
             type: {
-                equals: "Video"
+                equals: "PSVideo"
             },
             href: {
                 not: null

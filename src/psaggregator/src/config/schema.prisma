@@ -9,11 +9,11 @@ generator client {
 
 enum ContentType {
     Unknown
-    Video
+    PSVideo
     TwitchStream
 }
 
-enum ContentImportType {
+enum ImportType {
     Unknown
     PietSmietDE
     Instagram
@@ -23,49 +23,69 @@ enum ContentImportType {
     Custom
 }
 
-enum InformationImportType {
-    Unknown
-    PietSmietDE
-    Instagram
-    Twitter
-    Threads
-    Reddit
-    Custom
+model ScheduledContentPiece {
+    id             String      @id @default(uuid())
+    remoteId       String?
+    title          String      @db.VarChar(1024)
+    description    String?     @db.VarChar(1024)
+    additionalInfo String?     @db.VarChar(1024)
+    startDate      DateTime?
+    imageUri       String?     @db.VarChar(1024)
+    href           String?     @db.VarChar(1024)
+    secondaryHref  String?     @db.VarChar(1024)
+    duration       Int?
+    importedAt     DateTime
+    importedFrom   ImportType
+    type           ContentType
 }
 
 model ContentPiece {
-    id             String            @id @default(uuid())
-    remoteId       String?
-    title          String
-    description    String?
-    additionalInfo String?
+    id             String      @id @default(uuid())
+    remoteId       String
+    title          String      @db.VarChar(1024)
+    description    String?     @db.VarChar(1024)
+    additionalInfo String?     @db.VarChar(1024)
     startDate      DateTime?
-    imageUri       String?
-    href           String?
-    secondaryHref  String?
+    imageUri       String?     @db.VarChar(1024)
+    href           String?     @db.VarChar(1024)
+    secondaryHref  String?     @db.VarChar(1024)
     duration       Int?
     importedAt     DateTime
-    importedFrom   ContentImportType
+    importedFrom   ImportType
     type           ContentType
 }
 
 model Information {
-    id           String                @id @default(uuid())
+    id           String     @id @default(uuid())
     remoteId     String?
-    text         String
-    imageUri     String?
-    href         String?
+    text         String     @db.VarChar(1024)
+    imageUri     String?    @db.VarChar(1024)
+    href         String?    @db.VarChar(1024)
     date         DateTime?
     importedAt   DateTime
-    importedFrom InformationImportType
+    importedFrom ImportType
 }
 
 model TwitchStatus {
     id        String   @id @default(uuid())
-    title     String
+    title     String   @db.VarChar(1024)
     gameName  String
     viewers   Int
     startedAt DateTime
     live      Boolean
-    thumbnail String
+    thumbnail String   @db.VarChar(1024)
+}
+
+model RedditPost {
+    id          String   @id
+    title       String   @db.VarChar(1024)
+    description String?  @db.VarChar(1024)
+    username    String
+    upvotes     Int
+    comments    Int
+    sticky      Boolean
+    publishedAt DateTime
+    imageUri    String?  @db.VarChar(1024)
+    href        String?  @db.VarChar(1024)
+    importedAt  DateTime
 }
