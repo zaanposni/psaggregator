@@ -7,6 +7,9 @@ export async function load() {
 
     const today = await prisma.scheduledContentPiece.findMany({
         where: {
+            type: {
+                equals: "PSVideo"
+            },
             startDate: {
                 lt: upperBound,
                 gt: lowerBound
@@ -31,7 +34,23 @@ export async function load() {
         },
         orderBy: {
             startDate: "desc"
-        }
+        },
+        take: 20
+    });
+
+    const upcomingStreams = await prisma.scheduledContentPiece.findMany({
+        where: {
+            type: {
+                equals: "TwitchStream"
+            },
+            startDate: {
+                gt: lowerBound
+            }
+        },
+        orderBy: {
+            startDate: "asc"
+        },
+        take: 5
     });
 
     const twitchStatus = await prisma.twitchStatus.findFirst();
@@ -45,6 +64,7 @@ export async function load() {
 
     return {
         videos,
+        upcomingStreams,
         today,
         twitchStatus,
         redditPosts

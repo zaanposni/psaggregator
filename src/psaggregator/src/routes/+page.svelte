@@ -4,6 +4,7 @@
     import PSVideo from "$lib/components/PSVideo.svelte";
     import TwitchStatus from "$lib/components/TwitchStatus.svelte";
     import RedditPost from "$lib/components/RedditPost.svelte";
+    import { Video, VideoPlayer } from "carbon-icons-svelte";
 
     export let data: PageServerData;
 </script>
@@ -39,7 +40,7 @@
             <TwitchStatus twitch={data.twitchStatus} />
         {/if}
     </div>
-    <div class="grid grid-cols-1 md:grid-cols-2">
+    <div class="grid grid-cols-1 gap-x-8 gap-y-4 md:gap-y-8 xl:grid-cols-2">
         <div>
             <div class="mb-2 ml-2 flex items-center text-2xl">
                 <img alt="reddit" src="/reddit-logo.svg" class="mr-2 inline-block h-8 w-8" />
@@ -51,10 +52,27 @@
                 {/each}
             </div>
         </div>
+        <div>
+            <div class="mb-2 ml-2 flex items-center text-2xl">
+                <img alt="twitch" src="/twitch-logo.svg" class="mr-2 inline-block h-8 w-8" />
+                Anstehende Streams
+            </div>
+            <div class="flex flex-col">
+                {#each data.upcomingStreams as stream}
+                    <UploadPlanEntry entry={stream} />
+                {/each}
+            </div>
+        </div>
     </div>
-    <div class="scrollable flex h-64 flex-row items-center gap-4 overflow-x-auto">
-        {#each data.videos as video}
-            <PSVideo {video} />
-        {/each}
+    <div>
+        <div class="mb-2 ml-2 flex items-center text-2xl">
+            <VideoPlayer size={32} class="mr-2" />
+            Neuste Videos
+        </div>
+        <div class="scrollable flex h-64 flex-row items-center gap-4 overflow-x-auto">
+            {#each data.videos as video}
+                <PSVideo {video} />
+            {/each}
+        </div>
     </div>
 </div>
