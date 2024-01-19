@@ -36,9 +36,17 @@ export async function load() {
 
     const twitchStatus = await prisma.twitchStatus.findFirst();
 
+    const redditPosts = await prisma.redditPost.findMany({
+        orderBy: {
+            sticky: "desc"
+        },
+        take: 5
+    });
+
     return {
         videos,
         today,
-        twitchStatus
+        twitchStatus,
+        redditPosts
     };
 }

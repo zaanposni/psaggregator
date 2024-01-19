@@ -29,7 +29,7 @@
                 <span>Legal</span>
             </a>
         {/if}
-        <span class="ml-auto">v.{version}</span>
+        <span class="ml-auto">v{version}</span>
         <span class="text-xs md:text-base">
             Dies ist ein privates Projekt und steht in keiner Verbindung zur PietSmiet UG & Co. KG.
         </span>

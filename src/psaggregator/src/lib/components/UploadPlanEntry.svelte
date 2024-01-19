@@ -7,7 +7,7 @@
 </script>
 
 {#if entry.href}
-    <a class="card card-hover flex items-center gap-x-4 p-4" href={entry.href}>
+    <a class="card card-hover flex items-center gap-x-4 p-4" href={entry.href} target="_blank">
         <div class="shrink-0">
             {#if entry.type === "TwitchStream"}
                 <Video size={32} />
