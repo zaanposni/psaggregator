@@ -8,10 +8,7 @@
 </script>
 
 <MediaQuery query="(min-width: 768px)" let:matches>
-    <a
-        class="card card-hover relative w-full shrink-0 md:w-80"
-        href="https://twitch.tv/pietsmiet"
-        target="_blank">
+    <a class="card card-hover relative" href="https://twitch.tv/pietsmiet" target="_blank">
         <img src={twitch.thumbnail} alt="Twitch thumbnail" />
         <div class="flex items-center p-2 md:p-4">
             <div class="flex flex-col">

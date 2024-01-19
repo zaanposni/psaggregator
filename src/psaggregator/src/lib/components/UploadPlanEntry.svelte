@@ -1,9 +1,9 @@
 <script lang="ts">
-    import type { ContentPiece } from "@prisma/client";
+    import type { ScheduledContentPiece } from "@prisma/client";
     import { Video, VideoPlayer } from "carbon-icons-svelte";
     import moment from "moment";
 
-    export let entry: ContentPiece;
+    export let entry: ScheduledContentPiece;
 </script>
 
 {#if entry.href}

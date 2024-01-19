@@ -4,7 +4,7 @@
     import PSVideo from "$lib/components/PSVideo.svelte";
     import TwitchStatus from "$lib/components/TwitchStatus.svelte";
     import RedditPost from "$lib/components/RedditPost.svelte";
-    import { Video, VideoPlayer } from "carbon-icons-svelte";
+    import { List, DataError, VideoPlayer } from "carbon-icons-svelte";
 
     export let data: PageServerData;
 </script>
@@ -31,13 +31,30 @@
 
 <div class="dashboardcontainer p-4 md:p-8">
     <div class="flex flex-col-reverse gap-y-4 md:flex-row md:items-start md:gap-x-8 md:gap-y-0">
-        <div class="flex shrink-0 grow flex-col">
-            {#each data.today as content}
-                <UploadPlanEntry entry={content} />
-            {/each}
+        <div class="shrink-0 grow">
+            <div class="mb-2 ml-2 flex items-center text-2xl">
+                <List size={32} class="mr-2" />
+                Uploadplan
+            </div>
+            <div class="flex shrink-0 grow flex-col">
+                {#each data.today as content}
+                    <UploadPlanEntry entry={content} />
+                {:else}
+                    <div class="flex items-center mt-4">
+                        <DataError size={32} class="mr-2" />
+                        <span>Bisher konnte heute kein Uploadplan importiert werden.</span>
+                    </div>
+                {/each}
+            </div>
         </div>
         {#if data.twitchStatus}
-            <TwitchStatus twitch={data.twitchStatus} />
+            <div class="flex w-full shrink-0 flex-col md:w-80">
+                <div class="mb-2 ml-2 flex items-center text-2xl">
+                    <img alt="twitch" src="/twitch-logo.svg" class="mr-2 inline-block h-8 w-8" />
+                    Twitch
+                </div>
+                <TwitchStatus twitch={data.twitchStatus} />
+            </div>
         {/if}
     </div>
     <div class="grid grid-cols-1 gap-x-8 gap-y-4 md:gap-y-8 xl:grid-cols-2">
