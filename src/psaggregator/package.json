@@ -9,6 +9,7 @@
         "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
         "lint": "prettier --check . && eslint .",
         "prismagenerate": "prisma generate --schema ./src/config/schema.prisma",
+        "prismamigrate": "prisma migrate dev --schema ./src/config/schema.prisma",
         "prismastudio": "prisma studio --schema ./src/config/schema.prisma",
         "format": "prettier --write ."
     },
