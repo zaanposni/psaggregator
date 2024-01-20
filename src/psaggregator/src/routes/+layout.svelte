@@ -18,10 +18,10 @@
                             <img src="/ps.png" alt="PS Aggregator Logo" class="h-8 w-8" />
                         </a>
                         <a href="/">Home</a>
-                        <a href="/motivation">Motivation</a>
                         {#if matches}
                             <a href="/thumbnails">Thumbnails</a>
                             <a href="/api">API</a>
+                            <a href="/motivation">Motivation</a>
                             <a href="https://github.com/zaanposni/psaggregator/" target="_blank">
                                 <span>GitHub</span>
                             </a>
