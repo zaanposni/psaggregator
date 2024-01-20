@@ -21,6 +21,8 @@ services:
             dockerfile: Dockerfile
         environment:
             - PRIVATE_DATABASE_URL=${DATABASE_URL}
+            - PUBLIC_LEGAL_URL=${LEGAL_URL}
+            - PUBLIC_MICROANALYTICS_ID=${MICROANALYTICS_ID}
         depends_on:
             - db
         networks:
