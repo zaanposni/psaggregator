@@ -1,0 +1,9 @@
+selenium==4.16.0
+selenium-wire==5.1.0
+python-dateutil==2.8.2
+databases==0.8.0
+databases[mysql]
+asyncio==3.4.3
+twitchAPI==4.1.0
+praw==7.7.1
+rich==12.4.4

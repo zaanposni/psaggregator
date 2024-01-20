@@ -1,0 +1,4 @@
+geckodriver.exe
+*.json
+.env
+.env.*
