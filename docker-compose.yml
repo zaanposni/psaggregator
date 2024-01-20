@@ -1,22 +1,71 @@
 services:
-  db:
-    container_name: psaggregator_db
-    image: mysql:8.0
-    volumes:
-        - mysql:/var/lib/mysql
-    restart: unless-stopped
-    environment:
-      - MYSQL_DATABASE=${MYSQL_DATABASE}
-      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
-    expose:
-      - "3306"
-    ports:
-      - "127.0.0.1:3306:3306"
-    networks:
-      - appnetwork
+    db:
+        container_name: psaggregator_db
+        restart: unless-stopped
+        image: mysql:8.0
+        volumes:
+            - mysql:/var/lib/mysql
+        environment:
+            - MYSQL_DATABASE=${MYSQL_DATABASE}
+            - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+        expose:
+            - "3306"
+        ports:
+            - "127.0.0.1:3306:3306"
+        networks:
+            - mysql
+
+    frontend:
+        container_name: psaggregator_frontend
+        restart: unless-stopped
+        build:
+            context: ./src/psaggregator
+            dockerfile: Dockerfile
+        environment:
+            - PRIVATE_DATABASE_URL=${DATABASE_URL}
+        depends_on:
+            - db
+        networks:
+            - mysql
+            - nginx
+        expose:
+            - "3000"
+
+    dataimport:
+        container_name: psaggregator_dataimport
+        restart: unless-stopped
+        build:
+            context: ./src/dataimport
+            dockerfile: Dockerfile
+        environment:
+            - DATABASE_URL=${DATABASE_URL}
+            - REDDIT_CLIENT_ID=${REDDIT_CLIENT_ID}
+            - REDDIT_CLIENT_SECRET=${REDDIT_CLIENT_SECRET}
+            - TWITCH_CLIENT_ID=${TWITCH_CLIENT_ID}
+            - TWITCH_CLIENT_SECRET=${TWITCH_CLIENT_SECRET}
+            - SQLALCHEMY_SILENCE_UBER_WARNING=1
+        depends_on:
+            - db
+            - frontend
+        networks:
+            - mysql
+
+    nginx:
+        container_name: psaggregator_nginx
+        restart: unless-stopped
+        build:
+            context: ./src/nginx
+            dockerfile: Dockerfile
+        depends_on:
+            - frontend
+        ports:
+            - "127.0.0.1:5640:80"
+        networks:
+            - nginx
 
 networks:
-  appnetwork:
+    mysql:
+    nginx:
 
 volumes:
-  mysql:
+    mysql:
