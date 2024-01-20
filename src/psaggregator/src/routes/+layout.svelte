@@ -4,7 +4,7 @@
     import { initializeStores } from "@skeletonlabs/skeleton";
     import Footer from "$lib/components/Footer.svelte";
     import MediaQuery from "$lib/utils/MediaQuery.svelte";
-    import { MICROANALYTICS_ID } from "../config/config";
+    import { KOFI_USERNAME, MICROANALYTICS_ID } from "../config/config";
 
     initializeStores();
 </script>
@@ -26,6 +26,11 @@
                             <a href="https://github.com/zaanposni/psaggregator/" target="_blank">
                                 <span>GitHub</span>
                             </a>
+                            {#if KOFI_USERNAME}
+                                <a href="https://ko-fi.com/{KOFI_USERNAME}" target="_blank">
+                                    <span>Ko-fi</span>
+                                </a>
+                            {/if}
                             <a href="https://pietsmiet.de" target="_blank">
                                 <span>PietSmiet.de</span>
                             </a>
