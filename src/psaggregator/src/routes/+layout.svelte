@@ -4,6 +4,7 @@
     import { initializeStores } from "@skeletonlabs/skeleton";
     import Footer from "$lib/components/Footer.svelte";
     import MediaQuery from "$lib/utils/MediaQuery.svelte";
+    import { MICROANALYTICS_ID } from "../config/config";
 
     initializeStores();
 </script>
@@ -46,3 +47,13 @@
 <Toast />
 <Modal />
 <Drawer />
+
+{#if MICROANALYTICS_ID}
+    <script
+        data-host="https://app.microanalytics.io"
+        data-dnt="false"
+        src="https://app.microanalytics.io/js/script.js"
+        id={MICROANALYTICS_ID}
+        async
+        defer></script>
+{/if}
