@@ -1,6 +1,6 @@
 <script lang="ts">
     import MediaQuery from "$lib/utils/MediaQuery.svelte";
-    import { LEGAL_URL } from "../../config/config";
+    import { LEGAL_URL, MAIL_TO_URL } from "../../config/config";
     import { version } from "$app/environment";
 </script>
 
@@ -15,9 +15,7 @@
             </a>
         </span>
         {#if matches}
-            <a
-                href=" mailto:psaggregator@zaanposni.com?subject=PS%20Aggregator%20Anfrage"
-                target="_blank">
+            <a href={MAIL_TO_URL} target="_blank">
                 <span>Kontakt</span>
             </a>
             <a href="https://github.com/zaanposni/psaggregator/" target="_blank">
@@ -30,8 +28,6 @@
             </a>
         {/if}
         <span class="ml-auto">v{version}</span>
-        <span class="text-xs md:text-base">
-            Dies ist ein privates Projekt und steht in keiner Verbindung zur PietSmiet UG & Co. KG.
-        </span>
+        <span class="text-xs md:text-base"> Dies ist ein privates Projekt und steht in keiner Verbindung zur PietSmiet UG & Co. KG. </span>
     </div>
 </MediaQuery>
