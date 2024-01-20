@@ -137,7 +137,6 @@ async def stuff() -> asyncio.coroutine:
                 content["uri"],
                 content["duration"],
             )
-            print(query)
             await db.execute(query)
 
     console.log("Done!", style="bold green")

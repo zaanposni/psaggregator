@@ -10,8 +10,6 @@ services:
             - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
         expose:
             - "3306"
-        ports:
-            - "127.0.0.1:3306:3306"
         networks:
             - mysql
 
@@ -59,7 +57,7 @@ services:
         depends_on:
             - frontend
         ports:
-            - "127.0.0.1:5640:80"
+            - "127.0.0.1:5650:80"
         networks:
             - nginx
 
