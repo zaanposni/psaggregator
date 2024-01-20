@@ -20,6 +20,7 @@
                         <a href="/">Home</a>
                         <a href="/motivation">Motivation</a>
                         {#if matches}
+                            <a href="/thumbnails">Thumbnails</a>
                             <a href="/api">API</a>
                             <a href="https://github.com/zaanposni/psaggregator/" target="_blank">
                                 <span>GitHub</span>
