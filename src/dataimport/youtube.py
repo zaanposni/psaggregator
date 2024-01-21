@@ -73,11 +73,23 @@ async def youtube():
         if "images" in details:
             try:
                 thumbnailUri = details["images"][0]["thumbnails"][-1]["url"]
-                thumbnailUri = f"'{thumbnailUri}'"
             except IndexError:
                 pass
             except KeyError:
                 pass
+
+        if thumbnailUri != "NULL":
+            # download thumbnail and store it in /app/cdn/
+            console.log(f"Downloading thumbnail for {yt['id']}")
+            try:
+                thumbnail = requests.get(thumbnailUri).content
+                filename = f"youtube_{uuid4()}.jpg"
+                with open(f"/app/cdn/{filename}", "wb") as f:
+                    f.write(thumbnail)
+                thumbnailUri = f"'/cdn/{filename}'"
+            except Exception as e:
+                console.log(f"Error downloading thumbnail: {e}", style="bold red")
+                thumbnailUri = "NULL"
 
         query = INSERT_STATEMENT.format(
             uuid4(),
