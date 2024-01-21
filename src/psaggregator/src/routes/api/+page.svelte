@@ -25,11 +25,12 @@
 <div class="api flex flex-col p-4 md:p-8">
     <span class="text-2xl font-bold md:text-4xl">API</span>
     <div>
-        <span>Die API ist eine klassische JSON HTTP API.</span>
+        <span>Die API ist eine klassische HTTP JSON API.</span>
         <span>Die Base URL ist {location.protocol}//{location.host}/api </span>
-        <span
-            >Auf diese API kann nur lesend zugegriffen werden. Datengrundlage sind Importe von der pietsmiet.de Website sowie von
-            Social-Media Plattformen.</span>
+    </div>
+    <div>
+        <span>Auf diese API kann nur lesend zugegriffen werden. </span>
+        <span>Datengrundlage sind Importe von der pietsmiet.de Website sowie von Social-Media Plattformen.</span>
     </div>
     <span class="text-1xl mt-4 font-bold md:mt-8 md:text-2xl">GET /uploadplan</span>
     <div class="xl:w-1/2">
@@ -45,7 +46,7 @@
     </div>
     <div>
         <span>Videos werden ebenfalls direkt von der pietsmiet.de importiert.</span>
-        <span>Es werden maximal 20 Videos importiert - sortiert nach dem Uploaddatum.</span>
+        <span>Es werden maximal 20 Videos zurückgegeben - sortiert nach dem Uploaddatum.</span>
         <span>Der ?skip Parameter kann genutzt werden um weitere Videos zu laden.</span>
     </div>
     <span class="text-1xl mt-4 font-bold md:mt-8 md:text-2xl">GET /twitch</span>
@@ -76,7 +77,7 @@
         <CodeBlock language="bash" code={curlInformation} />
     </div>
     <div>
-        <span>Verschiedene Communityposts in Textform</span>
+        <span>Verschiedene Communityposts in Textform.</span>
         <span>Zum Beispiel der Text im Uploadplan, solange dieser nicht der Standardtext ist.</span>
         <span>Zukünftig sind hier noch Importe aus anderen Social Media geplant.</span>
     </div>

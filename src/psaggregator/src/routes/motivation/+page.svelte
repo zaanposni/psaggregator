@@ -52,7 +52,7 @@
         <span
             >Der Quellcode für dieses Projekt ist auf <a href="https://github.com/zaanposni/psaggregator" class="underline" target="_blank"
                 >GitHub</a> verfügbar.</span>
-        <span>Wenn du einen Fehler findest oder eine Idee hast, kannst du gerne einen Issue erstellen oder einen Pull Request öffnen.</span>
+        <span>Wenn du einen Fehler findest oder eine Idee hast, kannst du gerne ein Issue erstellen oder einen Pull Request öffnen.</span>
         <span>Ich freue mich über jede Hilfe.</span>
     </div>
     <div>
