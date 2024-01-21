@@ -23,6 +23,9 @@ docker-compose up -d
 
 You can view the docker logs with `docker-compose logs -f`.
 
+Keep in mind that some data imports might take a while. You can view the progress of the data imports in the docker logs.\
+Most data imports are executed periodically. Wait at least an hour before you start to worry about missing data.
+
 That's all you need to know to start! 🎉
 
 ## 📝 Development
