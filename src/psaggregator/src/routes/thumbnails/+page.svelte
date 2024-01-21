@@ -41,17 +41,23 @@
         endReached = newVideos.length < batchSize;
     }
 
+    const onScroll = () => {
+        const scrollElement = document.getElementById("page");
+        if (!scrollElement) {
+            return;
+        }
+        if (scrollElement.offsetHeight + scrollElement.scrollTop + 400 >= scrollElement.scrollHeight) {
+            loadMore();
+        }
+    };
+
     afterUpdate(() => {
         if (browser) {
             const scrollElement = document.getElementById("page");
             if (!scrollElement) {
                 return;
             }
-            scrollElement.addEventListener("scroll", () => {
-                if (scrollElement.offsetHeight + scrollElement.scrollTop + 400 >= scrollElement.scrollHeight) {
-                    loadMore();
-                }
-            });
+            scrollElement.addEventListener("scroll", onScroll);
         }
     });
 
@@ -61,7 +67,7 @@
             if (!scrollElement) {
                 return;
             }
-            scrollElement.removeEventListener("scroll", () => {});
+            scrollElement.removeEventListener("scroll", onScroll);
         }
     });
 </script>
