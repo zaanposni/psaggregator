@@ -4,8 +4,14 @@
     import { version } from "$app/environment";
     import { TabAnchor, TabGroup } from "@skeletonlabs/skeleton";
     import { page } from "$app/stores";
-    import { Api, FavoriteFilled, Home, Thumbnail_2 } from "carbon-icons-svelte";
+    import { Api, FavoriteFilled, Home, Information, Thumbnail_2 } from "carbon-icons-svelte";
 </script>
+
+<style lang="postcss">
+    :global(.tab-list) {
+        justify-content: unset !important;
+    }
+</style>
 
 <MediaQuery query="(min-width: 768px)" let:matches>
     {#if matches}
@@ -43,25 +49,31 @@
             rounded=""
             border=""
             class="bg-surface-100-800-token w-full">
-            <TabAnchor href="/" selected={$page.url.pathname === "/"}>
+            <TabAnchor href="/" selected={$page.url.pathname === "/"} class="shrink-0">
                 <div class="flex justify-center" slot="lead">
                     <Home />
                 </div>
                 <span>Home</span>
             </TabAnchor>
-            <TabAnchor href="/thumbnails" selected={$page.url.pathname === "/thumbnails"}>
+            <TabAnchor href="/thumbnails" selected={$page.url.pathname === "/thumbnails"} class="shrink-0">
                 <div class="flex justify-center" slot="lead">
                     <Thumbnail_2 />
                 </div>
                 <span>Thumbnails</span>
             </TabAnchor>
-            <TabAnchor href="/api" selected={$page.url.pathname === "/api"}>
+            <TabAnchor href="/information" selected={$page.url.pathname === "/information"} class="shrink-0">
+                <div class="flex justify-center" slot="lead">
+                    <Information />
+                </div>
+                <span>Information</span>
+            </TabAnchor>
+            <TabAnchor href="/api" selected={$page.url.pathname === "/api"} class="shrink-0">
                 <div class="flex justify-center" slot="lead">
                     <Api />
                 </div>
                 <span>API</span>
             </TabAnchor>
-            <TabAnchor href="/motivation" selected={$page.url.pathname === "/motivation"}>
+            <TabAnchor href="/motivation" selected={$page.url.pathname === "/motivation"} class="shrink-0">
                 <div class="flex justify-center" slot="lead">
                     <FavoriteFilled />
                 </div>
