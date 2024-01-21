@@ -4,7 +4,8 @@
     import PSVideo from "$lib/components/PSVideo.svelte";
     import TwitchStatus from "$lib/components/TwitchStatus.svelte";
     import RedditPost from "$lib/components/RedditPost.svelte";
-    import { List, DataError, VideoPlayer } from "carbon-icons-svelte";
+    import { List, DataError, VideoPlayer, LogoYoutube } from "carbon-icons-svelte";
+    import YouTubeCommunityPost from "$lib/components/YouTubeCommunityPost.svelte";
 
     export let data: PageServerData;
 </script>
@@ -41,7 +42,6 @@
                     <UploadPlanEntry entry={content} />
                 {:else}
                     <div class="flex items-center mt-4">
-                        <DataError size={32} class="mr-2" />
                         <span>Bisher konnte heute kein Uploadplan importiert werden.</span>
                     </div>
                 {/each}
@@ -57,15 +57,15 @@
             </div>
         {/if}
     </div>
-    <div class="grid grid-cols-1 gap-x-8 gap-y-4 md:gap-y-8 xl:grid-cols-2">
+    <div class="grid grid-cols-1 gap-x-8 gap-y-4 md:gap-y-8 xl:grid-cols-3">
         <div>
             <div class="mb-2 ml-2 flex items-center text-2xl">
-                <img alt="reddit" src="/reddit-logo.svg" class="mr-2 inline-block h-8 w-8" />
-                Reddit
+                <LogoYoutube size={32} class="mr-2" />
+                YouTube
             </div>
             <div class="flex flex-col">
-                {#each data.redditPosts as reddit}
-                    <RedditPost entry={reddit} />
+                {#each data.youtubeCommunityPosts as youtube}
+                    <YouTubeCommunityPost post={youtube} />
                 {/each}
             </div>
         </div>
@@ -77,6 +77,17 @@
             <div class="flex flex-col">
                 {#each data.upcomingStreams as stream}
                     <UploadPlanEntry entry={stream} />
+                {/each}
+            </div>
+        </div>
+        <div>
+            <div class="mb-2 ml-2 flex items-center text-2xl">
+                <img alt="reddit" src="/reddit-logo.svg" class="mr-2 inline-block h-8 w-8" />
+                Reddit
+            </div>
+            <div class="flex flex-col">
+                {#each data.redditPosts as reddit}
+                    <RedditPost entry={reddit} />
                 {/each}
             </div>
         </div>
