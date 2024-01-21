@@ -2,3 +2,4 @@ geckodriver.exe
 *.json
 .env
 .env.*
+pietsmietfullvideoimport.py
