@@ -1,0 +1,23 @@
+name: Docker
+
+on:
+    pull_request:
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v2
+
+            - name: Build frontend
+              working-directory: ./src/psaggregator
+              run: docker build -t ghcr.io/${{ github.repository_owner }}/psaggregator_frontend:latest .
+
+            - name: Build nginx
+              working-directory: ./src/nginx
+              run: docker build -t ghcr.io/${{ github.repository_owner }}/psaggregator_nginx:latest .
+
+            - name: Build dataimport
+              working-directory: ./src/dataimport
+              run: docker build -t ghcr.io/${{ github.repository_owner }}/psaggregator_dataimport:latest .

@@ -1,0 +1,42 @@
+name: DockerPublish
+
+on:
+    push:
+        branches:
+            - "master"
+
+jobs:
+    DockerPublish:
+        if: github.repository_owner  == 'zaanposni'
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v2
+
+            - name: Determine version
+              run: |
+                  VERSION=$(cat ./src/psaggregator/package.json | jq -r '.version')
+                  echo "I found version: $VERSION"
+                  echo "VERSION=$VERSION" >> $GITHUB_ENV
+
+            - name: Build frontend
+              working-directory: ./src/psaggregator
+              run: docker build -t ghcr.io/${{ github.repository_owner }}/psaggregator_frontend:latest -t ghcr.io/${{ github.repository_owner }}/psaggregator_frontend:${{ env.VERSION }} .
+
+            - name: Build nginx
+              working-directory: ./src/nginx
+              run: docker build -t ghcr.io/${{ github.repository_owner }}/psaggregator_nginx:latest -t ghcr.io/${{ github.repository_owner }}/psaggregator_nginx:${{ env.VERSION }} .
+
+            - name: Build dataimport
+              working-directory: ./src/dataimport
+              run: docker build -t ghcr.io/${{ github.repository_owner }}/psaggregator_dataimport:latest -t ghcr.io/${{ github.repository_owner }}/psaggregator_dataimport:${{ env.VERSION }} .
+
+            - name: Push images
+              run: |
+                  echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u zaanposni --password-stdin
+                  docker push ghcr.io/${{ github.repository_owner }}/psaggregator_frontend:${{ env.VERSION }}
+                  docker push ghcr.io/${{ github.repository_owner }}/psaggregator_nginx:${{ env.VERSION }}
+                  docker push ghcr.io/${{ github.repository_owner }}/psaggregator_dataimport:${{ env.VERSION }}
+                  docker push ghcr.io/${{ github.repository_owner }}/psaggregator_frontend:latest
+                  docker push ghcr.io/${{ github.repository_owner }}/psaggregator_nginx:latest
+                  docker push ghcr.io/${{ github.repository_owner }}/psaggregator_dataimport:latest
