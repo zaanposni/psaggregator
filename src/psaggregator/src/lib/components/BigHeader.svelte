@@ -12,7 +12,7 @@
             </a>
             {#if matches}
                 <a href="/">Home</a>
-                <a href="/thumbnails">Thumbnails</a>
+                <a href="/videos">Videos</a>
                 <a href="/news">News</a>
                 <a href="/api">API</a>
                 <a href="/motivation">Motivation</a>
