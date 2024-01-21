@@ -75,7 +75,7 @@
     </div>
     <div>
         <span>Die Thumbnails bietet dir ähnlich wie /videos eine Übersicht aller Videos. Jedoch in kompakter Form.</span>
-        <span>Dieser Endpunkt wird für die Seite "Thumbnails" genutzt.</span>
+        <span>Dieser Endpunkt wird für die Seite "Videos" genutzt.</span>
     </div>
     <span class="text-1xl mt-4 font-bold md:mt-8 md:text-2xl">GET /reddit</span>
     <div class="xl:w-1/2">

@@ -55,11 +55,11 @@
                 </div>
                 <span>Home</span>
             </TabAnchor>
-            <TabAnchor href="/thumbnails" selected={$page.url.pathname === "/thumbnails"} class="shrink-0">
+            <TabAnchor href="/videos" selected={$page.url.pathname === "/videos"} class="shrink-0">
                 <div class="flex justify-center" slot="lead">
                     <Thumbnail_2 />
                 </div>
-                <span>Thumbnails</span>
+                <span>Videos</span>
             </TabAnchor>
             <TabAnchor href="/news" selected={$page.url.pathname === "/news"} class="shrink-0">
                 <div class="flex justify-center" slot="lead">
