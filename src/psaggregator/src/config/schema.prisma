@@ -20,6 +20,7 @@ enum ImportType {
     Twitter
     Threads
     Reddit
+    YouTube
     Custom
 }
 

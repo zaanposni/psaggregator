@@ -46,6 +46,7 @@ services:
             - frontend
         networks:
             - mysql
+            - youtube
 
     nginx:
         container_name: psaggregator_nginx
@@ -58,9 +59,19 @@ services:
         networks:
             - nginx
 
+    youtube-api:
+        image: benjaminloison/youtube-operational-api
+        container_name: youtube-api
+        restart: unless-stopped
+        expose:
+            - "80"
+        networks:
+            - youtube
+
 networks:
     mysql:
     nginx:
+    youtube:
 
 volumes:
     mysql:
