@@ -13,6 +13,7 @@
             {#if matches}
                 <a href="/">Home</a>
                 <a href="/thumbnails">Thumbnails</a>
+                <a href="/information">Information</a>
                 <a href="/api">API</a>
                 <a href="/motivation">Motivation</a>
                 <a href="https://github.com/zaanposni/psaggregator/" target="_blank">

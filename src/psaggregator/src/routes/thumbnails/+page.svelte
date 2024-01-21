@@ -66,7 +66,7 @@
     });
 </script>
 
-<section class="grid grid-cols-2 gap-4 p-4 md:grid-cols-5 md:p-8">
+<section class="grid grid-cols-2 gap-4 p-4 md:grid-cols-3 md:p-8 xl:grid-cols-5">
     {#each data.videos as video}
         {#if video.startDate}
             {@const newMonth = checkMonth(video.startDate)}

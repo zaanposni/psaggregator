@@ -10,13 +10,17 @@ services:
             - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
         expose:
             - "3306"
+        ports:
+            - "127.0.0.1:3306:3306"
         networks:
             - mysql
 
     frontend:
         container_name: psaggregator_frontend
         restart: unless-stopped
-        image: ghcr.io/zaanposni/psaggregator_frontend:latest
+        build:
+            context: ./src/psaggregator
+            dockerfile: Dockerfile
         environment:
             - PRIVATE_DATABASE_URL=${DATABASE_URL}
             - PUBLIC_LEGAL_URL=${LEGAL_URL}
@@ -33,7 +37,9 @@ services:
     dataimport:
         container_name: psaggregator_dataimport
         restart: unless-stopped
-        image: ghcr.io/zaanposni/psaggregator_dataimport:latest
+        build:
+            context: ./src/dataimport
+            dockerfile: Dockerfile
         environment:
             - DATABASE_URL=${DATABASE_URL}
             - REDDIT_CLIENT_ID=${REDDIT_CLIENT_ID}
@@ -55,7 +61,9 @@ services:
     nginx:
         container_name: psaggregator_nginx
         restart: unless-stopped
-        image: ghcr.io/zaanposni/psaggregator_nginx:latest
+        build:
+            context: ./src/nginx
+            dockerfile: Dockerfile
         volumes:
             - shared-data:/app/cdn
         depends_on:

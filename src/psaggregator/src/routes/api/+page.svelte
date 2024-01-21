@@ -20,6 +20,18 @@
     .api > div {
         @apply mt-4 flex flex-col;
     }
+
+    .list {
+        list-style: disc !important;
+    }
+
+    .list > li {
+        display: list-item !important;
+    }
+
+    ul {
+        padding-left: 3rem !important;
+    }
 </style>
 
 <div class="api flex flex-col p-4 md:p-8">
@@ -79,6 +91,11 @@
     <div>
         <span>Verschiedene Communityposts in Textform.</span>
         <span>Zum Beispiel der Text im Uploadplan, solange dieser nicht der Standardtext ist.</span>
+        <span>Folgende Importquellen sind bereits angebunden:</span>
+        <ul class="list mb-2">
+            <li>pietsmiet.de Uploadplan</li>
+            <li>YouTube Communityposts des Hauptkanals</li>
+        </ul>
         <span>Zukünftig sind hier noch Importe aus anderen Social Media geplant.</span>
     </div>
     <span class="text-1xl mt-4 font-bold md:mt-8 md:text-2xl">Ausblick</span>
