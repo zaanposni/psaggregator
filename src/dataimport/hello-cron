@@ -1,10 +1,14 @@
 5 * * * * . /root/project_env.sh; /usr/local/bin/python /app/pietsmietdevideoimporter.py >> /var/log/cron.log 2>&1
 10 * * * * . /root/project_env.sh; /usr/local/bin/python /app/pietsmietdevideoimporter.py >> /var/log/cron.log 2>&1
+35 * * * * . /root/project_env.sh; /usr/local/bin/python /app/pietsmietdevideoimporter.py >> /var/log/cron.log 2>&1
 */15 * * * * . /root/project_env.sh; /usr/local/bin/python /app/pietsmietdevideoimporter.py >> /var/log/cron.log 2>&1
 */15 * * * * . /root/project_env.sh; /usr/local/bin/python /app/reddit.py >> /var/log/cron.log 2>&1
 */1 * * * * . /root/project_env.sh; /usr/local/bin/python /app/twitch.py >> /var/log/cron.log 2>&1
 2 * * * * . /root/project_env.sh; /usr/local/bin/python /app/pietsmietdeuploadplan.py >> /var/log/cron.log 2>&1
 5 * * * * . /root/project_env.sh; /usr/local/bin/python /app/pietsmietdeuploadplan.py >> /var/log/cron.log 2>&1
+30 * * * * . /root/project_env.sh; /usr/local/bin/python /app/pietsmietdeuploadplan.py >> /var/log/cron.log 2>&1
+32 * * * * . /root/project_env.sh; /usr/local/bin/python /app/pietsmietdeuploadplan.py >> /var/log/cron.log 2>&1
+35 * * * * . /root/project_env.sh; /usr/local/bin/python /app/pietsmietdeuploadplan.py >> /var/log/cron.log 2>&1
 0 10 * * * . /root/project_env.sh; /usr/local/bin/python /app/pietsmietdeuploadplan.py >> /var/log/cron.log 2>&1
 10 10 * * * . /root/project_env.sh; /usr/local/bin/python /app/pietsmietdeuploadplan.py >> /var/log/cron.log 2>&1
 15 10 * * * . /root/project_env.sh; /usr/local/bin/python /app/pietsmietdeuploadplan.py >> /var/log/cron.log 2>&1
