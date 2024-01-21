@@ -16,9 +16,7 @@ services:
     frontend:
         container_name: psaggregator_frontend
         restart: unless-stopped
-        build:
-            context: ./src/psaggregator
-            dockerfile: Dockerfile
+        image: ghcr.io/zaanposni/psaggregator_frontend:latest
         environment:
             - PRIVATE_DATABASE_URL=${DATABASE_URL}
             - PUBLIC_LEGAL_URL=${LEGAL_URL}
@@ -35,9 +33,7 @@ services:
     dataimport:
         container_name: psaggregator_dataimport
         restart: unless-stopped
-        build:
-            context: ./src/dataimport
-            dockerfile: Dockerfile
+        image: ghcr.io/zaanposni/psaggregator_dataimport:latest
         environment:
             - DATABASE_URL=${DATABASE_URL}
             - REDDIT_CLIENT_ID=${REDDIT_CLIENT_ID}
@@ -54,9 +50,7 @@ services:
     nginx:
         container_name: psaggregator_nginx
         restart: unless-stopped
-        build:
-            context: ./src/nginx
-            dockerfile: Dockerfile
+        image: ghcr.io/zaanposni/psaggregator_nginx:latest
         depends_on:
             - frontend
         ports:
