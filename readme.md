@@ -101,6 +101,8 @@ create the **most useful** tool for all PietSmiet Enjoyers.
 
 - [Issues][repo_issues_url]: ask questions and submit your features.
 - [Pull requests][repo_pull_request_url]: send your improvements to the current.
+- [Mail][mail_url]: send your ideas for the project.
+- [Discord][discord_url]: add me as a friend on Discord: @zaanposni
 
 Together, we can make this project **better** every day!
 
@@ -135,3 +137,5 @@ the [GPL-3.0 License][repo_license_url].
 
 [kofi_url]: https://ko-fi.com/zaanposni
 [discord_masz_url]: https://github.com/zaanposni/discord-masz
+[mail_url]: mailto:psaggregator@zaanposni.com
+[discord_url]: https://discord.com
