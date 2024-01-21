@@ -48,7 +48,7 @@
                 return;
             }
             scrollElement.addEventListener("scroll", () => {
-                if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 500) {
+                if (scrollElement.offsetHeight + scrollElement.scrollTop + 400 >= scrollElement.scrollHeight) {
                     loadMore();
                 }
             });
