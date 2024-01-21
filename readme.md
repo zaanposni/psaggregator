@@ -13,7 +13,7 @@ First, [download][docker_download_url] and install **Docker**.
 
 Create a `.env` file in the root directory of the project. You can use the `.env.example` file as a template.
 
-A `docker-compose.yml` file is provided to run the application. It will start the application and a MySQL database. The database will be initialized with the schema and data from the `db` folder.
+A `docker-compose.yml` file is provided to run the application. It will start the application and a MySQL database.
 
 ```bash
 docker-compose up -d
@@ -37,6 +37,7 @@ This project has four main components:
 - **Dataimporter**: The dataimporter is a small project containing multiple python scripts. These scripts are used to import data from the PietSmiet website and various other APIs. The scripts are located in the `src/dataimporter` directory.
 - **NGINX**: NGINX is used as a reverse proxy for the frontend. The configuration is located in the `src/nginx` directory.
 - **Database**: The database is a MySQL database. The schema and data are located in the frontend project
+- **YouTubeOperationalAPI**: The YouTubeOperationalAPI is a Open Source Solution by [Benjamin Loison][benjamin_loison_url]. It supports more features than the official public YouTube API.
 
 ### 📦 Requirements
 
@@ -56,7 +57,7 @@ git clone https://github.com/zaanposni/psaggregator.git
 
 Then, create a `.env` file in the root directory of the project. You can use the `.env.example` file as a template.
 
-Start the MySQL database:
+Start the MySQL database and YouTubeOperationalAPI:
 
 ```bash
 docker-compose -f docker-compose.dev.yml up -d
@@ -101,7 +102,7 @@ create the **most useful** tool for all PietSmiet Enjoyers.
 - [Issues][repo_issues_url]: ask questions and submit your features.
 - [Pull requests][repo_pull_request_url]: send your improvements to the current.
 
-Together, we can make this project **better** every day! 😘
+Together, we can make this project **better** every day!
 
 ## 🔥 Other projects of the authors
 
@@ -128,6 +129,7 @@ the [GPL-3.0 License][repo_license_url].
 
 [docker_download_url]: https://docs.docker.com/get-docker/
 [svelte_kit_url]: https://kit.svelte.dev/
+[benjamin_loison_url]: https://github.com/Benjamin-Loison
 
 <!-- Author -->
 
