@@ -4,7 +4,7 @@
     import { version } from "$app/environment";
     import { TabAnchor, TabGroup } from "@skeletonlabs/skeleton";
     import { page } from "$app/stores";
-    import { Api, FavoriteFilled, Home, Information, Thumbnail_2 } from "carbon-icons-svelte";
+    import { Api, FavoriteFilled, Home, Document, Thumbnail_2 } from "carbon-icons-svelte";
 </script>
 
 <style lang="postcss">
@@ -61,11 +61,11 @@
                 </div>
                 <span>Thumbnails</span>
             </TabAnchor>
-            <TabAnchor href="/information" selected={$page.url.pathname === "/information"} class="shrink-0">
+            <TabAnchor href="/news" selected={$page.url.pathname === "/news"} class="shrink-0">
                 <div class="flex justify-center" slot="lead">
-                    <Information />
+                    <Document />
                 </div>
-                <span>Information</span>
+                <span>News</span>
             </TabAnchor>
             <TabAnchor href="/api" selected={$page.url.pathname === "/api"} class="shrink-0">
                 <div class="flex justify-center" slot="lead">

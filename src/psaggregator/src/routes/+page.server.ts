@@ -62,9 +62,28 @@ export async function load() {
         take: 5
     });
 
+    const youtubeCommunityPosts = await prisma.information.findMany({
+        where: {
+            importedFrom: {
+                equals: "YouTube"
+            },
+            href: {
+                not: null
+            },
+            date: {
+                not: null
+            }
+        },
+        orderBy: {
+            date: "desc"
+        },
+        take: 3
+    });
+
     return {
         videos,
         upcomingStreams,
+        youtubeCommunityPosts,
         today,
         twitchStatus,
         redditPosts
