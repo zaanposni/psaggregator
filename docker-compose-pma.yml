@@ -1,0 +1,16 @@
+services:
+    phpmyadmin:
+        container_name: phpmyadmin
+        image: phpmyadmin
+        restart: unless-stopped
+        ports:
+            - 0.0.0.0:5651:80
+        environment:
+            - PMA_HOST=db
+            - PMA_PORT=3306
+            - PMA_USER=root
+            - PMA_PASSWORD=${MYSQL_ROOT_PASSWORD}
+        depends_on:
+            - db
+        networks:
+            - mysql
