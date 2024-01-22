@@ -10,6 +10,9 @@ export async function load() {
             type: {
                 equals: "PSVideo"
             },
+            importedFrom: {
+                equals: "PietSmietDE"
+            },
             startDate: {
                 lt: upperBound,
                 gt: lowerBound

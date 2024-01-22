@@ -4,8 +4,11 @@
     import bash from "highlight.js/lib/languages/bash";
     import { storeHighlightJs } from "@skeletonlabs/skeleton";
     import moment from "moment";
+    import { MAIL_TO_URL } from "../../config/config";
+    import Sparkle from "$lib/components/Sparkle.svelte";
 
     const curlUploadPlan = `curl -X GET ${location.protocol}//${location.host}/api/uploadplan?date=${moment().format("YYYY-MM-DD")}`;
+    const curlScheduledContentPieces = `curl -X GET ${location.protocol}//${location.host}/api/scheduledContentPieces?date=${moment().format("YYYY-MM-DD")}&skip=0`;
     const curlVideos = `curl -X GET ${location.protocol}//${location.host}/api/videos?skip=0`;
     const curlTwitch = `curl -X GET ${location.protocol}//${location.host}/api/twitch`;
     const curlThumbnails = `curl -X GET ${location.protocol}//${location.host}/api/thumbnails?skip=0`;
@@ -52,14 +55,34 @@
         <span>Der Uploadplan wird direkt von der pietsmiet.de importiert.</span>
         <span>Nutze den ?date Parameter um alte Uploadpläne anzusehen.</span>
     </div>
+    <span class="text-1xl mt-4 font-bold md:mt-8 md:text-2xl">GET /scheduledContentPieces</span>
+    <div class="xl:w-1/2">
+        <CodeBlock language="bash" code={curlScheduledContentPieces} />
+    </div>
+    <div>
+        <span>scheduledContentPieces sind ähnlich wie der Uploadplan alle potentiell stattfindenden Ereignisse.</span>
+        <span>Der Unterschied ist, dass hier auch Events angezeigt werden, die nicht im Uploadplan stehen.</span>
+        <div class="my-2 flex items-center gap-x-4">
+            <Sparkle class="shrink-0" />
+            <div class="flex flex-col">
+                <span>Einzelne Daten in dieser API werden über die OpenAI Vision AI analysiert.</span>
+                <span>Dadurch kann es gelegentlich zu fehlerhaften oder doppelten Einträgen kommen.</span>
+                <span
+                    >Sollten dir solche Fehler auffallen, melde dich gerne auf <a
+                        class="underline"
+                        href="https://github.com/zaanposni/psaggregator">GitHub</a>
+                    oder per <a class="underline" href={MAIL_TO_URL}>Mail</a>.</span>
+            </div>
+        </div>
+        <span>Es werden maximal 20 Videos zurückgegeben - sortiert nach dem Datum.</span>
+        <span>Der ?skip Parameter kann genutzt werden um weitere Einträge zu laden.</span>
+    </div>
     <span class="text-1xl mt-4 font-bold md:mt-8 md:text-2xl">GET /videos</span>
     <div class="xl:w-1/2">
         <CodeBlock language="bash" code={curlVideos} />
     </div>
     <div>
-        <span>Videos werden ebenfalls direkt von der pietsmiet.de importiert.</span>
-        <span>Es werden maximal 20 Videos zurückgegeben - sortiert nach dem Uploaddatum.</span>
-        <span>Der ?skip Parameter kann genutzt werden um weitere Videos zu laden.</span>
+        <span>Videos werden direkt von der pietsmiet.de importiert.</span>
     </div>
     <span class="text-1xl mt-4 font-bold md:mt-8 md:text-2xl">GET /twitch</span>
     <div class="xl:w-1/2">

@@ -19,6 +19,9 @@ export async function GET({ url }) {
 
     const data = await prisma.scheduledContentPiece.findMany({
         where: {
+            importedFrom: {
+                equals: "PietSmietDE"
+            },
             startDate: {
                 lt: upperBound,
                 gt: lowerBound
