@@ -3,7 +3,7 @@ import os
 import asyncio
 import base64
 from uuid import uuid4
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 from rich.console import Console
 from databases import Database
@@ -116,6 +116,7 @@ async def openai():
                     continue
 
                 start_date = parse(stream["start"])
+                start_date = start_date.replace(tzinfo=timezone.utc)
                 if start_date.year < datetime.now().year:
                     start_date = start_date.replace(year=datetime.now().year)
 
