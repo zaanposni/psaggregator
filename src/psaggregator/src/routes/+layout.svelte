@@ -6,8 +6,23 @@
     import MediaQuery from "$lib/utils/MediaQuery.svelte";
     import { MICROANALYTICS_ID } from "../config/config";
     import BigHeader from "$lib/components/BigHeader.svelte";
+    import { afterNavigate, disableScrollHandling } from "$app/navigation";
+    import { browser } from "$app/environment";
 
     initializeStores();
+
+    afterNavigate(() => {
+        if (browser) {
+            disableScrollHandling();
+            const scrollElement = document.getElementById("page");
+            if (!scrollElement) {
+                return;
+            }
+            setTimeout(() => {
+                scrollElement.scrollTo({ top: 0, behavior: "instant" });
+            }, 1);
+        }
+    });
 </script>
 
 <MediaQuery query="(min-width: 768px)" let:matches>
