@@ -5,14 +5,16 @@ import base64
 from uuid import uuid4
 from datetime import datetime, timedelta
 
-from dotenv import load_dotenv
 from rich.console import Console
 from databases import Database
 from openai import OpenAI
 from dateutil.parser import parse
 
 
-load_dotenv()
+if not os.getenv("OPENAI_API_KEY"):
+    print("OPENAI_API_KEY not set", style="bold red")
+    exit(1)
+
 console = Console()
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
