@@ -116,7 +116,7 @@ async def openai():
                     continue
 
                 start_date = parse(stream["start"])
-                start_date = start_date.replace(tzinfo=timezone.utc)
+                start_date = start_date.astimezone(timezone.utc)
                 if start_date.year < datetime.now().year:
                     start_date = start_date.replace(year=datetime.now().year)
 
