@@ -1,7 +1,7 @@
 <script lang="ts">
     import { AppBar, LightSwitch } from "@skeletonlabs/skeleton";
     import MediaQuery from "$lib/utils/MediaQuery.svelte";
-    import { KOFI_USERNAME, LEGAL_URL } from "../../config/config";
+    import { GITHUB_URL, KOFI_USERNAME, LEGAL_URL } from "../../config/config";
 </script>
 
 <MediaQuery query="(min-width: 768px)" let:matches>
@@ -16,7 +16,7 @@
                 <a href="/news">News</a>
                 <a href="/api">API</a>
                 <a href="/motivation">Motivation</a>
-                <a href="https://github.com/zaanposni/psaggregator/" target="_blank">
+                <a href={GITHUB_URL} target="_blank">
                     <span>GitHub</span>
                 </a>
             {/if}

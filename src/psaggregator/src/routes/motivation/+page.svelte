@@ -1,6 +1,6 @@
 <script lang="ts">
     import { clipboard } from "@skeletonlabs/skeleton";
-    import { KOFI_USERNAME, MAIL_TO_URL } from "../../config/config";
+    import { GITHUB_URL, KOFI_USERNAME, MAIL_TO_URL } from "../../config/config";
     import { Copy, FavoriteFilled } from "carbon-icons-svelte";
     import { getToastStore } from "@skeletonlabs/skeleton";
 
@@ -49,9 +49,7 @@
     {/if}
     <span class="text-1xl mt-4 font-bold md:mt-8 md:text-2xl">Open Source</span>
     <div>
-        <span
-            >Der Quellcode für dieses Projekt ist auf <a href="https://github.com/zaanposni/psaggregator" class="underline" target="_blank"
-                >GitHub</a> verfügbar.</span>
+        <span>Der Quellcode für dieses Projekt ist auf <a href={GITHUB_URL} class="underline" target="_blank">GitHub</a> verfügbar.</span>
         <span>Wenn du einen Fehler findest oder eine Idee hast, kannst du gerne ein Issue erstellen oder einen Pull Request öffnen.</span>
         <span>Ich freue mich über jede Hilfe.</span>
     </div>

@@ -4,7 +4,7 @@
     import bash from "highlight.js/lib/languages/bash";
     import { storeHighlightJs } from "@skeletonlabs/skeleton";
     import moment from "moment";
-    import { MAIL_TO_URL } from "../../config/config";
+    import { GITHUB_URL, MAIL_TO_URL } from "../../config/config";
     import Sparkle from "$lib/components/Sparkle.svelte";
 
     const curlUploadPlan = `curl -X GET ${location.protocol}//${location.host}/api/uploadplan?date=${moment().format("YYYY-MM-DD")}`;
@@ -68,9 +68,7 @@
                 <span>Einzelne Daten in dieser API werden über die OpenAI Vision AI analysiert.</span>
                 <span>Dadurch kann es gelegentlich zu fehlerhaften oder doppelten Einträgen kommen.</span>
                 <span
-                    >Sollten dir solche Fehler auffallen, melde dich gerne auf <a
-                        class="underline"
-                        href="https://github.com/zaanposni/psaggregator">GitHub</a>
+                    >Sollten dir solche Fehler auffallen, melde dich gerne auf <a class="underline" href={GITHUB_URL}>GitHub</a>
                     oder per <a class="underline" href={MAIL_TO_URL}>Mail</a>.</span>
             </div>
         </div>
