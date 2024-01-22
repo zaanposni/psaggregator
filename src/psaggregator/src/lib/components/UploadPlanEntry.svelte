@@ -28,7 +28,7 @@
         <span class="overflow-x-hidden text-ellipsis whitespace-nowrap" title={entry.title}>{entry.title}</span>
         {#if entry.importedFrom === "OpenAI"}
             <div class="grow" />
-            <div class="shrink-0" title="Diese Ressource wurde von der OpenAI Vision AI erstellt">
+            <div class="shrink-0" title="Diese Ressource wurde von der OpenAI Vision AI importiert">
                 <Sparkle />
             </div>
         {/if}
@@ -54,7 +54,7 @@
         <span class="overflow-x-hidden text-ellipsis whitespace-nowrap" title={entry.title}>{entry.title}</span>
         {#if entry.importedFrom === "OpenAI"}
             <div class="grow" />
-            <div class="shrink-0" title="Diese Ressource wurde von der OpenAI Vision AI erstellt">
+            <div class="shrink-0" title="Diese Ressource wurde von der OpenAI Vision AI importiert">
                 <Sparkle />
             </div>
         {/if}
