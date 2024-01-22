@@ -8,3 +8,4 @@ twitchAPI==4.1.0
 praw==7.7.1
 rich==12.4.4
 requests
+openai==1.7.2

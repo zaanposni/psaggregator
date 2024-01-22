@@ -1,5 +1,6 @@
 <script lang="ts">
     import YouTubeCommunityPost from "$lib/components/YouTubeCommunityPost.svelte";
+    import { GITHUB_URL } from "../../config/config";
     import type { PageData } from "./$types";
     import { LogoYoutube, LogoTwitter, LogoInstagram, FaceDissatisfied } from "carbon-icons-svelte";
 
@@ -31,7 +32,7 @@
             <span>Dieses Projekt ist Open Source.</span>
             <span
                 >Beteilige dich gerne auf
-                <a href="https://github.com/zaanposni/psaggregator" class="underline" target="_blank">GitHub</a>
+                <a href={GITHUB_URL} class="underline" target="_blank">GitHub</a>
             </span>
         </div>
     </div>
@@ -48,7 +49,7 @@
             <span>Dieses Projekt ist Open Source.</span>
             <span
                 >Beteilige dich gerne auf
-                <a href="https://github.com/zaanposni/psaggregator" class="underline" target="_blank">GitHub</a>
+                <a href={GITHUB_URL} class="underline" target="_blank">GitHub</a>
             </span>
         </div>
     </div>
@@ -65,7 +66,7 @@
             <span>Dieses Projekt ist Open Source.</span>
             <span
                 >Beteilige dich gerne auf
-                <a href="https://github.com/zaanposni/psaggregator" class="underline" target="_blank">GitHub</a>
+                <a href={GITHUB_URL} class="underline" target="_blank">GitHub</a>
             </span>
         </div>
     </div>

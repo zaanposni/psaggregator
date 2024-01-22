@@ -139,6 +139,7 @@ async def stuff() -> asyncio.coroutine:
             )
             await db.execute(query)
 
+    await db.disconnect()
     console.log("Done!", style="bold green")
 
 

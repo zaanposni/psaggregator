@@ -103,7 +103,8 @@ async def youtube():
         console.log(f"Insert {yt['id']} into database", style="bold green")
         await db.execute(query=query)
 
-    print("Done")
+    await db.disconnect()
+    console.log("Done")
 
 
 asyncio.run(youtube())

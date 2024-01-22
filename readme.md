@@ -12,6 +12,7 @@ PietSmiet Aggregator is a selfhostable web application that aggregates all the v
 First, [download][docker_download_url] and install **Docker**.
 
 Create a `.env` file in the root directory of the project. You can use the `.env.example` file as a template.
+If you do not want to use certain features (for example the OpenAI Streamingplan Analysis), you can skip the corresponding API keys.
 
 A `docker-compose.yml` file is provided to run the application. It will start the application and a MySQL database.
 
@@ -59,6 +60,7 @@ git clone https://github.com/zaanposni/psaggregator.git
 ```
 
 Then, create a `.env` file in the root directory of the project. You can use the `.env.example` file as a template.
+If you do not want to use certain features (for example the OpenAI Streamingplan Analysis), you can skip the corresponding API keys.
 
 Start the MySQL database and YouTubeOperationalAPI:
 
