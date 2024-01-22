@@ -221,6 +221,18 @@ async def stuff() -> asyncio.coroutine:
             await db.execute(query)
             console.log(f"Updated entry for {content.title} on {content.time}.")
         elif content.type == "TwitchStream" or not existing_imports_for_today:
+            if content.type == "TwitchStream":
+                query = "SELECT * FROM ScheduledContentPiece WHERE startDate = '{}' AND type = 'TwitchStream'".format(
+                    content.time.strftime("%Y-%m-%d %H:%M:%S")
+                )
+                result = await db.fetch_all(query)
+                if len(result) > 0:
+                    console.log(
+                        f"Found existing entry for stream {content.title} on {content.time}. Skipping...",
+                        style="bold yellow",
+                    )
+                    continue
+
             console.log(
                 f"Adding {content.title} on {content.time} to database...",
                 style="bold yellow",
