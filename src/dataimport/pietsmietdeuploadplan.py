@@ -134,35 +134,53 @@ async def stuff() -> asyncio.coroutine:
         if content["external_url"]:
             secondaryUri = f"'{content['external_url']}'"
 
+        if uri == "NULL" and secondaryUri != "NULL":
+            uri = secondaryUri
+            secondaryUri = "NULL"
+
         time = content["publish_date"]
         time = dateutil.parser.parse(time)
 
+        content_type = "PSVideo"
+        if content.get("external_url_platform") == "twitch":
+            content_type = "TwitchStream"
+
         data.append(
-            ContentPiece(remoteId, duration, content["title"], time, uri, secondaryUri)
-        )
-    if upcoming_events and upcoming_events["data"]:
-        for content in upcoming_events["data"][0]["items"]:
-            uri = "NULL"
-            if content["video"]:
-                uri = f"'{content['video']['short_url']}'"
-                duration = content["video"]["duration"]
-            if content["external_url"]:
-                uri = f"'{content['external_url']}'"
-
-            time = content["publish_date"]
-            time = dateutil.parser.parse(time)
-
-            data.append(
-                ContentPiece(
-                    remoteId="NULL",
-                    duration="NULL",
-                    title=content["title"].replace("'", "\\'"),
-                    time=time,
-                    uri=uri,
-                    secondaryUri="NULL",
-                    type="TwitchStream",
-                )
+            ContentPiece(
+                remoteId,
+                duration,
+                content["title"],
+                time,
+                uri,
+                secondaryUri,
+                type=content_type,
             )
+        )
+
+    if upcoming_events and upcoming_events["data"]:
+        for index in upcoming_events["data"]:
+            for content in index["items"]:
+                uri = "NULL"
+                if content["video"]:
+                    uri = f"'{content['video']['short_url']}'"
+                    duration = content["video"]["duration"]
+                if content["external_url"]:
+                    uri = f"'{content['external_url']}'"
+
+                time = content["publish_date"]
+                time = dateutil.parser.parse(time)
+
+                data.append(
+                    ContentPiece(
+                        remoteId="NULL",
+                        duration="NULL",
+                        title=content["title"].replace("'", "\\'"),
+                        time=time,
+                        uri=uri,
+                        secondaryUri="NULL",
+                        type="TwitchStream",
+                    )
+                )
 
     console.log("Connecting to database...", style="bold green")
     db = Database(url=os.getenv("DATABASE_URL"))

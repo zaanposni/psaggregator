@@ -17,10 +17,14 @@
         </div>
         {#if entry.startDate}
             {@const date = moment(entry.startDate)}
-            <span class="shrink-0 font-bold">{date.format("HH:mm")}</span>
+            <div class="shrink-0">
+                {#if !moment().isSame(date, "day")}
+                    <span class="font-bold">{date.format("DD. MMM,")}</span>
+                {/if}
+                <span class="font-bold">{date.format("HH:mm")}</span>
+            </div>
         {/if}
-        <span class="overflow-x-hidden text-ellipsis whitespace-nowrap" title={entry.title}
-            >{entry.title}</span>
+        <span class="overflow-x-hidden text-ellipsis whitespace-nowrap" title={entry.title}>{entry.title}</span>
     </a>
 {:else}
     <div class="card flex items-center gap-x-4 p-4" title="Noch nicht veröffentlicht">
@@ -33,9 +37,13 @@
         </div>
         {#if entry.startDate}
             {@const date = moment(entry.startDate)}
-            <span class="shrink-0 font-bold">{date.format("HH:mm")}</span>
+            <div class="shrink-0">
+                {#if !moment().isSame(date, "day")}
+                    <span class="font-bold">{date.format("DD. MMM,")}</span>
+                {/if}
+                <span class="font-bold">{date.format("HH:mm")}</span>
+            </div>
         {/if}
-        <span class="overflow-x-hidden text-ellipsis whitespace-nowrap" title={entry.title}
-            >{entry.title}</span>
+        <span class="overflow-x-hidden text-ellipsis whitespace-nowrap" title={entry.title}>{entry.title}</span>
     </div>
 {/if}
