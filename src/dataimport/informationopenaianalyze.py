@@ -114,6 +114,8 @@ async def openai():
                     continue
 
                 start_date = parse(stream["start"])
+                if start_date.year < datetime.now().year:
+                    start_date = start_date.replace(year=datetime.now().year)
 
                 query = "SELECT * FROM ScheduledContentPiece WHERE type = :type AND startDate = :startDate"
                 values = {
