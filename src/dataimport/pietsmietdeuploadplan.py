@@ -258,6 +258,7 @@ async def stuff() -> asyncio.coroutine:
               ('{uuid4()}', NULL    , '{information}', NULL    , 'https://www.pietsmiet.de/uploadplan', '{uploadplan['data'][0]['date']}', now()     , 'PietSmietDE')"""
             await db.execute(query)
 
+    await db.disconnect()
     console.log("Done!", style="bold green")
 
 
