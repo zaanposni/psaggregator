@@ -21,6 +21,7 @@ enum ImportType {
     Threads
     Reddit
     YouTube
+    OpenAI
     Custom
 }
 
@@ -63,6 +64,7 @@ model Information {
     imageUri     String?    @db.VarChar(1024)
     href         String?    @db.VarChar(1024)
     date         DateTime?
+    analyzedAt   DateTime?  @default(now())
     importedAt   DateTime
     importedFrom ImportType
 }

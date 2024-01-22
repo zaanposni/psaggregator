@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE `Information` ADD COLUMN `analyzedAt` DATETIME(3) NULL DEFAULT CURRENT_TIMESTAMP(3);
