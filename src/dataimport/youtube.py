@@ -24,8 +24,8 @@ ressource_url = server_base_url + "/community?part=snippet&id={}"
 direct_url = "https://www.youtube.com/channel/" + channel_id + "/community?lb={}"
 
 INSERT_STATEMENT = """
-    INSERT INTO Information (id  , remoteId, text, imageUri, href, date, importedAt, importedFrom)
-                    VALUES  ('{}', '{}'    , '{}', {}      , '{}', '{}', now()     , 'YouTube')"""
+    INSERT INTO Information (id  , remoteId, text, imageUri, href, date, importedAt, analyzedAt, importedFrom)
+                    VALUES  ('{}', '{}'    , '{}', {}      , '{}', '{}', now()     , NULL, 'YouTube')"""
 
 DAY_REGEX = re.compile(r"(\d+) days? ago")
 MONTH_REGEX = re.compile(r"(\d+) months? ago")
