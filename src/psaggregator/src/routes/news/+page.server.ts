@@ -16,7 +16,7 @@ export async function load() {
         orderBy: {
             date: "desc"
         },
-        take: 10
+        take: 20
     });
 
     const instagramPosts = await prisma.information.findMany({
@@ -37,7 +37,7 @@ export async function load() {
         orderBy: {
             date: "desc"
         },
-        take: 10
+        take: 20
     });
 
     return {
