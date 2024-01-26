@@ -13,6 +13,8 @@ export async function GET({ url }) {
         }
     }
 
+    const type = url.searchParams.get("type") ?? undefined;
+
     let date = null;
     if (url.searchParams.has("date")) {
         try {
@@ -35,16 +37,26 @@ export async function GET({ url }) {
                 date: {
                     lt: upperBound,
                     gt: lowerBound
-                }
+                },
+                importedFrom: type,
+            },
+            include: {
+                InformationResource: true,
             },
             orderBy: {
                 date: "desc"
             },
             skip,
-            take: 20
+            take: 20,
         });
     } else {
         data = await prisma.information.findMany({
+            where: {
+                importedFrom: type,
+            },
+            include: {
+                InformationResource: true,
+            },
             orderBy: {
                 date: "desc"
             },
