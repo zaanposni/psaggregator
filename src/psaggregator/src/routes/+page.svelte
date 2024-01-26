@@ -8,6 +8,7 @@
     import YouTubeCommunityPost from "$lib/components/YouTubeCommunityPost.svelte";
     import MediaQuery from "$lib/utils/MediaQuery.svelte";
     import InstagramPost from "$lib/components/InstagramPost.svelte";
+    import TwitchEntry from "$lib/components/TwitchEntry.svelte";
 
     export let data: PageServerData;
 </script>
@@ -101,7 +102,7 @@
                 </div>
                 <div class="flex flex-col">
                     {#each data.upcomingStreams as stream}
-                        <UploadPlanEntry entry={stream} />
+                        <TwitchEntry entry={stream} />
                     {:else}
                         <div class="flex items-center mt-4">
                             <span>Momentan sind keine geplanten Streams bekannt.</span>
