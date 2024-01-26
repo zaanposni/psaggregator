@@ -37,6 +37,7 @@ COPY . /app
 
 # Install any needed packages specified in requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir --no-deps --force-reinstall pydantic==1.10.13
 
 RUN touch /var/log/cron.log
 COPY hello-cron /etc/cron.d/hello-cron

@@ -11,4 +11,4 @@ requests
 openai==1.7.2
 pyotp==2.9.0
 instagrapi==2.0.1
-pydantic==1.10.13
+pillow==10.2.0
