@@ -13,7 +13,7 @@
     const curlTwitch = `curl -X GET ${location.protocol}//${location.host}/api/twitch`;
     const curlThumbnails = `curl -X GET ${location.protocol}//${location.host}/api/thumbnails?skip=0`;
     const curlReddit = `curl -X GET ${location.protocol}//${location.host}/api/reddit`;
-    const curlInformation = `curl -X GET ${location.protocol}//${location.host}/api/information?skip=0&date=${moment().format("YYYY-MM-DD")}`;
+    const curlInformation = `curl -X GET ${location.protocol}//${location.host}/api/information?skip=0&date=${moment().format("YYYY-MM-DD")}&type=YouTube`;
 
     hljs.registerLanguage("bash", bash);
     storeHighlightJs.set(hljs);
@@ -116,7 +116,9 @@
         <ul class="list mb-2">
             <li>pietsmiet.de Uploadplan</li>
             <li>YouTube Communityposts des Hauptkanals</li>
+            <li>Instagram Posts der ersten Reihe</li>
         </ul>
+        <span>Über den ?type Parameter kannst du einen Filter auf die Importquelle anwenden.</span>
         <span>Zukünftig sind hier noch Importe aus anderen Social Media geplant.</span>
     </div>
     <span class="text-1xl mt-4 font-bold md:mt-8 md:text-2xl">Ausblick</span>

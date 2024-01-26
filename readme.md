@@ -7,6 +7,15 @@
 
 PietSmiet Aggregator is a selfhostable web application that aggregates all the videos, streams and additional content from PietSmiet and displays them in a nice overview.
 
+⭐ **Dashboard** - Display all PietSmiet videos and streams in a nice overview.\
+⭐ **API** - Free and Public JSON HTTP API.\
+⭐ **PietSmietDE Import** - Import all videos and news from the PietSmiet website.\
+⭐ **YouTube Import** - Import all community posts from the PietSmiet YouTube channel.\
+⭐ **Reddit Import** - Import trending posts from r/pietsmiet.\
+⭐ **Instagram Import** - Import all posts.\
+⭐ **OpenAI Streamingplan Analysis** - Analyze the Streamingplan with OpenAI Vision and import scheduled streams into the database.\
+⭐ **Full Control** - Selfhostablem, Open Source and Dockerized.
+
 ## ⚡️ Quick Start Self Deployment
 
 First, [download][docker_download_url] and install **Docker**.

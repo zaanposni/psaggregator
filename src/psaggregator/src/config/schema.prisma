@@ -28,9 +28,9 @@ enum ImportType {
 model ScheduledContentPiece {
     id             String      @id @default(uuid())
     remoteId       String?
-    title          String      @db.VarChar(1024)
-    description    String?     @db.VarChar(1024)
-    additionalInfo String?     @db.VarChar(1024)
+    title          String      @db.LongText
+    description    String?     @db.LongText
+    additionalInfo String?     @db.LongText
     startDate      DateTime?
     imageUri       String?     @db.VarChar(1024)
     href           String?     @db.VarChar(1024)
@@ -44,9 +44,9 @@ model ScheduledContentPiece {
 model ContentPiece {
     id             String      @id @default(uuid())
     remoteId       String
-    title          String      @db.VarChar(1024)
-    description    String?     @db.VarChar(1024)
-    additionalInfo String?     @db.VarChar(1024)
+    title          String      @db.LongText
+    description    String?     @db.LongText
+    additionalInfo String?     @db.LongText
     startDate      DateTime?
     imageUri       String?     @db.VarChar(1024)
     href           String?     @db.VarChar(1024)
@@ -58,15 +58,28 @@ model ContentPiece {
 }
 
 model Information {
-    id           String     @id @default(uuid())
-    remoteId     String?
-    text         String     @db.VarChar(1024)
-    imageUri     String?    @db.VarChar(1024)
-    href         String?    @db.VarChar(1024)
-    date         DateTime?
-    analyzedAt   DateTime?  @default(now())
-    importedAt   DateTime
-    importedFrom ImportType
+    id                  String                @id @default(uuid())
+    remoteId            String?
+    text                String                @db.LongText
+    additionalInfo      String?               @db.LongText
+    imageUri            String?               @db.VarChar(1024)
+    href                String?               @db.VarChar(1024)
+    date                DateTime?
+    analyzedAt          DateTime?             @default(now())
+    importedAt          DateTime
+    importedFrom        ImportType
+    InformationResource InformationResource[]
+}
+
+model InformationResource {
+    id            String      @id @default(uuid())
+    remoteId      String?
+    information   Information @relation(fields: [informationId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+    informationId String
+    imageUri      String?     @db.VarChar(1024)
+    videoUri      String?     @db.VarChar(1024)
+    importedAt    DateTime
+    importedFrom  ImportType
 }
 
 model TwitchStatus {
@@ -81,8 +94,8 @@ model TwitchStatus {
 
 model RedditPost {
     id          String   @id
-    title       String   @db.VarChar(1024)
-    description String?  @db.VarChar(1024)
+    title       String   @db.LongText
+    description String?  @db.LongText
     username    String
     upvotes     Int
     comments    Int

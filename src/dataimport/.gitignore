@@ -1,7 +1,7 @@
 geckodriver.exe
 *.json
-instagram.py
 openai_test.py
 .env
 videos.sql
 __pycache__/
+threads.py

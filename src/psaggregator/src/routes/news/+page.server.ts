@@ -16,10 +16,32 @@ export async function load() {
         orderBy: {
             date: "desc"
         },
-        take: 10
+        take: 20
+    });
+
+    const instagramPosts = await prisma.information.findMany({
+        where: {
+            importedFrom: {
+                equals: "Instagram"
+            },
+            href: {
+                not: null
+            },
+            date: {
+                not: null
+            }
+        },
+        include: {
+            InformationResource: true,
+        },
+        orderBy: {
+            date: "desc"
+        },
+        take: 20
     });
 
     return {
-        youtubeCommunityPosts
+        youtubeCommunityPosts,
+        instagramPosts
     };
 }
