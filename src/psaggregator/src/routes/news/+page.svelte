@@ -1,4 +1,5 @@
 <script lang="ts">
+    import InstagramPost from "$lib/components/InstagramPost.svelte";
     import YouTubeCommunityPost from "$lib/components/YouTubeCommunityPost.svelte";
     import { GITHUB_URL } from "../../config/config";
     import type { PageData } from "./$types";
@@ -24,16 +25,10 @@
             <LogoInstagram size={32} class="mr-2" />
             Instagram
         </div>
-        <div class="mx-auto flex flex-col items-center text-center">
-            <div>
-                <FaceDissatisfied size={32} />
-            </div>
-            <span>Leider gibt es noch keinen Instagram-Import.</span>
-            <span>Dieses Projekt ist Open Source.</span>
-            <span
-                >Beteilige dich gerne auf
-                <a href={GITHUB_URL} class="underline" target="_blank">GitHub</a>
-            </span>
+        <div class="flex flex-col gap-y-4">
+            {#each data.instagramPosts as instagram}
+                <InstagramPost post={instagram} />
+            {/each}
         </div>
     </div>
     <div>
