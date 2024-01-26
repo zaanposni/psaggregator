@@ -61,7 +61,7 @@
             {/if}
         </div>
         <div class="grid grid-cols-1 gap-x-8 gap-y-4 md:grid-cols-2 md:gap-y-8 xl:grid-cols-4">
-            <div>
+            <div class="order-2">
                 <div class="mb-2 ml-2 flex items-center text-2xl">
                     <LogoYoutube size={32} class="mr-2" />
                     YouTube
@@ -72,18 +72,7 @@
                     {/each}
                 </div>
             </div>
-            <div>
-                <div class="mb-2 ml-2 flex items-center text-2xl">
-                    <img alt="twitch" src="/twitch-logo.svg" class="mr-2 inline-block h-8 w-8" />
-                    Anstehende Streams
-                </div>
-                <div class="flex flex-col">
-                    {#each data.upcomingStreams as stream}
-                        <UploadPlanEntry entry={stream} />
-                    {/each}
-                </div>
-            </div>
-            <div>
+            <div class="order-3">
                 <div class="mb-2 ml-2 flex items-center text-2xl">
                     <LogoInstagram size={32} class="mr-2" />
                     Instagram
@@ -94,7 +83,7 @@
                     {/each}
                 </div>
             </div>
-            <div>
+            <div class="order-4">
                 <div class="mb-2 ml-2 flex items-center text-2xl">
                     <img alt="reddit" src="/reddit-logo.svg" class="mr-2 inline-block h-8 w-8" />
                     Reddit
@@ -102,6 +91,17 @@
                 <div class="flex flex-col">
                     {#each data.redditPosts.slice(0, matches ? 10 : 5) as reddit}
                         <RedditPost entry={reddit} />
+                    {/each}
+                </div>
+            </div>
+            <div class="order-1 md:order-5">
+                <div class="mb-2 ml-2 flex items-center text-2xl">
+                    <img alt="twitch" src="/twitch-logo.svg" class="mr-2 inline-block h-8 w-8" />
+                    Anstehende Streams
+                </div>
+                <div class="flex flex-col">
+                    {#each data.upcomingStreams as stream}
+                        <UploadPlanEntry entry={stream} />
                     {/each}
                 </div>
             </div>
