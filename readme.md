@@ -13,8 +13,8 @@ PietSmiet Aggregator is a selfhostable web application that aggregates all the v
 ⭐ **YouTube Import** - Import all community posts from the PietSmiet YouTube channel.\
 ⭐ **Reddit Import** - Import trending posts from r/pietsmiet.\
 ⭐ **Instagram Import** - Import all posts.\
-⭐ **OpenAI Streamingplan Analysis** - Analyze the PietSmiet Streamingplan with OpenAI Vision and import scheduled streams into the database.\
-⭐ **Full Control** - Selfhostable.
+⭐ **OpenAI Streamingplan Analysis** - Analyze the Streamingplan with OpenAI Vision and import scheduled streams into the database.\
+⭐ **Full Control** - Selfhostablem, Open Source and Dockerized.
 
 ## ⚡️ Quick Start Self Deployment
 
