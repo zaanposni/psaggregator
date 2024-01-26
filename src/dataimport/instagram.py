@@ -1,5 +1,6 @@
 import asyncio
 import os
+import requests
 from databases import Database
 from uuid import uuid4
 
@@ -133,12 +134,25 @@ async def instagram():
                 )
                 continue
             console.log(f"Media item {remote_id} not in database, inserting")
+
             thumbnail_url = media.thumbnail_url
             if not thumbnail_url:
                 for resource in media.resources:
                     if resource.thumbnail_url:
                         thumbnail_url = resource.thumbnail_url
                         break
+
+            console.log(f"Downloading thumbnail for {remote_id}")
+            try:
+                thumbnail = requests.get(thumbnail_url).content
+                filename = f"instagram_{uuid4()}.jpg"
+                with open(f"/app/cdn/{filename}", "wb") as f:
+                    f.write(thumbnail)
+                thumbnail_url = f"'/cdn/{filename}'"
+            except Exception as e:
+                console.log(f"Error downloading thumbnail: {e}", style="bold red")
+                continue
+
             await db.execute(
                 INSERT_QUERY_INFORMATION,
                 {
@@ -152,13 +166,28 @@ async def instagram():
                 },
             )
             for resource in media.resources:
+                thumbnail_url = resource.thumbnail_url
+                if thumbnail_url:
+                    console.log(f"Downloading thumbnail for resource {resource.pk}")
+                    try:
+                        thumbnail = requests.get(thumbnail_url).content
+                        filename = f"instagramr_{uuid4()}.jpg"
+                        with open(f"/app/cdn/{filename}", "wb") as f:
+                            f.write(thumbnail)
+                        thumbnail_url = f"'/cdn/{filename}'"
+                    except Exception as e:
+                        console.log(
+                            f"Error downloading thumbnail: {e}", style="bold red"
+                        )
+                        continue
+
                 await db.execute(
                     INSERT_QUERY_RESOURCE,
                     {
                         "id": uuid4(),
                         "remoteId": str(resource.pk),
                         "informationId": media_db_id,
-                        "imageUri": resource.thumbnail_url,
+                        "imageUri": thumbnail_url,
                         "videoUri": resource.video_url,
                     },
                 )
