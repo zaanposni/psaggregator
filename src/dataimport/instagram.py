@@ -15,6 +15,10 @@ console = Console()
 USERNAME = os.getenv("INSTAGRAM_USERNAME")
 PASSWORD = os.getenv("INSTAGRAM_PASSWORD")
 KEY_2FA = os.getenv("INSTAGRAM_2FA_SECRET")
+CONFIG_PATH = os.getenv("INSTAGRAM_CONFIG_PATH")
+if not CONFIG_PATH:
+    CONFIG_PATH = "session.json"
+console.log(f"Using config path {CONFIG_PATH}")
 
 if not USERNAME or not PASSWORD:
     raise Exception("No Instagram username or password provided")
@@ -27,13 +31,13 @@ def login_user():
     """
 
     console.log("Attempting to login user...")
-    if not os.path.exists("session.json"):
+    if not os.path.exists(CONFIG_PATH):
         console.log("No session file found, creating empty session file")
-        with open("session.json", "w") as f:
+        with open(CONFIG_PATH, "w") as f:
             f.write("{}")
 
     cl = Client()
-    session = cl.load_settings("session.json")
+    session = cl.load_settings(CONFIG_PATH)
 
     login_via_session = False
     login_via_pw = False
@@ -87,7 +91,7 @@ def login_user():
     if not login_via_pw and not login_via_session:
         raise Exception("Couldn't login user with either password or session")
 
-    cl.dump_settings("session.json")
+    cl.dump_settings(CONFIG_PATH)
     return cl
 
 
@@ -148,7 +152,7 @@ async def instagram():
                 filename = f"instagram_{uuid4()}.jpg"
                 with open(f"/app/cdn/{filename}", "wb") as f:
                     f.write(thumbnail)
-                thumbnail_url = f"'/cdn/{filename}'"
+                thumbnail_url = f"/cdn/{filename}"
             except Exception as e:
                 console.log(f"Error downloading thumbnail: {e}", style="bold red")
                 continue
@@ -174,7 +178,7 @@ async def instagram():
                         filename = f"instagramr_{uuid4()}.jpg"
                         with open(f"/app/cdn/{filename}", "wb") as f:
                             f.write(thumbnail)
-                        thumbnail_url = f"'/cdn/{filename}'"
+                        thumbnail_url = f"/cdn/{filename}"
                     except Exception as e:
                         console.log(
                             f"Error downloading thumbnail: {e}", style="bold red"
