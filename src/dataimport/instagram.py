@@ -146,6 +146,13 @@ async def instagram():
                         thumbnail_url = resource.thumbnail_url
                         break
 
+            if not thumbnail_url:
+                console.log(
+                    f"Media item {remote_id} has no thumbnail, skipping",
+                    style="bold red",
+                )
+                continue
+
             console.log(f"Downloading thumbnail for {remote_id}")
             try:
                 thumbnail = requests.get(thumbnail_url).content
