@@ -49,6 +49,9 @@ services:
             - OPENAI_API_KEY=${OPENAI_API_KEY}
             - SQLALCHEMY_SILENCE_UBER_WARNING=1
             - YT_SERVER_BASE_URL=http://youtube-api
+            - INSTAGRAM_USERNAME=${INSTAGRAM_USERNAME}
+            - INSTAGRAM_PASSWORD=${INSTAGRAM_PASSWORD}
+            - INSTAGRAM_2FA_SECRET=${INSTAGRAM_2FA_SECRET}
         volumes:
             - shared-data:/app/cdn
         depends_on:
