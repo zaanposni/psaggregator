@@ -102,6 +102,10 @@
                 <div class="flex flex-col">
                     {#each data.upcomingStreams as stream}
                         <UploadPlanEntry entry={stream} />
+                    {:else}
+                        <div class="flex items-center mt-4">
+                            <span>Momentan sind keine geplanten Streams bekannt.</span>
+                        </div>
                     {/each}
                 </div>
             </div>
