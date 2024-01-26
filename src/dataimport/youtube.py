@@ -40,7 +40,7 @@ async def youtube():
     yt_data = requests.get(collection_url).json()["items"][0]["community"]
 
     for yt in yt_data:
-        query = f"SELECT * FROM Information WHERE remoteId='{yt['id']}'"
+        query = f"SELECT * FROM Information WHERE remoteId='{yt['id']}' AND importedFrom='YouTube'"
         result = await db.fetch_one(query=query)
         if result:
             console.log(f"{yt['id']} already in database", style="bold red")
