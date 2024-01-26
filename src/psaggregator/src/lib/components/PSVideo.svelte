@@ -1,6 +1,7 @@
 <script lang="ts">
+    import { dateFormat } from "$lib/utils/dateFormat";
     import type { ContentPiece } from "@prisma/client";
-    import moment from "moment";
+    import { SHOW_ABSOLUTE_DATES } from "../../config/config";
 
     export let video: ContentPiece;
     export let lineClamp: 2 | 3 | 4 | 5 | 6 = 2;
@@ -46,7 +47,9 @@
             {video.title}
         </div>
     </div>
-    <div class="absolute bottom-0 right-0 m-2 text-sm font-bold">
-        <span>{moment(video.startDate).fromNow()}</span>
-    </div>
+    {#if video.startDate}
+        <div class="absolute bottom-0 right-0 m-2 text-sm font-bold">
+            <span>{dateFormat(video.startDate, $SHOW_ABSOLUTE_DATES)}</span>
+        </div>
+    {/if}
 </a>

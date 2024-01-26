@@ -19,6 +19,7 @@
                     <a href="/news">News</a>
                     <a href="/api">API</a>
                     <a href="/motivation">Motivation</a>
+                    <a href="/settings">Einstellungen</a>
                 {/if}
             </div>
             <div class="flex items-center gap-x-4">
