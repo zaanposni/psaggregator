@@ -10,15 +10,9 @@
     }
 </script>
 
-<style>
-    .instagramuser::first-letter {
-        text-transform: uppercase;
-    }
-</style>
-
 <a class="card card-hover flex flex-col gap-x-4 p-4" href={post.href} target="_blank">
     <div class="mb-2 flex justify-between">
-        <span class="instagramuser">{titleCase(post.additionalInfo)}</span>
+        <span>{titleCase(post.additionalInfo)}</span>
         {#if post.date}
             <span class="text-sm">{moment(post.date).fromNow()}</span>
         {/if}
