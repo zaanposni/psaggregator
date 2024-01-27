@@ -10,3 +10,7 @@ export const GITHUB_URL = "https://github.com/zaanposni/psaggregator";
 export const GITHUB_AUTHOR_URL = "https://github.com/zaanposni";
 
 export const SHOW_ABSOLUTE_DATES = writable(false);
+export const VIDEO_COMPLEXE_VIEW = writable(false);
+
+export const SHOW_ABSOLUTE_DATES_KEY = "showAbsoluteDates";
+export const VIDEO_COMPLEXE_VIEW_KEY = "videoComplexeView";

@@ -6,12 +6,12 @@
     import { ProgressRadial, SlideToggle } from "@skeletonlabs/skeleton";
     import PsVideo from "$lib/components/PSVideo.svelte";
     import MediaQuery from "$lib/utils/MediaQuery.svelte";
+    import { VIDEO_COMPLEXE_VIEW, VIDEO_COMPLEXE_VIEW_KEY } from "../../config/config";
 
     export let data: PageData;
 
     const batchSize = 50;
 
-    let showAdvancedView = false;
     let previousMonth: string | null = null;
     let skip = 0;
     let loading = false;
@@ -81,10 +81,17 @@
             <h1 class="text-3xl font-bold">Alle Videos</h1>
             <div class="mr-4 flex items-center gap-x-1 md:gap-x-4">
                 <span>Komplexe Ansicht</span>
-                <SlideToggle name="slide" bind:checked={showAdvancedView} />
+                <SlideToggle
+                    name="slide"
+                    bind:checked={$VIDEO_COMPLEXE_VIEW}
+                    on:click={(e) => {
+                        if (browser) {
+                            localStorage.setItem(VIDEO_COMPLEXE_VIEW_KEY, e.target.checked.toString());
+                        }
+                    }} />
             </div>
         </div>
-        <section class="grid grid-cols-2 gap-4 md:grid-cols-3 xl:grid-cols-5 {!matches && showAdvancedView ? '!grid-cols-1' : ''}">
+        <section class="grid grid-cols-2 gap-4 md:grid-cols-3 xl:grid-cols-5 {!matches && $VIDEO_COMPLEXE_VIEW ? '!grid-cols-1' : ''}">
             {#each data.videos as video}
                 {#if video.startDate}
                     {@const newMonth = checkMonth(video.startDate)}
@@ -94,8 +101,8 @@
                         </div>
                     {/if}
                 {/if}
-                {#if showAdvancedView}
-                    <PsVideo {video} class="w-full {matches || showAdvancedView ? '' : '!text-sm'}" />
+                {#if $VIDEO_COMPLEXE_VIEW}
+                    <PsVideo {video} class="w-full {matches || $VIDEO_COMPLEXE_VIEW ? '' : '!text-sm'}" />
                 {:else}
                     <a href={video.href} target="_blank" class="overflow-hidden">
                         <img
