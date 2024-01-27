@@ -11,6 +11,11 @@ from databases import Database
 
 console = Console()
 
+# create cdn directory if not exists
+if not os.path.exists("/app/cdn/yt"):
+    console.log("Creating /app/cdn/yt directory...", style="bold green")
+    os.makedirs("/app/cdn/yt")
+
 server_base_url = (
     os.getenv("YT_SERVER_BASE_URL")
     if os.getenv("YT_SERVER_BASE_URL")
@@ -79,14 +84,14 @@ async def youtube():
                 pass
 
         if thumbnailUri != "NULL":
-            # download thumbnail and store it in /app/cdn/
+            # download thumbnail and store it in /app/cdn/yt/
             console.log(f"Downloading thumbnail for {yt['id']}")
             try:
                 thumbnail = requests.get(thumbnailUri).content
-                filename = f"youtube_{uuid4()}.jpg"
-                with open(f"/app/cdn/{filename}", "wb") as f:
+                filename = f"{uuid4()}.jpg"
+                with open(f"/app/cdn/yt/{filename}", "wb") as f:
                     f.write(thumbnail)
-                thumbnailUri = f"'/cdn/{filename}'"
+                thumbnailUri = f"'/cdn/yt/{filename}'"
             except Exception as e:
                 console.log(f"Error downloading thumbnail: {e}", style="bold red")
                 thumbnailUri = "NULL"

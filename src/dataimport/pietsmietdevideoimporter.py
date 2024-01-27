@@ -13,6 +13,11 @@ from seleniumwire.utils import decode
 
 console = Console()
 
+# create cdn directory if not exists
+if not os.path.exists("/app/cdn/psde"):
+    console.log("Creating /app/cdn/psde directory...", style="bold green")
+    os.makedirs("/app/cdn/psde")
+
 
 async def stuff() -> asyncio.coroutine:
     console.log("Starting...", style="bold green")
@@ -73,7 +78,7 @@ async def stuff() -> asyncio.coroutine:
             uri = f"'{video['short_url']}'"
         if video.get("thumbnail"):
             try:
-                imageUri = f"'{video['thumbnail']['variations'][0]['url']}'"
+                imageUri = f"{video['thumbnail']['variations'][0]['url']}"
             except KeyError:
                 pass
             except IndexError:
@@ -134,9 +139,10 @@ async def stuff() -> asyncio.coroutine:
                     filename = f"{uuid4()}.jpg"
                     with open(f"/app/cdn/psde/{filename}", "wb") as f:
                         f.write(thumbnail)
-                    content["imageUri"] = f"/cdn/psde/{filename}"
+                    content["imageUri"] = f"'/cdn/psde/{filename}'"
                 except Exception as e:
                     console.log(f"Error downloading thumbnail: {e}", style="bold red")
+                    content["imageUri"] = f"'{content['imageUri']}'"
 
             query = INSERT_STATEMENT.format(
                 uuid4(),

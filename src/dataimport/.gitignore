@@ -2,6 +2,8 @@ geckodriver.exe
 *.json
 openai_test.py
 .env
-videos.sql
+*.sql
 __pycache__/
 threads.py
+test.py
+*.zip

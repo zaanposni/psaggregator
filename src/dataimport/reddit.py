@@ -12,6 +12,11 @@ from prawcore.exceptions import NotFound
 
 console = Console()
 
+# create cdn directory if not exists
+if not os.path.exists("/app/cdn/reddit"):
+    console.log("Creating /app/cdn/reddit directory...", style="bold green")
+    os.makedirs("/app/cdn/reddit")
+
 
 async def stuff() -> asyncio.coroutine:
     client_id = os.getenv("REDDIT_CLIENT_ID")
@@ -74,7 +79,7 @@ async def stuff() -> asyncio.coroutine:
         if submission.thumbnail.startswith("http"):
             try:
                 thubmnail_content = requests.get(submission.thumbnail).content
-                thumbnail = f"'{uuid4()}.jpg'"
+                thumbnail = f"{uuid4()}.jpg"
                 with open(f"/app/cdn/reddit/{thumbnail}", "wb") as f:
                     f.write(thubmnail_content)
                 thumbnail = f"'/cdn/reddit/{thumbnail}'"

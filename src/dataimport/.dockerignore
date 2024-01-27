@@ -3,3 +3,5 @@ geckodriver.exe
 .env
 .env.*
 pietsmietfullvideoimport.py
+*.sql
+*.zip
