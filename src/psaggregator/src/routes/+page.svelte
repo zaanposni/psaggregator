@@ -138,7 +138,7 @@
             </div>
             <div class="scrollable flex h-64 flex-row items-center gap-4 overflow-x-auto">
                 {#each data.videos as video}
-                    <PSVideo {video} />
+                    <PSVideo {video} isSquare />
                 {/each}
             </div>
         </div>

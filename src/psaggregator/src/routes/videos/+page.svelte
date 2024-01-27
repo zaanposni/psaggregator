@@ -95,7 +95,7 @@
                     {/if}
                 {/if}
                 {#if showAdvancedView}
-                    <PsVideo {video} class="w-full {matches || showAdvancedView ? '' : '!text-sm'}" lineClamp={matches ? 3 : 2} />
+                    <PsVideo {video} class="w-full {matches || showAdvancedView ? '' : '!text-sm'}" />
                 {:else}
                     <a href={video.href} target="_blank" class="overflow-hidden">
                         <img

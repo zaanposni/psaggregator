@@ -4,7 +4,7 @@
     import { SHOW_ABSOLUTE_DATES } from "../../config/config";
 
     export let video: ContentPiece;
-    export let lineClamp: 2 | 3 | 4 | 5 | 6 = 2;
+    export let isSquare = false;
 
     let classes = "";
     export { classes as class };
@@ -28,10 +28,11 @@
         display: -webkit-box;
         -webkit-box-orient: vertical;
         overflow: hidden;
+        -webkit-line-clamp: 2;
     }
 </style>
 
-<a class="card relative aspect-square h-full w-64 {classes}" href={video.href} target="_blank" title={video.title}>
+<a class="card flex h-full w-64 flex-col {classes}" href={video.href} target="_blank" title={video.title} class:aspect-square={isSquare}>
     <div class="block">
         <div class="relative aspect-video">
             <img class="h-full w-full object-cover" src={video.imageUri} alt={video.title} />
@@ -42,14 +43,14 @@
             {/if}
         </div>
     </div>
-    <div>
-        <div class="line-clamp m-4 font-bold" style="-webkit-line-clamp: {lineClamp}">
-            {video.title}
-        </div>
+    <div class="line-clamp m-4 font-bold">
+        {video.title}
     </div>
     {#if video.startDate}
-        <div class="absolute bottom-0 right-0 m-2 text-sm font-bold">
-            <span>{dateFormat(video.startDate, $SHOW_ABSOLUTE_DATES)}</span>
+        <div class="mt-auto flex justify-end">
+            <div class="m-2 text-sm font-bold">
+                <span>{dateFormat(video.startDate, $SHOW_ABSOLUTE_DATES)}</span>
+            </div>
         </div>
     {/if}
 </a>
