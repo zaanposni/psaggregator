@@ -8,8 +8,21 @@
     import YouTubeCommunityPost from "$lib/components/YouTubeCommunityPost.svelte";
     import MediaQuery from "$lib/utils/MediaQuery.svelte";
     import InstagramPost from "$lib/components/InstagramPost.svelte";
+    import TwitchEntry from "$lib/components/TwitchEntry.svelte";
+    import { getModalStore, type ModalSettings } from "@skeletonlabs/skeleton";
+    import { version } from "$app/environment";
 
     export let data: PageServerData;
+
+    const modalStore = getModalStore();
+
+    function openChangelog() {
+        const modal: ModalSettings = {
+            type: "component",
+            component: "changelog"
+        };
+        modalStore.trigger(modal);
+    }
 </script>
 
 <style lang="postcss">
@@ -34,6 +47,14 @@
 
 <MediaQuery query="(min-width: 768px)" let:matches>
     <div class="dashboardcontainer p-4 md:p-8">
+        <MediaQuery query="(min-width: 1280px)" let:matches>
+            {#if !matches}
+                <div class="flex items-center justify-between">
+                    <span class="text-xl font-bold">Version {version}</span>
+                    <button class="btn variant-filled" on:click={openChangelog}>Was ist neu?</button>
+                </div>
+            {/if}
+        </MediaQuery>
         <div class="flex flex-col-reverse gap-y-4 md:flex-row md:items-start md:gap-x-8 md:gap-y-0">
             <div class="shrink-0 grow">
                 <div class="mb-2 ml-2 flex items-center text-2xl">
@@ -101,7 +122,7 @@
                 </div>
                 <div class="flex flex-col">
                     {#each data.upcomingStreams as stream}
-                        <UploadPlanEntry entry={stream} />
+                        <TwitchEntry entry={stream} />
                     {:else}
                         <div class="flex items-center mt-4">
                             <span>Momentan sind keine geplanten Streams bekannt.</span>

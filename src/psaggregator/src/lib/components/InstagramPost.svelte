@@ -1,6 +1,7 @@
 <script lang="ts">
     import type { Information, InformationResource } from "@prisma/client";
-    import moment from "moment";
+    import { SHOW_ABSOLUTE_DATES } from "../../config/config";
+    import { dateFormat } from "$lib/utils/dateFormat";
 
     export let post: Information & { InformationResource: InformationResource[] };
 
@@ -14,7 +15,7 @@
     <div class="mb-2 flex justify-between">
         <span>{titleCase(post.additionalInfo)}</span>
         {#if post.date}
-            <span class="text-sm">{moment(post.date).fromNow()}</span>
+            <span class="text-sm">{dateFormat(post.date, $SHOW_ABSOLUTE_DATES)}</span>
         {/if}
     </div>
     <div class="mb-4">{post.text}</div>

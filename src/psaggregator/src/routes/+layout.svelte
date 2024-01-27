@@ -1,15 +1,21 @@
-<script>
+<script lang="ts">
     import "../app.css";
-    import { Drawer, Modal, Toast, AppShell } from "@skeletonlabs/skeleton";
+    import { Modal, Toast, AppShell, type ModalComponent } from "@skeletonlabs/skeleton";
     import { initializeStores } from "@skeletonlabs/skeleton";
     import Footer from "$lib/components/Footer.svelte";
     import MediaQuery from "$lib/utils/MediaQuery.svelte";
-    import { MICROANALYTICS_ID } from "../config/config";
+    import { MICROANALYTICS_ID, SHOW_ABSOLUTE_DATES } from "../config/config";
     import BigHeader from "$lib/components/BigHeader.svelte";
     import { afterNavigate, disableScrollHandling } from "$app/navigation";
     import { browser } from "$app/environment";
+    import { onMount } from "svelte";
+    import Changelog from "$lib/components/Changelog.svelte";
 
     initializeStores();
+
+    const modalRegistry: Record<string, ModalComponent> = {
+        changelog: { ref: Changelog }
+    };
 
     afterNavigate(() => {
         if (browser) {
@@ -21,6 +27,12 @@
             setTimeout(() => {
                 scrollElement.scrollTo({ top: 0, behavior: "instant" });
             }, 1);
+        }
+    });
+
+    onMount(() => {
+        if (browser) {
+            SHOW_ABSOLUTE_DATES.set(localStorage.getItem("showAbsoluteDates") === "true");
         }
     });
 </script>
@@ -40,8 +52,7 @@
 </MediaQuery>
 
 <Toast />
-<Modal />
-<Drawer />
+<Modal components={modalRegistry} />
 
 {#if MICROANALYTICS_ID}
     <script
