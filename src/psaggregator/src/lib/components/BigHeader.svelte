@@ -4,7 +4,7 @@
     import { GITHUB_URL, KOFI_USERNAME, LEGAL_URL } from "../../config/config";
 </script>
 
-<MediaQuery query="(min-width: 768px)" let:matches>
+<MediaQuery query="(min-width: 1280px)" let:matches>
     <AppBar>
         <div slot="lead">
             <a href="/">
@@ -15,6 +15,7 @@
             <div class="flex items-center gap-x-4">
                 {#if matches}
                     <a href="/">Home</a>
+                    <a href="/plan">Uploadplan</a>
                     <a href="/videos">Videos</a>
                     <a href="/news">News</a>
                     <a href="/api">API</a>

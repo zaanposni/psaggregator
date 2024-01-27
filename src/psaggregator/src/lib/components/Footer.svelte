@@ -4,7 +4,7 @@
     import { version } from "$app/environment";
     import { TabAnchor, TabGroup } from "@skeletonlabs/skeleton";
     import { page } from "$app/stores";
-    import { Api, FavoriteFilled, Home, Document, Thumbnail_2, Settings } from "carbon-icons-svelte";
+    import { Api, FavoriteFilled, Home, Document, Thumbnail_2, Settings, EventSchedule } from "carbon-icons-svelte";
 </script>
 
 <style lang="postcss">
@@ -13,10 +13,10 @@
     }
 </style>
 
-<MediaQuery query="(min-width: 768px)" let:matches>
+<MediaQuery query="(min-width: 1280px)" let:matches>
     {#if matches}
-        <div class="flex w-full flex-row flex-wrap items-center gap-x-4 p-2 lg:flex-nowrap">
-            <span class="mr-12 text-sm md:text-base">
+        <div class="flex w-full flex-row flex-nowrap items-center gap-x-4 p-2">
+            <span class="mr-12">
                 <a href={GITHUB_URL} target="_blank">
                     <span>PS Aggregator</span>
                 </a>by
@@ -31,21 +31,19 @@
                 <span>GitHub</span>
             </a>
             {#if LEGAL_URL}
-                <a href={LEGAL_URL} class="text-sm md:text-base" target="_blank">
+                <a href={LEGAL_URL} target="_blank">
                     <span>Legal</span>
                 </a>
             {/if}
             <span class="ml-auto">v{version}</span>
-            <span class="text-xs md:text-base">
-                Dies ist ein privates Projekt und steht in keiner Verbindung zur PietSmiet UG & Co. KG.
-            </span>
+            <span> Dies ist ein privates Projekt und steht in keiner Verbindung zur PietSmiet UG & Co. KG. </span>
         </div>
     {:else}
         <TabGroup
             justify="justify-center"
             active="variant-filled-primary"
             hover="hover:variant-soft-primary"
-            flex="flex-1 lg:flex-none"
+            flex="flex-1"
             rounded=""
             border=""
             class="bg-surface-100-800-token w-full">
@@ -54,6 +52,12 @@
                     <Home />
                 </div>
                 <span>Home</span>
+            </TabAnchor>
+            <TabAnchor href="/plan" selected={$page.url.pathname === "/plan"} class="shrink-0">
+                <div class="flex justify-center" slot="lead">
+                    <EventSchedule />
+                </div>
+                <span>Uploadplan</span>
             </TabAnchor>
             <TabAnchor href="/videos" selected={$page.url.pathname === "/videos"} class="shrink-0">
                 <div class="flex justify-center" slot="lead">
