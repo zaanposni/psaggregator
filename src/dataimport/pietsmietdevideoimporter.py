@@ -1,3 +1,4 @@
+import requests
 import os
 import json
 import asyncio
@@ -99,7 +100,7 @@ async def stuff() -> asyncio.coroutine:
     INSERT INTO ContentPiece (id  , remoteId, title, description, additionalInfo, startDate, imageUri, href, duration, importedAt, importedFrom , type) VALUES
                              ('{}', '{}'    , '{}' , NULL       , NULL          , {}       , {}      , {}  , {}      , now()     , 'PietSmietDE', 'PSVideo');"""
     UPDATE_STATEMENT = """
-    UPDATE ContentPiece SET href={}, imageUri={}, title='{}', duration={} WHERE id='{}';"""
+    UPDATE ContentPiece SET href={}, title='{}', duration={} WHERE id='{}';"""
 
     console.log("Checking for existing entries...", style="bold green")
     for content in data:
@@ -115,7 +116,6 @@ async def stuff() -> asyncio.coroutine:
 
             query = UPDATE_STATEMENT.format(
                 content["uri"],
-                content["imageUri"],
                 content["title"],
                 content["duration"],
                 result[0]["id"],
@@ -127,6 +127,16 @@ async def stuff() -> asyncio.coroutine:
                 f"Adding {content['remoteId']} to database...",
                 style="bold yellow",
             )
+
+            if content["imageUri"] != "NULL":
+                try:
+                    thumbnail = requests.get(content["imageUri"]).content
+                    filename = f"{uuid4()}.jpg"
+                    with open(f"/app/cdn/psde/{filename}", "wb") as f:
+                        f.write(thumbnail)
+                    content["imageUri"] = f"/cdn/psde/{filename}"
+                except Exception as e:
+                    console.log(f"Error downloading thumbnail: {e}", style="bold red")
 
             query = INSERT_STATEMENT.format(
                 uuid4(),
