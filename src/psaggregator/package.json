@@ -1,6 +1,6 @@
 {
     "name": "psaggregator",
-    "version": "1.4.1",
+    "version": "1.5.0",
     "scripts": {
         "dev": "vite dev",
         "build": "vite build",
