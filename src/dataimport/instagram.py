@@ -12,6 +12,11 @@ import pyotp
 
 console = Console()
 
+# create cdn directory if not exists
+if not os.path.exists("/app/cdn/instagram"):
+    console.log("Creating /app/cdn/instagram directory...", style="bold green")
+    os.makedirs("/app/cdn/instagram")
+
 USERNAME = os.getenv("INSTAGRAM_USERNAME")
 PASSWORD = os.getenv("INSTAGRAM_PASSWORD")
 KEY_2FA = os.getenv("INSTAGRAM_2FA_SECRET")
@@ -123,8 +128,8 @@ async def instagram():
     db = Database(url=os.getenv("DATABASE_URL"))
     await db.connect()
     for user, user_id in user_dict.items():
-        console.log(f"Fetching last 50 media items for {user}")
-        last_media = cl.user_medias(user_id, amount=50)
+        console.log(f"Fetching last 3 media items for {user}")
+        last_media = cl.user_medias(user_id, amount=3)
         console.log(f"Found {len(last_media)} media items for {user}")
         for media in last_media:
             remote_id = f"{user}_{str(media.id)}"
@@ -156,10 +161,10 @@ async def instagram():
             console.log(f"Downloading thumbnail for {remote_id}")
             try:
                 thumbnail = requests.get(thumbnail_url).content
-                filename = f"instagram_{uuid4()}.jpg"
-                with open(f"/app/cdn/{filename}", "wb") as f:
+                filename = f"{uuid4()}.jpg"
+                with open(f"/app/cdn/instagram/{filename}", "wb") as f:
                     f.write(thumbnail)
-                thumbnail_url = f"/cdn/{filename}"
+                thumbnail_url = f"/cdn/instagram/{filename}"
             except Exception as e:
                 console.log(f"Error downloading thumbnail: {e}", style="bold red")
                 continue
@@ -182,10 +187,10 @@ async def instagram():
                     console.log(f"Downloading thumbnail for resource {resource.pk}")
                     try:
                         thumbnail = requests.get(thumbnail_url).content
-                        filename = f"instagramr_{uuid4()}.jpg"
-                        with open(f"/app/cdn/{filename}", "wb") as f:
+                        filename = f"r_{uuid4()}.jpg"
+                        with open(f"/app/cdn/instagram/{filename}", "wb") as f:
                             f.write(thumbnail)
-                        thumbnail_url = f"/cdn/{filename}"
+                        thumbnail_url = f"/cdn/instagram/{filename}"
                     except Exception as e:
                         console.log(
                             f"Error downloading thumbnail: {e}", style="bold red"

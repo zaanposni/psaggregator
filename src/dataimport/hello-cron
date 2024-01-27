@@ -3,7 +3,8 @@
 35 * * * * . /root/project_env.sh; /usr/local/bin/python /app/pietsmietdevideoimporter.py >> /var/log/cron.log 2>&1
 */15 * * * * . /root/project_env.sh; /usr/local/bin/python /app/pietsmietdevideoimporter.py >> /var/log/cron.log 2>&1
 5 * * * * . /root/project_env.sh; /usr/local/bin/python /app/youtube.py >> /var/log/cron.log 2>&1
-5 * * * * . /root/project_env.sh; /usr/local/bin/python /app/instagram.py >> /var/log/cron.log 2>&1
+45 21 * * * . /root/project_env.sh; /usr/local/bin/python /app/instagram.py >> /var/log/cron.log 2>&1
+45 10 * * * . /root/project_env.sh; /usr/local/bin/python /app/instagram.py >> /var/log/cron.log 2>&1
 */15 * * * * . /root/project_env.sh; /usr/local/bin/python /app/reddit.py >> /var/log/cron.log 2>&1
 */1 * * * * . /root/project_env.sh; /usr/local/bin/python /app/twitch.py >> /var/log/cron.log 2>&1
 10 1 * * * . /root/project_env.sh; /usr/local/bin/python /app/informationopenaianalyze.py >> /var/log/cron.log 2>&1

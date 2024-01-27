@@ -1,6 +1,8 @@
+import requests
 import os
 import asyncio
 from datetime import datetime
+from uuid import uuid4
 
 from rich.console import Console
 from databases import Database
@@ -9,6 +11,11 @@ from prawcore.exceptions import NotFound
 
 
 console = Console()
+
+# create cdn directory if not exists
+if not os.path.exists("/app/cdn/reddit"):
+    console.log("Creating /app/cdn/reddit directory...", style="bold green")
+    os.makedirs("/app/cdn/reddit")
 
 
 async def stuff() -> asyncio.coroutine:
@@ -52,6 +59,13 @@ async def stuff() -> asyncio.coroutine:
     delete_query = "DELETE FROM RedditPost WHERE 1=1;"
     await db.execute(delete_query)
 
+    console.log("Deleting old thumbnails...", style="bold green")
+    try:
+        for file in os.listdir("/app/cdn/reddit"):
+            os.remove(f"/app/cdn/reddit/{file}")
+    except Exception as e:
+        console.log(f"Error deleting old thumbnails: {e}", style="bold red")
+
     INSERT_STATEMENT = """INSERT INTO RedditPost (id  , title, description, username, upvotes, comments, sticky, publishedAt, imageUri, href, importedAt) VALUES
                                                  ('{}', '{}' , NULL       , '{}'    , {}     , {}      , {}    , '{}'       , {}      , '{}', now());"""
 
@@ -63,7 +77,15 @@ async def stuff() -> asyncio.coroutine:
 
         thumbnail = "NULL"
         if submission.thumbnail.startswith("http"):
-            thumbnail = f"'{submission.thumbnail}'"
+            try:
+                thubmnail_content = requests.get(submission.thumbnail).content
+                thumbnail = f"{uuid4()}.jpg"
+                with open(f"/app/cdn/reddit/{thumbnail}", "wb") as f:
+                    f.write(thubmnail_content)
+                thumbnail = f"'/cdn/reddit/{thumbnail}'"
+            except Exception as e:
+                console.log(f"Error downloading thumbnail: {e}")
+                thumbnail = f"'{submission.thumbnail}'"
 
         query = INSERT_STATEMENT.format(
             submission.id,
