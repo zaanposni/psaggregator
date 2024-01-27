@@ -1,7 +1,18 @@
 <script lang="ts">
-    import { AppBar, LightSwitch } from "@skeletonlabs/skeleton";
+    import { AppBar, LightSwitch, type ModalSettings } from "@skeletonlabs/skeleton";
     import MediaQuery from "$lib/utils/MediaQuery.svelte";
     import { GITHUB_URL, KOFI_USERNAME, LEGAL_URL } from "../../config/config";
+    import { getModalStore } from "@skeletonlabs/skeleton";
+
+    const modalStore = getModalStore();
+
+    function openChangelog() {
+        const modal: ModalSettings = {
+            type: "component",
+            component: "changelog"
+        };
+        modalStore.trigger(modal);
+    }
 </script>
 
 <MediaQuery query="(min-width: 1280px)" let:matches>
@@ -21,6 +32,9 @@
                     <a href="/api">API</a>
                     <a href="/motivation">Motivation</a>
                     <a href="/settings">Einstellungen</a>
+                    <div>
+                        <button on:click={openChangelog}>Was ist neu?</button>
+                    </div>
                 {/if}
             </div>
             <div class="flex items-center gap-x-4">
