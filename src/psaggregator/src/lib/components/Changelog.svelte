@@ -27,7 +27,7 @@
     </div>
 
     <h2 class="mb-4 text-2xl font-bold">Neue Features</h2>
-    <div class="grow overflow-y-scroll" id="changelog-contents">
+    <div class="grow overflow-y-auto" id="changelog-contents">
         <div>
             <span>Mehr Details in /videos</span>
             <span>Du kannst nun auf der Videos-Seite mehr Details ansehen. </span>
