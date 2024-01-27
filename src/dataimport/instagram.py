@@ -123,8 +123,8 @@ async def instagram():
     db = Database(url=os.getenv("DATABASE_URL"))
     await db.connect()
     for user, user_id in user_dict.items():
-        console.log(f"Fetching last 50 media items for {user}")
-        last_media = cl.user_medias(user_id, amount=50)
+        console.log(f"Fetching last 3 media items for {user}")
+        last_media = cl.user_medias(user_id, amount=3)
         console.log(f"Found {len(last_media)} media items for {user}")
         for media in last_media:
             remote_id = f"{user}_{str(media.id)}"
