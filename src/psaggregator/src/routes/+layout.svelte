@@ -4,7 +4,13 @@
     import { initializeStores } from "@skeletonlabs/skeleton";
     import Footer from "$lib/components/Footer.svelte";
     import MediaQuery from "$lib/utils/MediaQuery.svelte";
-    import { MICROANALYTICS_ID, SHOW_ABSOLUTE_DATES } from "../config/config";
+    import {
+        MICROANALYTICS_ID,
+        SHOW_ABSOLUTE_DATES,
+        SHOW_ABSOLUTE_DATES_KEY,
+        VIDEO_COMPLEXE_VIEW,
+        VIDEO_COMPLEXE_VIEW_KEY
+    } from "../config/config";
     import BigHeader from "$lib/components/BigHeader.svelte";
     import { afterNavigate, disableScrollHandling } from "$app/navigation";
     import { browser } from "$app/environment";
@@ -32,7 +38,8 @@
 
     onMount(() => {
         if (browser) {
-            SHOW_ABSOLUTE_DATES.set(localStorage.getItem("showAbsoluteDates") === "true");
+            SHOW_ABSOLUTE_DATES.set(localStorage.getItem(SHOW_ABSOLUTE_DATES_KEY) === "true");
+            VIDEO_COMPLEXE_VIEW.set(localStorage.getItem(VIDEO_COMPLEXE_VIEW_KEY) === "true");
         }
     });
 </script>

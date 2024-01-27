@@ -18,7 +18,8 @@ export async function GET({ url }) {
             title: true,
             href: true,
             imageUri: true,
-            startDate: true
+            startDate: true,
+            duration: true,
         },
         where: {
             type: {

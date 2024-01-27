@@ -7,7 +7,8 @@ export async function load() {
             title: true,
             href: true,
             imageUri: true,
-            startDate: true
+            startDate: true,
+            duration: true,
         },
         where: {
             type: {
