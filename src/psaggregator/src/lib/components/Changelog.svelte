@@ -26,8 +26,15 @@
         Vielen Dank für euer gutes Feedback und die vielen Vorschläge. Ich habe versucht, so viele wie möglich umzusetzen.
     </div>
 
-    <h2 class="mb-4 text-2xl font-bold">Neue Features</h2>
     <div class="grow overflow-y-auto" id="changelog-contents">
+        <h2 class="mb-4 text-2xl font-bold">Bugfixes</h2>
+        <div>
+            <span>Instagram-Import</span>
+            <span
+                >Der Instagram-Import hat häufig nicht richtig funktioniert. Ich habe die Anzahl der Importe pro Tag drastisch reduziert, um
+                dies zu verhindern. Es kann also stellenweise ein paar Stunden dauern, bis Instagram-Posts hier auftauchen.</span>
+        </div>
+        <h2 class="my-4 text-2xl font-bold">Neue Features</h2>
         <div>
             <span>Mehr Details in /videos</span>
             <span>Du kannst nun auf der Videos-Seite mehr Details ansehen. </span>
