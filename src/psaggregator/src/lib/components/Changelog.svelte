@@ -36,6 +36,10 @@
         </div>
         <h2 class="my-4 text-2xl font-bold">Neue Features</h2>
         <div>
+            <span>Übersicht News-Seite</span>
+            <span>Auf mobilen Endgeräten hat die News-Seite nun ein Tabsystem bekommen, damit man nicht mehr so weit scrollen muss.</span>
+        </div>
+        <div>
             <span>Mehr Details in /videos</span>
             <span>Du kannst nun auf der Videos-Seite mehr Details ansehen. </span>
         </div>
