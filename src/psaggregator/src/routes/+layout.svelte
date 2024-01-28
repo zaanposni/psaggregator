@@ -16,6 +16,10 @@
     import { browser } from "$app/environment";
     import { onMount } from "svelte";
     import Changelog from "$lib/components/Changelog.svelte";
+    import type { LayoutData } from "./$types";
+    import { CloseLarge, WarningAltFilled } from "carbon-icons-svelte";
+
+    export let data: LayoutData;
 
     initializeStores();
 
@@ -50,6 +54,23 @@
             <svelte:fragment slot="header">
                 <BigHeader />
             </svelte:fragment>
+            {#each data.announcements as announcement}
+                <aside class="alert variant-filled-warning flex-row items-center">
+                    <div>
+                        <WarningAltFilled size={32} />
+                    </div>
+                    <div class="alert-message !mt-0 px-2">
+                        <p>{announcement.text}</p>
+                    </div>
+                    <button
+                        class="alert-actions !mt-0"
+                        on:click={() => {
+                            data.announcements = data.announcements.filter((a) => a.id !== announcement.id);
+                        }}>
+                        <CloseLarge />
+                    </button>
+                </aside>
+            {/each}
             <slot />
             <svelte:fragment slot="footer">
                 <Footer />

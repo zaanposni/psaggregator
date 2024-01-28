@@ -105,3 +105,8 @@ model RedditPost {
     href        String?  @db.VarChar(1024)
     importedAt  DateTime
 }
+
+model Announcement {
+    id   Int    @id @default(autoincrement())
+    text String @db.LongText
+}
