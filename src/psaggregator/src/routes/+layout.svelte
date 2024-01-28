@@ -56,15 +56,12 @@
             </svelte:fragment>
             {#each data.announcements as announcement}
                 <aside class="alert variant-filled-warning flex-row items-center">
-                    <!-- Icon -->
                     <div>
                         <WarningAltFilled size={32} />
                     </div>
-                    <!-- Message -->
                     <div class="alert-message !mt-0 px-2">
                         <p>{announcement.text}</p>
                     </div>
-                    <!-- Actions -->
                     <button
                         class="alert-actions !mt-0"
                         on:click={() => {
