@@ -43,7 +43,7 @@ def remove_html_tags(text):
 
 
 async def stuff() -> asyncio.coroutine:
-    console.log("Starting...", style="bold green")
+    console.log("Starting...")
 
     options = webdriver.FirefoxOptions()
     options.add_argument("--headless")
@@ -55,14 +55,14 @@ async def stuff() -> asyncio.coroutine:
         },
     )
 
-    console.log("Loading page...", style="bold green")
+    console.log("Loading page...")
 
     browser.get("https://www.pietsmiet.de/uploadplan")
     browser.implicitly_wait(10)
 
     assert "Uploadplan" in browser.title
 
-    console.log("Loading data...", style="bold green")
+    console.log("Loading data...")
 
     uploadplan = None
     upcoming_events = None
@@ -81,7 +81,7 @@ async def stuff() -> asyncio.coroutine:
                 )
                 upcoming_events = json.loads(body)
 
-    console.log("Closing browser...", style="bold green")
+    console.log("Closing browser...")
 
     browser.quit()
 
@@ -105,7 +105,7 @@ async def stuff() -> asyncio.coroutine:
     if information_text := uploadplan["data"][0]["description"]:
         information_text = remove_html_tags(information_text).strip()
         if information_text.lower() not in information_default_texts:
-            information = information_text.replace("'", "\\'")
+            information = information_text
             console.log(f"Found information: {information}")
 
     with open("uploadplan.json", "w", encoding="utf-8") as f:
@@ -115,28 +115,28 @@ async def stuff() -> asyncio.coroutine:
         with open("upcoming.json", "w", encoding="utf-8") as f:
             json.dump(upcoming_events, f, ensure_ascii=False, indent=4)
 
-    console.log("Dumped data to uploadplan.json and upcoming.json", style="bold green")
-    console.log("Parsing data...", style="bold green")
+    console.log("Dumped data to uploadplan.json and upcoming.json")
+    console.log("Parsing data...")
 
     if not uploadplan["success"]:
         raise Exception("Uploadplan not successful")
 
     data: List[ContentPiece] = []
     for content in uploadplan["data"][0]["items"]:
-        uri = "NULL"
-        remoteId = "NULL"
-        secondaryUri = "NULL"
-        duration = "NULL"
+        uri = None
+        remoteId = None
+        secondaryUri = None
+        duration = None
         if content["video"]:
-            uri = f"'{content['video']['short_url']}'"
-            remoteId = f"'{content['video']['id']}'"
+            uri = content["video"]["short_url"]
+            remoteId = content["video"]["id"]
             duration = content["video"]["duration"]
         if content["external_url"]:
-            secondaryUri = f"'{content['external_url']}'"
+            secondaryUri = content["external_url"]
 
-        if uri == "NULL" and secondaryUri != "NULL":
+        if uri == None and secondaryUri != None:
             uri = secondaryUri
-            secondaryUri = "NULL"
+            secondaryUri = None
 
         time = content["publish_date"]
         time = dateutil.parser.parse(time)
@@ -160,7 +160,7 @@ async def stuff() -> asyncio.coroutine:
     if upcoming_events and upcoming_events["data"]:
         for index in upcoming_events["data"]:
             for content in index["items"]:
-                uri = "NULL"
+                uri = None
                 if content["video"]:
                     uri = f"'{content['video']['short_url']}'"
                     duration = content["video"]["duration"]
@@ -172,108 +172,125 @@ async def stuff() -> asyncio.coroutine:
 
                 data.append(
                     ContentPiece(
-                        remoteId="NULL",
-                        duration="NULL",
-                        title=content["title"]
-                        .replace("'", "\\'")
-                        .replace("Stream: ", ""),
+                        remoteId=None,
+                        duration=None,
+                        title=content["title"].replace("Stream: ", ""),
                         time=time,
                         uri=uri,
-                        secondaryUri="NULL",
+                        secondaryUri=None,
                         type="TwitchStream",
                     )
                 )
 
-    console.log("Connecting to database...", style="bold green")
+    console.log("Connecting to database...")
     db = Database(url=os.getenv("DATABASE_URL"))
     await db.connect()
 
     INSERT_STATEMENT = """
-    INSERT INTO ScheduledContentPiece (id  , remoteId, title, description, additionalInfo, startDate, imageUri, href, secondaryHref, duration, importedAt, importedFrom , type) VALUES
-                                      ('{}', {}      , '{}' , NULL       , NULL          , '{}'     , NULL    , {}  , {}           , {}      , now()     , 'PietSmietDE', '{}');"""
+    INSERT INTO ScheduledContentPiece ( id, remoteId, title, description, additionalInfo, startDate, imageUri, href, secondaryHref, duration, importedAt, importedFrom , type) VALUES
+                                      (:id,:remoteId,:title, NULL       , NULL          ,:startDate, NULL    ,:href,:secondaryHref,:duration, now()     , 'PietSmietDE',:type);"""
     UPDATE_STATEMENT = """
-    UPDATE ScheduledContentPiece SET startDate='{}', href={}, secondaryHref={}, remoteId={}, duration={} WHERE id='{}';"""
+    UPDATE ScheduledContentPiece SET startDate=:startDate, href=:href, secondaryHref=:secondaryHref, remoteId=:remoteId, duration=:duration WHERE id=:id;"""
 
-    EXISTING_FOR_DATE = "SELECT * FROM ScheduledContentPiece WHERE DATE(startDate) = '{}' AND importedFrom = 'PietSmietDE' AND type = 'Video'"
     existing_imports_for_today = await db.fetch_all(
-        EXISTING_FOR_DATE.format(uploadplan["data"][0]["date"])
+        "SELECT * FROM ScheduledContentPiece WHERE DATE(startDate) = :startDate AND importedFrom = 'PietSmietDE' AND type = 'Video'",
+        values={"startDate": uploadplan["data"][0]["date"]},
     )
 
-    console.log("Checking for existing entries...", style="bold green")
+    console.log("Checking for existing entries...")
     for content in data:
-        query = "SELECT * FROM ScheduledContentPiece WHERE title = '{}' AND DATE(startDate) = '{}' AND type = '{}'".format(
-            content.title, content.time.strftime("%Y-%m-%d"), content.type
+        result = await db.fetch_one(
+            "SELECT * FROM ScheduledContentPiece WHERE title = :title AND DATE(startDate) = :startDate AND type = :type",
+            values={
+                "title": content.title,
+                "startDate": content.time.strftime("%Y-%m-%d"),
+                "type": content.type,
+            },
         )
-        result = await db.fetch_all(query)
 
-        if len(result) > 0:
+        if result:
             console.log(
                 f"Found existing entry for {content.title} on {content.time}. Updating...",
-                style="bold yellow",
+                style="bright_magenta",
             )
 
-            query = UPDATE_STATEMENT.format(
-                content.time.strftime("%Y-%m-%d %H:%M:%S"),
-                content.uri,
-                content.secUri,
-                content.remoteId,
-                content.duration,
-                result[0]["id"],
+            await db.execute(
+                UPDATE_STATEMENT,
+                values={
+                    "startDate": content.time.strftime("%Y-%m-%d %H:%M:%S"),
+                    "href": content.uri,
+                    "secondaryHref": content.secUri,
+                    "remoteId": content.remoteId,
+                    "duration": content.duration,
+                    "id": result.id,
+                },
             )
-            await db.execute(query)
             console.log(f"Updated entry for {content.title} on {content.time}.")
         elif content.type == "TwitchStream" or not existing_imports_for_today:
             if content.type == "TwitchStream":
-                query = "SELECT * FROM ScheduledContentPiece WHERE startDate = '{}' AND type = 'TwitchStream'".format(
-                    content.time.strftime("%Y-%m-%d %H:%M:%S")
+                result = await db.fetch_all(
+                    "SELECT * FROM ScheduledContentPiece WHERE startDate = :startDate AND type = 'TwitchStream'",
+                    values={"startDate": content.time.strftime("%Y-%m-%d %H:%M:%S")},
                 )
-                result = await db.fetch_all(query)
                 if len(result) > 0:
                     console.log(
-                        f"Found existing entry for stream {content.title} on {content.time}. Skipping...",
-                        style="bold yellow",
+                        f"Found existing entry for stream {content.title} on {content.time}. Skipping..."
                     )
                     continue
 
             console.log(
                 f"Adding {content.title} on {content.time} to database...",
-                style="bold yellow",
+                style="bold green",
             )
 
-            query = INSERT_STATEMENT.format(
-                content.id,
-                content.remoteId,
-                content.title,
-                content.time.strftime("%Y-%m-%d %H:%M:%S"),
-                content.uri,
-                content.secUri,
-                content.duration,
-                content.type,
+            await db.execute(
+                INSERT_STATEMENT,
+                values={
+                    "id": content.id,
+                    "remoteId": content.remoteId,
+                    "title": content.title,
+                    "startDate": content.time.strftime("%Y-%m-%d %H:%M:%S"),
+                    "href": content.uri,
+                    "secondaryHref": content.secUri,
+                    "duration": content.duration,
+                    "type": content.type,
+                },
             )
-            await db.execute(query)
         else:
             console.log(
-                f"Skipping {content.title} on {content.time} as there is already an import for today.",
-                style="bold yellow",
+                f"Skipping {content.title} on {content.time} as there is already an import for today."
             )
 
     if information:
         console.log("Checking for existing information")
-        query = f"SELECT * FROM Information WHERE importedFrom = 'PietSmietDE' AND DATE(date) = '{uploadplan['data'][0]['date']}'"
-        result = await db.fetch_all(query)
-        if len(result) > 0:
-            console.log("Found existing information. Updating...")
-            query = f"UPDATE Information SET text = '{information}' WHERE id = '{result[0]['id']}'"
-            await db.execute(query)
+        result = await db.fetch_one(
+            "SELECT * FROM Information WHERE importedFrom = 'PietSmietDE' AND DATE(date) = :date",
+            values={"date": uploadplan["data"][0]["date"]},
+        )
+        if result:
+            console.log(
+                "Found existing information. Updating...", style="bright_magenta"
+            )
+            await db.execute(
+                "UPDATE Information SET text = :text WHERE id = :id",
+                values={"text": information, "id": result.id},
+            )
         else:
-            console.log("Adding information to database...")
+            console.log("Adding information to database...", style="bold green")
             query = f"""INSERT INTO Information
-              (id         , remoteId, text           , imageUri, href                                 , date                             , importedAt, importedFrom) VALUES
-              ('{uuid4()}', NULL    , '{information}', NULL    , 'https://www.pietsmiet.de/uploadplan', '{uploadplan['data'][0]['date']}', now()     , 'PietSmietDE')"""
-            await db.execute(query)
+              ( id, remoteId, text, imageUri, href                                 , date, importedAt, importedFrom) VALUES
+              (:id, NULL    ,:text, NULL    , 'https://www.pietsmiet.de/uploadplan',:date, now()     , 'PietSmietDE')"""
+            await db.execute(
+                query,
+                values={
+                    "id": uuid4(),
+                    "text": information,
+                    "date": uploadplan["data"][0]["date"],
+                },
+            )
 
     await db.disconnect()
-    console.log("Done!", style="bold green")
+    console.log("Done!")
 
 
 asyncio.run(stuff())
