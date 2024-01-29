@@ -51,58 +51,59 @@ async def stuff() -> asyncio.coroutine:
     if not submissions:
         raise Exception("No submissions found")
 
-    console.log("Connecting to database...", style="bold green")
+    console.log("Connecting to database...")
     db = Database(url=os.getenv("DATABASE_URL"))
     await db.connect()
 
-    console.log("Deleting old data...", style="bold green")
+    console.log("Deleting old data...", style="bold yellow")
     delete_query = "DELETE FROM RedditPost WHERE 1=1;"
     await db.execute(delete_query)
 
-    console.log("Deleting old thumbnails...", style="bold green")
+    console.log("Deleting old thumbnails...", style="bold yellow")
     try:
         for file in os.listdir("/app/cdn/reddit"):
             os.remove(f"/app/cdn/reddit/{file}")
     except Exception as e:
         console.log(f"Error deleting old thumbnails: {e}", style="bold red")
 
-    INSERT_STATEMENT = """INSERT INTO RedditPost (id  , title, description, username, upvotes, comments, sticky, publishedAt, imageUri, href, importedAt) VALUES
-                                                 ('{}', '{}' , NULL       , '{}'    , {}     , {}      , {}    , '{}'       , {}      , '{}', now());"""
+    INSERT_STATEMENT = """INSERT INTO RedditPost (id  , title, description, username , upvotes , comments , sticky , publishedAt , imageUri , href , importedAt) VALUES
+                                                 (:id, :title, NULL       , :username, :upvotes, :comments, :sticky, :publishedAt, :imageUri, :href, now());"""
 
     for submission in submissions:
-        console.log(f"Adding {submission.id} to database...", style="bold yellow")
+        console.log(f"Adding {submission.id} to database...", style="bold green")
         created_at = datetime.fromtimestamp(int(submission.created_utc)).strftime(
             "%Y-%m-%d %H:%M:%S"
         )
 
-        thumbnail = "NULL"
+        thumbnail = None
         if submission.thumbnail.startswith("http"):
             try:
                 thubmnail_content = requests.get(submission.thumbnail).content
                 thumbnail = f"{uuid4()}.jpg"
                 with open(f"/app/cdn/reddit/{thumbnail}", "wb") as f:
                     f.write(thubmnail_content)
-                thumbnail = f"'/cdn/reddit/{thumbnail}'"
+                thumbnail = f"/cdn/reddit/{thumbnail}"
             except Exception as e:
-                console.log(f"Error downloading thumbnail: {e}")
-                thumbnail = f"'{submission.thumbnail}'"
+                console.log(f"Error downloading thumbnail: {e}", style="bold red")
+                thumbnail = submission.thumbnail
 
-        query = INSERT_STATEMENT.format(
-            submission.id,
-            submission.title.replace("'", "\\'"),
-            submission.author.name,
-            submission.score,
-            submission.num_comments,
-            1 if submission.stickied else 0,
-            created_at,
-            thumbnail,
-            f"https://reddit.com{submission.permalink}",
+        await db.execute(
+            query=INSERT_STATEMENT,
+            values={
+                "id": submission.id,
+                "title": submission.title,
+                "username": submission.author.name,
+                "upvotes": submission.score,
+                "comments": submission.num_comments,
+                "sticky": 1 if submission.stickied else 0,
+                "publishedAt": created_at,
+                "imageUri": thumbnail,
+                "href": f"https://reddit.com{submission.permalink}",
+            },
         )
 
-        await db.execute(query)
-
     await db.disconnect()
-    console.log("Done!", style="bold green")
+    console.log("Done!")
 
 
 asyncio.run(stuff())
