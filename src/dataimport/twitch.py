@@ -21,7 +21,7 @@ async def twitch_example():
 
     stream = await first(twitch.get_streams(user_id="21991090"))
 
-    console.log("Connecting to database...", style="bold green")
+    console.log("Connecting to database...")
     db = Database(url=os.getenv("DATABASE_URL"))
     await db.connect()
 
@@ -36,40 +36,44 @@ async def twitch_example():
             console.log("No entry in database. Skipping")
         else:
             console.log("Entry in database. Deleting...")
-            query = "DELETE FROM TwitchStatus WHERE id = '{}'".format(result["id"])
-            await db.execute(query)
+            query = "DELETE FROM TwitchStatus WHERE id = :id"
+            await db.execute(query=query, values={"id": result.id})
     else:
         console.log("Stream is online")
         if result is None:
             console.log("No entry in database. Adding...")
-            query = """INSERT INTO TwitchStatus (id  , title, gameName, viewers, startedAt, live, thumbnail)
-                        VALUES                  ('{}', '{}' , '{}'    , '{}'   , '{}'     , '{}', '{}')""".format(
-                uuid4(),
-                stream.title,
-                stream.game_name,
-                stream.viewer_count,
-                stream.started_at.strftime("%Y-%m-%d %H:%M:%S"),
-                1 if stream.type == "live" else 0,
-                stream.thumbnail_url.replace(r"{width}", "1280").replace(
-                    r"{height}", "720"
-                ),
+            query = "INSERT INTO TwitchStatus (id  , title, gameName, viewers, startedAt, live, thumbnail) VALUES (:id, :title, :gameName, :viewers, :startedAt, :live, :thumbnail)"
+            await db.execute(
+                query=query,
+                values={
+                    "id": uuid4(),
+                    "title": stream.title,
+                    "gameName": stream.game_name,
+                    "viewers": stream.viewer_count,
+                    "startedAt": stream.started_at.strftime("%Y-%m-%d %H:%M:%S"),
+                    "live": 1 if stream.type == "live" else 0,
+                    "thumbnail": stream.thumbnail_url.replace(
+                        r"{width}", "1280"
+                    ).replace(r"{height}", "720"),
+                },
             )
-            await db.execute(query)
         else:
             console.log("Entry in database. Updating...")
-            query = """UPDATE TwitchStatus SET title = '{}', gameName = '{}', viewers = '{}', startedAt = '{}', live = '{}', thumbnail = '{}'
-                        WHERE id = '{}'""".format(
-                stream.title,
-                stream.game_name,
-                stream.viewer_count,
-                stream.started_at.strftime("%Y-%m-%d %H:%M:%S"),
-                1 if stream.type == "live" else 0,
-                stream.thumbnail_url.replace(r"{width}", "1280").replace(
-                    r"{height}", "720"
-                ),
-                result["id"],
+            query = "UPDATE TwitchStatus SET title = :title, gameName = :gameName, viewers = :viewers, startedAt = :startedAt, live = :live, thumbnail = :thumbnail WHERE id = :id"
+            await db.execute(
+                query=query,
+                values={
+                    "title": stream.title,
+                    "gameName": stream.game_name,
+                    "viewers": stream.viewer_count,
+                    "startedAt": stream.started_at.strftime("%Y-%m-%d %H:%M:%S"),
+                    "live": 1 if stream.type == "live" else 0,
+                    "thumbnail": stream.thumbnail_url.replace(
+                        r"{width}", "1280"
+                    ).replace(r"{height}", "720"),
+                    "id": result.id,
+                },
             )
-            await db.execute(query)
 
     console.log("Done")
 
