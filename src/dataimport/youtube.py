@@ -30,7 +30,7 @@ direct_url = "https://www.youtube.com/channel/" + channel_id + "/community?lb={}
 
 INSERT_STATEMENT = """
     INSERT INTO Information (id  , remoteId, text, imageUri, href, date, importedAt, analyzedAt, importedFrom)
-                    VALUES  ('{}', '{}'    , '{}', {}      , '{}', '{}', now()     , NULL, 'YouTube')"""
+                    VALUES  (:id, :remoteId, :text, :imageUri, :href, :date, now() , NULL, 'YouTube')"""
 
 DAY_REGEX = re.compile(r"(\d+) days? ago")
 MONTH_REGEX = re.compile(r"(\d+) months? ago")
@@ -45,8 +45,10 @@ async def youtube():
     yt_data = requests.get(collection_url).json()["items"][0]["community"]
 
     for yt in yt_data:
-        query = f"SELECT * FROM Information WHERE remoteId='{yt['id']}' AND importedFrom='YouTube'"
-        result = await db.fetch_one(query=query)
+        query = f"SELECT * FROM Information WHERE remoteId = :remoteId AND importedFrom = :importedFrom"
+        result = await db.fetch_one(
+            query=query, values={"remoteId": yt["id"], "importedFrom": "YouTube"}
+        )
         if result:
             console.log(f"{yt['id']} already in database", style="bold red")
             continue
@@ -56,7 +58,7 @@ async def youtube():
         ]
 
         text = ""
-        thumbnailUri = "NULL"
+        thumbnailUri = None
         date = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
 
         for content in yt["contentText"]:
@@ -83,7 +85,7 @@ async def youtube():
             except KeyError:
                 pass
 
-        if thumbnailUri != "NULL":
+        if thumbnailUri != None:
             # download thumbnail and store it in /app/cdn/yt/
             console.log(f"Downloading thumbnail for {yt['id']}")
             try:
@@ -91,22 +93,22 @@ async def youtube():
                 filename = f"{uuid4()}.jpg"
                 with open(f"/app/cdn/yt/{filename}", "wb") as f:
                     f.write(thumbnail)
-                thumbnailUri = f"'/cdn/yt/{filename}'"
+                thumbnailUri = f"/cdn/yt/{filename}"
             except Exception as e:
                 console.log(f"Error downloading thumbnail: {e}", style="bold red")
-                thumbnailUri = "NULL"
+                thumbnailUri = None
 
-        query = INSERT_STATEMENT.format(
-            uuid4(),
-            yt["id"],
-            text,
-            thumbnailUri,
-            direct_url.format(yt["id"]),
-            date,
-        )
+        values = {
+            "id": uuid4(),
+            "remoteId": yt["id"],
+            "text": text,
+            "imageUri": thumbnailUri,
+            "href": direct_url.format(yt["id"]),
+            "date": date,
+        }
 
         console.log(f"Insert {yt['id']} into database", style="bold green")
-        await db.execute(query=query)
+        await db.execute(query=INSERT_STATEMENT, values=values)
 
     await db.disconnect()
     console.log("Done")

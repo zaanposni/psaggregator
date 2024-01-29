@@ -174,7 +174,9 @@ async def stuff() -> asyncio.coroutine:
                     ContentPiece(
                         remoteId="NULL",
                         duration="NULL",
-                        title=content["title"].replace("'", "\\'"),
+                        title=content["title"]
+                        .replace("'", "\\'")
+                        .replace("Stream: ", ""),
                         time=time,
                         uri=uri,
                         secondaryUri="NULL",
