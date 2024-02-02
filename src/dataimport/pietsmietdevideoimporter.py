@@ -108,19 +108,34 @@ async def stuff() -> asyncio.coroutine:
                              (:id ,:remoteId,:title, NULL       , NULL          ,:startDate,:imageUri,:href,:duration, now()     , 'PietSmietDE', 'PSVideo');"""
 
     UPDATE_STATEMENT = """
-    UPDATE ContentPiece SET href=:href, title=:title, duration=:duration WHERE id=:id;"""
+    UPDATE ContentPiece SET href=:href, title=:title, duration=:duration, imageUri=:imageUri WHERE id=:id;"""
 
     console.log("Checking for existing entries...")
     for content in data:
-        result = await db.fetch_all(
+        result = await db.fetch_one(
             "SELECT * FROM ContentPiece WHERE remoteId = :remoteId AND importedFrom = 'PietSmietDE'",
             values={"remoteId": content["remoteId"]},
         )
-        if len(result) > 0:
+        if result:
             console.log(
                 f"Found existing entry for {content['remoteId']}. Updating...",
                 style="bright_magenta",
             )
+
+            newImageUri = result.imageUri
+            if result.imageUri is None and content["imageUri"] != None:
+                console.log(
+                    f"Try redownloading thumbnail for {content['remoteId']}...",
+                    style="bright_magenta",
+                )
+                try:
+                    thumbnail = requests.get(content["imageUri"]).content
+                    filename = f"{uuid4()}.jpg"
+                    with open(f"/app/cdn/psde/{filename}", "wb") as f:
+                        f.write(thumbnail)
+                    newImageUri = f"/cdn/psde/{filename}"
+                except Exception as e:
+                    console.log(f"Error downloading thumbnail: {e}", style="bold red")
 
             await db.execute(
                 UPDATE_STATEMENT,
@@ -128,7 +143,8 @@ async def stuff() -> asyncio.coroutine:
                     "href": content["uri"],
                     "title": content["title"],
                     "duration": content["duration"],
-                    "id": result[0]["id"],
+                    "id": result.id,
+                    "imageUri": newImageUri,
                 },
             )
 
