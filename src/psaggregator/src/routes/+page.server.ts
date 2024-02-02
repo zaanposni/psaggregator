@@ -53,7 +53,7 @@ export async function load() {
         orderBy: {
             startDate: "asc"
         },
-        take: 5
+        take: 8
     });
 
     const twitchStatus = await prisma.twitchStatus.findFirst();
@@ -80,7 +80,7 @@ export async function load() {
         orderBy: {
             date: "desc"
         },
-        take: 3
+        take: 5
     });
 
     const instagramPosts = await prisma.information.findMany({
