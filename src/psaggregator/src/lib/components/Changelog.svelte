@@ -22,12 +22,14 @@
 
     <h1 class="mb-8 text-4xl font-bold">Version {version}</h1>
 
-    <div class="mb-4">
-        Vielen Dank für euer gutes Feedback und die vielen Vorschläge. Ich habe versucht, so viele wie möglich umzusetzen.
-    </div>
-
     <div class="grow overflow-y-auto" id="changelog-contents">
         <h2 class="mb-4 text-2xl font-bold">Bugfixes</h2>
+        <div>
+            <span>pietsmiet.de Import</span>
+            <span
+                >Ein einzelnes Video konnte aufgrund eines selten Fehlers letzte Woche nicht importiert werden. Diesen Fehler habe ich
+                behoben.</span>
+        </div>
         <div>
             <span>Instagram-Import</span>
             <span
@@ -38,26 +40,6 @@
         <div>
             <span>Übersicht News-Seite</span>
             <span>Auf mobilen Endgeräten hat die News-Seite nun ein Tabsystem bekommen, damit man nicht mehr so weit scrollen muss.</span>
-        </div>
-        <div>
-            <span>Mehr Details in /videos</span>
-            <span>Du kannst nun auf der Videos-Seite mehr Details ansehen. </span>
-        </div>
-        <div>
-            <span>Alte Uploadpläne</span>
-            <span>Du kannst nun alte Uploadpläne ansehen. Beachte, dass historische Daten noch nicht importiert wurden.</span>
-        </div>
-        <div>
-            <span>Uploadplan hochgeladene Videos</span>
-            <span>Im Uploadplan ist die Unterscheidung zwischen hochgeladenen und nicht hochgeladenen Videos nun deutlicher.</span>
-        </div>
-        <div>
-            <span>Datumswerte einstellbar</span>
-            <span>Auf der neuen "Einstellungen" Seite kannst du wählen, ob du absolute oder relative Datumswerte sehen willst.</span>
-        </div>
-        <div>
-            <span>Footer und Header überarbeitet</span>
-            <span>Der Footer und der Header wurden überarbeitet. Externe Links sind nun getrennt von internen Links.</span>
         </div>
     </div>
 </div>
