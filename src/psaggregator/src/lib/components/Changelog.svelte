@@ -30,13 +30,11 @@
                 >Ein einzelnes Video konnte aufgrund eines selten Fehlers letzte Woche nicht importiert werden. Diesen Fehler habe ich
                 behoben.</span>
         </div>
-        <div>
-            <span>Instagram-Import</span>
-            <span
-                >Der Instagram-Import hat häufig nicht richtig funktioniert. Ich habe die Anzahl der Importe pro Tag drastisch reduziert, um
-                dies zu verhindern. Es kann also stellenweise ein paar Stunden dauern, bis Instagram-Posts hier auftauchen.</span>
-        </div>
         <h2 class="my-4 text-2xl font-bold">Neue Features</h2>
+        <div>
+            <span>Instagram Stories!</span>
+            <span>Auf der News-Seite gibt es nun eine Übersicht über die Instagram Stories der ersten Reihe.</span>
+        </div>
         <div>
             <span>Übersicht News-Seite</span>
             <span>Auf mobilen Endgeräten hat die News-Seite nun ein Tabsystem bekommen, damit man nicht mehr so weit scrollen muss.</span>
