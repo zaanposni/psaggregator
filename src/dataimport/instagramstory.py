@@ -3,9 +3,9 @@ import os
 import requests
 import time
 import random
-from databases import Database
 from uuid import uuid4
 
+from databases import Database
 from rich.console import Console
 from instagrapi import Client
 from instagrapi.exceptions import LoginRequired
