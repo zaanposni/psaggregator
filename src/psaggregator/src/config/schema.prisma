@@ -17,6 +17,7 @@ enum ImportType {
     Unknown
     PietSmietDE
     Instagram
+    InstagramStory
     Twitter
     Threads
     Reddit
@@ -78,6 +79,7 @@ model InformationResource {
     informationId String
     imageUri      String?     @db.VarChar(1024)
     videoUri      String?     @db.VarChar(1024)
+    videoDuration Int?
     importedAt    DateTime
     importedFrom  ImportType
 }
