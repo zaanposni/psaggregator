@@ -25,7 +25,6 @@
 
     async function loadMore() {
         for (const type of [ImportType.YouTube, ImportType.Instagram]) {
-            console.log(type, loading[type], endReached[type]);
             if (loading[type] || endReached[type]) {
                 continue;
             }
