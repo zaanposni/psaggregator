@@ -66,8 +66,8 @@ export async function load() {
     }) as Array<Information & { InformationResource: InformationResource[] }>;
 
     return {
-        youtubeCommunityPosts: [],
-        instagramPosts: [],
+        youtubeCommunityPosts,
+        instagramPosts,
         instagramStories
     };
 }
