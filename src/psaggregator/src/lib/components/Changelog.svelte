@@ -25,6 +25,10 @@
     <div class="grow overflow-y-auto" id="changelog-contents">
         <h2 class="mb-4 text-2xl font-bold">Bugfixes</h2>
         <div>
+            <span>Ton in Instagram Stories</span>
+            <span>Der Ton in Instagram Stories kann nun ein- und ausgeschaltet werden.</span>
+        </div>
+        <div>
             <span>pietsmiet.de Import</span>
             <span
                 >Ein einzelnes Video konnte aufgrund eines selten Fehlers letzte Woche nicht importiert werden. Diesen Fehler habe ich

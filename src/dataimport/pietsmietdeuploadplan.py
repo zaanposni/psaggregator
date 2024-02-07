@@ -162,10 +162,10 @@ async def stuff() -> asyncio.coroutine:
             for content in index["items"]:
                 uri = None
                 if content["video"]:
-                    uri = f"'{content['video']['short_url']}'"
+                    uri = content['video']['short_url']
                     duration = content["video"]["duration"]
                 if content["external_url"]:
-                    uri = f"'{content['external_url']}'"
+                    uri = content['external_url']
 
                 time = content["publish_date"]
                 time = dateutil.parser.parse(time)

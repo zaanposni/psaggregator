@@ -3,11 +3,13 @@
     import type { InstaStoryWatchHistory } from "$lib/models/InstaStoryWatchHistory";
     import MediaQuery from "$lib/utils/MediaQuery.svelte";
     import type { Information, InformationResource } from "@prisma/client";
-    import { CloseLarge } from "carbon-icons-svelte";
+    import { CloseLarge, VolumeMute, VolumeUp } from "carbon-icons-svelte";
     import { onMount } from "svelte";
 
     export let stories: Array<Information & { InformationResource: InformationResource[] }>;
     export let filterKey: "peter" | "brammen" | "jay" | "sep" | "chris";
+
+    let video: HTMLVideoElement;
 
     stories = stories.filter((story) => story.text.toLowerCase().includes(filterKey));
 
@@ -213,13 +215,30 @@
                         <img src="{filterKey}.jpg" alt={filterKey} class="h-12 w-12 rounded-full object-cover" />
                         <span class="text-sm font-bold text-white">{titleCase(filterKey)}</span>
                     </div>
-                    <button on:click={() => (active = false)}>
-                        <CloseLarge class="h-8 w-8" />
-                    </button>
+                    <div class="flex items-center gap-x-2">
+                        {#if selectedStory && selectedStory.InformationResource?.length && selectedStory.InformationResource[0].videoUri}
+                            <button
+                                on:click={(e) => {
+                                    video.muted = !video.muted;
+                                    e.stopPropagation();
+                                }}>
+                                {#if video}
+                                    {#if video.muted}
+                                        <VolumeMute class="h-8 w-8" />
+                                    {:else}
+                                        <VolumeUp class="h-8 w-8" />
+                                    {/if}
+                                {/if}
+                            </button>
+                        {/if}
+                        <button on:click={() => (active = false)}>
+                            <CloseLarge class="h-8 w-8" />
+                        </button>
+                    </div>
                 </div>
                 <div
                     bind:this={storyView}
-                    class="flex h-full w-full items-center justify-center overflow-y-auto md:py-8"
+                    class="flex h-full w-full items-center justify-center overflow-y-auto py-2 md:py-8"
                     on:click={clickImageHandler}
                     on:keydown={void 0}
                     role="button"
@@ -232,7 +251,6 @@
                                 loop
                                 muted
                                 playsinline
-                                controls={matches}
                                 class="h-full w-full object-contain"></video>
                         {:else}
                             <img src={selectedStory.imageUri} alt={selectedStory.text} class="h-full w-full object-contain" />
@@ -246,6 +264,7 @@
             class="aspect-square h-full w-auto"
             class:cursor-pointer={stories.filter((story) => story.text.toLowerCase().includes(filterKey)).length}
             class:!cursor-default={!stories.filter((story) => story.text.toLowerCase().includes(filterKey)).length}
+            class:grayscale={!stories.filter((story) => story.text.toLowerCase().includes(filterKey)).length}
             class:instagramgradient={existingNewStories}
             title={filterKey}
             on:click={start}
