@@ -246,6 +246,7 @@
                     {#if selectedStory}
                         {#if selectedStory.InformationResource?.length && selectedStory.InformationResource[0].videoUri}
                             <video
+                                bind:this={video}
                                 src={selectedStory.InformationResource[0].videoUri}
                                 autoplay
                                 loop
