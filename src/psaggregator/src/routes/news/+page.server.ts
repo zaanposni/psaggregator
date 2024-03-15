@@ -61,7 +61,7 @@ export async function load() {
             InformationResource: true,
         },
         orderBy: {
-            date: "desc"
+            date: "asc"
         }
     }) as Array<Information & { InformationResource: InformationResource[] }>;
 
