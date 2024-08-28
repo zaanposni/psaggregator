@@ -6,7 +6,7 @@
     import { ProgressRadial, SlideToggle } from "@skeletonlabs/skeleton";
     import PsVideo from "$lib/components/PSVideo.svelte";
     import MediaQuery from "$lib/utils/MediaQuery.svelte";
-    import { VIDEO_COMPLEXE_VIEW, VIDEO_COMPLEXE_VIEW_KEY } from "../../config/config";
+    import { LINK_YOUTUBE, LINK_YOUTUBE_KEY, VIDEO_COMPLEXE_VIEW, VIDEO_COMPLEXE_VIEW_KEY } from "../../config/config";
 
     export let data: PageData;
 
@@ -79,16 +79,29 @@
     <div class="p-4 md:p-8">
         <div class="mb-4 flex w-full flex-col justify-between gap-y-4 md:mb-8 md:flex-row md:items-center">
             <h1 class="text-3xl font-bold">Alle Videos</h1>
-            <div class="mr-4 flex items-center gap-x-1 md:gap-x-4">
-                <span>Komplexe Ansicht</span>
-                <SlideToggle
-                    name="slide"
-                    bind:checked={$VIDEO_COMPLEXE_VIEW}
-                    on:click={(e) => {
-                        if (browser) {
-                            localStorage.setItem(VIDEO_COMPLEXE_VIEW_KEY, e.target.checked.toString());
-                        }
-                    }} />
+            <div class="flex flex-col gap-1 md:flex-row md:gap-x-4">
+                <div class="mr-4 flex items-center gap-x-1 md:gap-x-2">
+                    <SlideToggle
+                        name="slide"
+                        bind:checked={$VIDEO_COMPLEXE_VIEW}
+                        on:click={(e) => {
+                            if (browser) {
+                                localStorage.setItem(VIDEO_COMPLEXE_VIEW_KEY, e.target.checked.toString());
+                            }
+                        }} />
+                    <span>Komplexe Ansicht</span>
+                </div>
+                <div class="mr-4 flex items-center gap-x-1 md:gap-x-2">
+                    <SlideToggle
+                        name="slide"
+                        bind:checked={$LINK_YOUTUBE}
+                        on:click={(e) => {
+                            if (browser) {
+                                localStorage.setItem(LINK_YOUTUBE_KEY, e.target.checked.toString());
+                            }
+                        }} />
+                    <span>YouTube-Verlinkung</span>
+                </div>
             </div>
         </div>
         <section class="grid grid-cols-2 gap-4 md:grid-cols-3 xl:grid-cols-5 {!matches && $VIDEO_COMPLEXE_VIEW ? '!grid-cols-1' : ''}">
@@ -104,7 +117,10 @@
                 {#if $VIDEO_COMPLEXE_VIEW}
                     <PsVideo {video} class="w-full {matches || $VIDEO_COMPLEXE_VIEW ? '' : '!text-sm'}" />
                 {:else}
-                    <a href={video.href} target="_blank" class="overflow-hidden">
+                    <a
+                        href={$LINK_YOUTUBE && video.secondaryHref ? video.secondaryHref : video.href}
+                        target="_blank"
+                        class="overflow-hidden">
                         <img
                             class="h-auto max-w-full transform rounded-lg transition-transform duration-500 hover:scale-110"
                             src={video.imageUri}

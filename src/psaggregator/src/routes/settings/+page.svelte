@@ -1,6 +1,13 @@
 <script lang="ts">
     import { browser } from "$app/environment";
-    import { SHOW_ABSOLUTE_DATES, SHOW_ABSOLUTE_DATES_KEY, VIDEO_COMPLEXE_VIEW, VIDEO_COMPLEXE_VIEW_KEY } from "../../config/config";
+    import {
+        SHOW_ABSOLUTE_DATES,
+        SHOW_ABSOLUTE_DATES_KEY,
+        VIDEO_COMPLEXE_VIEW,
+        VIDEO_COMPLEXE_VIEW_KEY,
+        LINK_YOUTUBE,
+        LINK_YOUTUBE_KEY
+    } from "../../config/config";
 </script>
 
 <style lang="postcss">
@@ -46,6 +53,25 @@
                 <p>Komplexe Videoansicht</p>
             </label>
             <div>Zeige Videos in einer komplexen Ansicht an, die mehr Informationen enthält (betrifft Videos-Unterseite)</div>
+        </div>
+        <div>
+            <label class="flex items-center space-x-2">
+                <input
+                    class="checkbox"
+                    type="checkbox"
+                    checked={$LINK_YOUTUBE}
+                    on:change={() => {
+                        LINK_YOUTUBE.set(!$LINK_YOUTUBE);
+                        if (browser) {
+                            localStorage.setItem(LINK_YOUTUBE_KEY, $LINK_YOUTUBE.toString());
+                        }
+                    }} />
+                <p>Verlinkung zu YouTube</p>
+            </label>
+            <div>
+                Soweit verfügbar, sind Videos mit einem Link zu YouTube versehen. Wenn diese Option deaktiviert ist, wird stattdessen auf
+                pietsmiet.de verlinkt.
+            </div>
         </div>
     </div>
 </div>

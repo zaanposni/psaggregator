@@ -1,7 +1,7 @@
 <script lang="ts">
     import { dateFormat } from "$lib/utils/dateFormat";
     import type { ContentPiece } from "@prisma/client";
-    import { SHOW_ABSOLUTE_DATES } from "../../config/config";
+    import { LINK_YOUTUBE, SHOW_ABSOLUTE_DATES } from "../../config/config";
 
     export let video: ContentPiece;
     export let isSquare = false;
@@ -32,7 +32,12 @@
     }
 </style>
 
-<a class="card flex h-full w-64 flex-col {classes}" href={video.href} target="_blank" title={video.title} class:aspect-square={isSquare}>
+<a
+    class="card flex h-full w-64 flex-col {classes}"
+    href={$LINK_YOUTUBE && video.secondaryHref ? video.secondaryHref : video.href}
+    target="_blank"
+    title={video.title}
+    class:aspect-square={isSquare}>
     <div class="block">
         <div class="relative aspect-video">
             <img class="h-full w-full object-cover" src={video.imageUri} alt={video.title} />

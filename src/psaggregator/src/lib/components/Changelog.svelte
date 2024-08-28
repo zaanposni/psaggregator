@@ -23,23 +23,17 @@
     <h1 class="mb-8 text-4xl font-bold">Version {version}</h1>
 
     <div class="grow overflow-y-auto" id="changelog-contents">
-        <h2 class="mb-4 text-2xl font-bold">Bugfixes</h2>
-        <div>
-            <span>Sortierung Instagram Stories</span>
-            <span>Instagram Stories sind nun richtig sortiert.</span>
-        </div>
-        <div>
-            <span>Ton in Instagram Stories</span>
-            <span>Der Ton in Instagram Stories kann nun ein- und ausgeschaltet werden.</span>
-        </div>
         <h2 class="my-4 text-2xl font-bold">Neue Features</h2>
         <div>
-            <span>Instagram Stories!</span>
-            <span>Auf der News-Seite gibt es nun eine Übersicht über die Instagram Stories der ersten Reihe.</span>
+            <span>Verlinkung von YouTube-Videos!</span>
+            <span
+                >In den Einstellungen kann nun konfiguriert werden, ob auf YouTube oder auf pietsmiet.de verlinkt werden soll. Der Import
+                historischer Daten ist noch nicht möglich, wird aber in Zukunft hinzugefügt. Somit funktioniert die Verlinkung zu YouTube
+                nur gelegentlich.</span>
         </div>
         <div>
-            <span>Übersicht News-Seite</span>
-            <span>Auf mobilen Endgeräten hat die News-Seite nun ein Tabsystem bekommen, damit man nicht mehr so weit scrollen muss.</span>
+            <span>Neue API</span>
+            <span>Über den /video/[id] Endpoint kann nun ein einzelnes Video abgerufen werden.</span>
         </div>
     </div>
 </div>
