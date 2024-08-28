@@ -4,9 +4,11 @@ import prisma from "$lib/prisma";
 export async function GET({ params }) {
     const data = await prisma.contentPiece.findFirst({
         where: {
-            type: "PSVideo",
-            importedFrom: "PietSmietDE",
-            id: params.id
+            AND: {
+                type: "PSVideo",
+                importedFrom: "PietSmietDE"
+            },
+            OR: [{ id: params.id }, { remoteId: params.id }, { href: params.id }, { secondaryHref: params.id }]
         }
     });
 
