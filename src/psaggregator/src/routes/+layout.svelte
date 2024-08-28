@@ -5,6 +5,8 @@
     import Footer from "$lib/components/Footer.svelte";
     import MediaQuery from "$lib/utils/MediaQuery.svelte";
     import {
+        LINK_YOUTUBE,
+        LINK_YOUTUBE_KEY,
         MICROANALYTICS_ID,
         SHOW_ABSOLUTE_DATES,
         SHOW_ABSOLUTE_DATES_KEY,
@@ -44,6 +46,7 @@
         if (browser) {
             SHOW_ABSOLUTE_DATES.set(localStorage.getItem(SHOW_ABSOLUTE_DATES_KEY) === "true");
             VIDEO_COMPLEXE_VIEW.set(localStorage.getItem(VIDEO_COMPLEXE_VIEW_KEY) === "true");
+            LINK_YOUTUBE.set(localStorage.getItem(LINK_YOUTUBE_KEY) === "true");
         }
     });
 </script>
