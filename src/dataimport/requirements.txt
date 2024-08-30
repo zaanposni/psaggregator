@@ -11,5 +11,5 @@ requests
 openai==1.7.2
 pyotp==2.9.0
 instagrapi==2.0.1
-pillow==10.2.0
+pillow==10.3.0
 blinker==1.7.0
