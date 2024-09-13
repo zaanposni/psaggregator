@@ -5,6 +5,7 @@ import base64
 from uuid import uuid4
 from datetime import datetime, timedelta, timezone
 
+from rich import print
 from rich.console import Console
 from databases import Database
 from openai import OpenAI
