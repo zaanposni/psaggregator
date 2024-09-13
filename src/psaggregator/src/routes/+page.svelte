@@ -9,20 +9,11 @@
     import MediaQuery from "$lib/utils/MediaQuery.svelte";
     import InstagramPost from "$lib/components/InstagramPost.svelte";
     import TwitchEntry from "$lib/components/TwitchEntry.svelte";
-    import { getModalStore, type ModalSettings } from "@skeletonlabs/skeleton";
     import { version } from "$app/environment";
 
     export let data: PageServerData;
 
-    const modalStore = getModalStore();
-
-    function openChangelog() {
-        const modal: ModalSettings = {
-            type: "component",
-            component: "changelog"
-        };
-        modalStore.trigger(modal);
-    }
+    function openChangelog() {}
 </script>
 
 <style lang="postcss">
@@ -61,7 +52,7 @@
                     <List size={32} class="mr-2" />
                     Uploadplan
                 </div>
-                <div class="flex shrink-0 grow flex-col">
+                <div class="flex shrink-0 grow flex-col gap-2">
                     {#each data.today as content}
                         <UploadPlanEntry entry={content} />
                     {:else}
@@ -87,7 +78,7 @@
                     <LogoYoutube size={32} class="mr-2" />
                     YouTube
                 </div>
-                <div class="flex flex-col">
+                <div class="flex flex-col gap-2">
                     {#each data.youtubeCommunityPosts as youtube}
                         <YouTubeCommunityPost post={youtube} />
                     {/each}
@@ -98,7 +89,7 @@
                     <LogoInstagram size={32} class="mr-2" />
                     Instagram
                 </div>
-                <div class="flex flex-col">
+                <div class="flex flex-col gap-2">
                     {#each data.instagramPosts as instagram}
                         <InstagramPost post={instagram} />
                     {/each}
@@ -109,7 +100,7 @@
                     <img alt="reddit" src="/reddit-logo.svg" class="mr-2 inline-block h-8 w-8" />
                     Reddit
                 </div>
-                <div class="flex flex-col">
+                <div class="flex flex-col gap-2">
                     {#each data.redditPosts.slice(0, matches ? 10 : 5) as reddit}
                         <RedditPost entry={reddit} />
                     {/each}
@@ -120,7 +111,7 @@
                     <img alt="twitch" src="/twitch-logo.svg" class="mr-2 inline-block h-8 w-8" />
                     Anstehende Streams
                 </div>
-                <div class="flex flex-col">
+                <div class="flex flex-col gap-2">
                     {#each data.upcomingStreams as stream}
                         <TwitchEntry entry={stream} />
                     {:else}
@@ -136,7 +127,7 @@
                 <VideoPlayer size={32} class="mr-2" />
                 Neuste Videos
             </div>
-            <div class="scrollable flex h-64 flex-row items-center gap-4 overflow-x-auto">
+            <div class="scrollable flex h-64 flex-row items-center gap-4 overflow-x-auto overflow-y-hidden">
                 {#each data.videos as video}
                     <PSVideo {video} isSquare />
                 {/each}

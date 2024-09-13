@@ -3,10 +3,11 @@
     import type { PageData } from "./$types";
     import moment from "moment";
     import { browser } from "$app/environment";
-    import { ProgressRadial, SlideToggle } from "@skeletonlabs/skeleton";
     import PsVideo from "$lib/components/PSVideo.svelte";
     import MediaQuery from "$lib/utils/MediaQuery.svelte";
     import { LINK_YOUTUBE, LINK_YOUTUBE_KEY, VIDEO_COMPLEXE_VIEW, VIDEO_COMPLEXE_VIEW_KEY } from "../../config/config";
+    import Checkbox from "$lib/components/ui/checkbox/checkbox.svelte";
+    import Label from "$lib/components/ui/label/label.svelte";
 
     export let data: PageData;
 
@@ -81,26 +82,30 @@
             <h1 class="text-3xl font-bold">Alle Videos</h1>
             <div class="flex flex-col gap-1 md:flex-row md:gap-x-4">
                 <div class="mr-4 flex items-center gap-x-1 md:gap-x-2">
-                    <SlideToggle
-                        name="slide"
+                    <Checkbox
+                        id="video-complexe-view"
                         bind:checked={$VIDEO_COMPLEXE_VIEW}
                         on:click={(e) => {
                             if (browser) {
-                                localStorage.setItem(VIDEO_COMPLEXE_VIEW_KEY, e.target.checked.toString());
+                                setTimeout(() => {
+                                    localStorage.setItem(VIDEO_COMPLEXE_VIEW_KEY, $VIDEO_COMPLEXE_VIEW.toString());
+                                }, 1000);
                             }
                         }} />
-                    <span>Komplexe Ansicht</span>
+                    <Label for="video-complexe-view">Komplexe Ansicht</Label>
                 </div>
                 <div class="mr-4 flex items-center gap-x-1 md:gap-x-2">
-                    <SlideToggle
-                        name="slide"
+                    <Checkbox
+                        id="link-youtube"
                         bind:checked={$LINK_YOUTUBE}
                         on:click={(e) => {
                             if (browser) {
-                                localStorage.setItem(LINK_YOUTUBE_KEY, e.target.checked.toString());
+                                setTimeout(() => {
+                                    localStorage.setItem(LINK_YOUTUBE_KEY, $LINK_YOUTUBE.toString());
+                                }, 1000);
                             }
                         }} />
-                    <span>YouTube-Verlinkung</span>
+                    <Label for="link-youtube">YouTube-Verlinkung</Label>
                 </div>
             </div>
         </div>
@@ -129,9 +134,7 @@
                 {/if}
             {/each}
             {#if loading}
-                <div class="col-span-full flex w-full items-center justify-center text-center">
-                    <ProgressRadial />
-                </div>
+                <span>loading...</span>
             {/if}
         </section>
     </div>

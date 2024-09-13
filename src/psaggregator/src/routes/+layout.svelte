@@ -1,7 +1,5 @@
 <script lang="ts">
     import "../app.css";
-    import { Modal, Toast, AppShell, type ModalComponent } from "@skeletonlabs/skeleton";
-    import { initializeStores } from "@skeletonlabs/skeleton";
     import Footer from "$lib/components/Footer.svelte";
     import MediaQuery from "$lib/utils/MediaQuery.svelte";
     import {
@@ -17,17 +15,12 @@
     import { afterNavigate, disableScrollHandling } from "$app/navigation";
     import { browser } from "$app/environment";
     import { onMount } from "svelte";
-    import Changelog from "$lib/components/Changelog.svelte";
     import type { LayoutData } from "./$types";
     import { CloseLarge, WarningAltFilled } from "carbon-icons-svelte";
+    import { ModeWatcher } from "mode-watcher";
+    import { Toaster } from "$lib/components/ui/sonner";
 
     export let data: LayoutData;
-
-    initializeStores();
-
-    const modalRegistry: Record<string, ModalComponent> = {
-        changelog: { ref: Changelog }
-    };
 
     afterNavigate(() => {
         if (browser) {
@@ -51,12 +44,13 @@
     });
 </script>
 
+<ModeWatcher />
+<Toaster />
+
 <MediaQuery query="(min-width: 768px)" let:matches>
     <div style="display: contents" class="h-full overflow-hidden">
-        <AppShell>
-            <svelte:fragment slot="header">
-                <BigHeader />
-            </svelte:fragment>
+        <div class="flex h-full w-full flex-col overflow-hidden">
+            <BigHeader />
             {#each data.announcements as announcement}
                 <aside class="alert variant-filled-warning flex-row items-center">
                     <div>
@@ -74,16 +68,15 @@
                     </button>
                 </aside>
             {/each}
-            <slot />
-            <svelte:fragment slot="footer">
-                <Footer />
-            </svelte:fragment>
-        </AppShell>
+            <div class="flex h-full w-full flex-auto overflow-hidden">
+                <div class="flex flex-1 flex-col overflow-x-hidden" style="scrollbar-gutter: auto;" id="page">
+                    <slot />
+                </div>
+            </div>
+            <Footer />
+        </div>
     </div>
 </MediaQuery>
-
-<Toast />
-<Modal components={modalRegistry} />
 
 {#if MICROANALYTICS_ID}
     <script

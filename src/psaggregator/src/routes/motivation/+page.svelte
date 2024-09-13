@@ -1,10 +1,10 @@
 <script lang="ts">
-    import { clipboard } from "@skeletonlabs/skeleton";
+    import { Button } from "$lib/components/ui/button";
+    import Input from "$lib/components/ui/input/input.svelte";
     import { GITHUB_URL, KOFI_USERNAME, MAIL_TO_URL } from "../../config/config";
     import { Copy, FavoriteFilled } from "carbon-icons-svelte";
-    import { getToastStore } from "@skeletonlabs/skeleton";
+    import { toast } from "svelte-sonner";
 
-    const toastStore = getToastStore();
     const mailWithoutProtocol = MAIL_TO_URL.replace("mailto:", "");
 </script>
 
@@ -39,12 +39,12 @@
     </div>
     {#if KOFI_USERNAME}
         <div id="kofi-div">
-            <a class="btn variant-filled" href="https://ko-fi.com/{KOFI_USERNAME}" target="_blank" rel="noopener noreferrer">
-                <span>
+            <Button href="https://ko-fi.com/{KOFI_USERNAME}" target="_blank" rel="noopener noreferrer">
+                <span class="mr-2">
                     <FavoriteFilled />
                 </span>
                 <span>Unterstütze mich auf KoFi</span>
-            </a>
+            </Button>
         </div>
     {/if}
     <span class="text-1xl mt-4 font-bold md:mt-8 md:text-2xl">Open Source</span>
@@ -57,14 +57,14 @@
         <span>Wenn du Fragen hast, kannst du mich gerne via Mail erreichen.</span>
     </div>
     <div class="flex !flex-row items-center gap-x-4 md:w-1/4">
-        <input class="input shrink grow-0" type="text" value={mailWithoutProtocol} readonly />
-        <button
-            use:clipboard={mailWithoutProtocol}
-            class="shrink-0"
+        <Input readonly value={mailWithoutProtocol} />
+        <Button
+            variant="secondary"
             on:click={() => {
-                toastStore.trigger({ message: "Mailadresse kopiert!", hideDismiss: true, background: "bg-green-500" });
+                navigator.clipboard.writeText(mailWithoutProtocol);
+                toast("Mailadresse kopiert!");
             }}>
             <Copy />
-        </button>
+        </Button>
     </div>
 </div>

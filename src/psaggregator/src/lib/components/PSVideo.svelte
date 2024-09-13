@@ -2,6 +2,7 @@
     import { dateFormat } from "$lib/utils/dateFormat";
     import type { ContentPiece } from "@prisma/client";
     import { LINK_YOUTUBE, SHOW_ABSOLUTE_DATES } from "../../config/config";
+    import * as Card from "$lib/components/ui/card";
 
     export let video: ContentPiece;
     export let isSquare = false;
@@ -33,29 +34,31 @@
 </style>
 
 <a
-    class="card flex h-full w-64 flex-col {classes}"
+    class="flex w-64 shrink-0 grow flex-col {classes}"
     href={$LINK_YOUTUBE && video.secondaryHref ? video.secondaryHref : video.href}
     target="_blank"
     title={video.title}
     class:aspect-square={isSquare}>
-    <div class="block">
-        <div class="relative aspect-video">
-            <img class="h-full w-full object-cover" src={video.imageUri} alt={video.title} />
-            <div class="overlap"></div>
-            {#if humanReadableMinutes !== null && humanReadableSeconds !== null}
-                <span class="absolute bottom-0 right-0 m-2 text-xs font-bold text-white"
-                    >{("00" + humanReadableMinutes).slice(-2)}:{("00" + humanReadableSeconds).slice(-2)}</span>
-            {/if}
-        </div>
-    </div>
-    <div class="line-clamp m-4 font-bold">
-        {video.title}
-    </div>
-    {#if video.startDate}
-        <div class="mt-auto flex justify-end">
-            <div class="m-2 text-sm font-bold">
-                <span>{dateFormat(video.startDate, $SHOW_ABSOLUTE_DATES)}</span>
+    <Card.Root class="flex h-full w-full flex-col">
+        <div class="block">
+            <div class="relative aspect-video">
+                <img class="h-full w-full object-cover" src={video.imageUri} alt={video.title} />
+                <div class="overlap"></div>
+                {#if humanReadableMinutes !== null && humanReadableSeconds !== null}
+                    <span class="absolute bottom-0 right-0 m-2 text-xs font-bold text-white"
+                        >{("00" + humanReadableMinutes).slice(-2)}:{("00" + humanReadableSeconds).slice(-2)}</span>
+                {/if}
             </div>
         </div>
-    {/if}
+        <div class="line-clamp m-4 font-bold">
+            {video.title}
+        </div>
+        {#if video.startDate}
+            <div class="mt-auto flex justify-end">
+                <div class="m-2 text-sm font-bold">
+                    <span>{dateFormat(video.startDate, $SHOW_ABSOLUTE_DATES)}</span>
+                </div>
+            </div>
+        {/if}
+    </Card.Root>
 </a>

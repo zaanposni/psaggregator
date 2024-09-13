@@ -6,7 +6,6 @@
     import { LogoYoutube, LogoTwitter, LogoInstagram, FaceDissatisfied } from "carbon-icons-svelte";
     import { browser } from "$app/environment";
     import { ImportType, type Information, type InformationResource } from "@prisma/client";
-    import { ProgressRadial } from "@skeletonlabs/skeleton";
 
     export let youtubeCommunityPosts: Array<Information & { InformationResource: InformationResource[] }>;
     export let instagramPosts: Array<Information & { InformationResource: InformationResource[] }>;
@@ -94,9 +93,7 @@
             {/each}
         </div>
         {#if loading[ImportType.YouTube]}
-            <div class="col-span-full mt-4 flex w-full items-center justify-center text-center md:mt-8">
-                <ProgressRadial />
-            </div>
+            <div class="col-span-full mt-4 flex w-full items-center justify-center text-center md:mt-8">loading...</div>
         {/if}
     </div>
     <div>
@@ -110,9 +107,7 @@
             {/each}
         </div>
         {#if loading[ImportType.Instagram]}
-            <div class="col-span-full mt-4 flex w-full items-center justify-center text-center md:mt-8">
-                <ProgressRadial />
-            </div>
+            <div class="col-span-full mt-4 flex w-full items-center justify-center text-center md:mt-8">loading...</div>
         {/if}
     </div>
     <div>
