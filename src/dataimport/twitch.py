@@ -10,7 +10,7 @@ from twitchAPI.helper import first
 
 
 if not os.getenv("TWITCH_CLIENT_ID") or not os.getenv("TWITCH_CLIENT_SECRET"):
-    print("TWITCH_CLIENT_ID or TWITCH_CLIENT_SECRET not set", style="bold red")
+    print("TWITCH_CLIENT_ID or TWITCH_CLIENT_SECRET not set")
     exit(1)
 
 console = Console()

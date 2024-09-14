@@ -13,7 +13,7 @@ from dateutil.parser import parse
 
 
 if not os.getenv("OPENAI_API_KEY"):
-    print("OPENAI_API_KEY not set", style="bold red")
+    print("OPENAI_API_KEY not set")
     exit(1)
 
 console = Console()
