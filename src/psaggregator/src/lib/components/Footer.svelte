@@ -2,7 +2,8 @@
     import MediaQuery from "$lib/utils/MediaQuery.svelte";
     import { GITHUB_AUTHOR_URL, GITHUB_URL, LEGAL_URL, MAIL_TO_URL } from "../../config/config";
     import { version } from "$app/environment";
-    import { Api, Favorite, Home, Document, Thumbnail_2, Settings, EventSchedule } from "carbon-icons-svelte";
+    import { Api, Favorite, Home, Document, Thumbnail_2, Settings, EventSchedule, Binoculars } from "carbon-icons-svelte";
+    import { page } from "$app/stores";
 </script>
 
 <style lang="postcss">
@@ -37,8 +38,8 @@
             <span> Dies ist ein privates Projekt und steht in keiner Verbindung zur PietSmiet UG & Co. KG. </span>
         </div>
     {:else}
-        <div class="flex w-full flex-row items-center gap-x-2 overflow-x-auto overflow-y-hidden border-t pt-2">
-            <div class="shrink-0 p-2">
+        <div class="h-18 flex w-full flex-row items-center gap-x-2 overflow-x-auto overflow-y-hidden border-t">
+            <div class="shrink-0 p-2 pt-4" class:bg-[hsl(var(--primary))]={$page.url.pathname === "/"}>
                 <a href="/">
                     <div class="flex justify-center">
                         <Home />
@@ -46,7 +47,7 @@
                     <span>Home</span>
                 </a>
             </div>
-            <div class="shrink-0 p-2">
+            <div class="shrink-0 p-2 pt-4" class:bg-[hsl(var(--primary))]={$page.url.pathname === "/plan"}>
                 <a href="/plan">
                     <div class="flex justify-center">
                         <EventSchedule />
@@ -54,7 +55,7 @@
                     <span>Uploadplan</span>
                 </a>
             </div>
-            <div class="shrink-0 p-2">
+            <div class="shrink-0 p-2 pt-4" class:bg-[hsl(var(--primary))]={$page.url.pathname === "/videos"}>
                 <a href="/videos">
                     <div class="flex justify-center">
                         <Thumbnail_2 />
@@ -62,7 +63,7 @@
                     <span>Videos</span>
                 </a>
             </div>
-            <div class="shrink-0 p-2">
+            <div class="shrink-0 p-2 pt-4" class:bg-[hsl(var(--primary))]={$page.url.pathname === "/news"}>
                 <a href="/news">
                     <div class="flex justify-center">
                         <Document />
@@ -70,7 +71,15 @@
                     <span>News</span>
                 </a>
             </div>
-            <div class="shrink-0 p-2">
+            <div class="shrink-0 p-2 pt-4" class:bg-[hsl(var(--primary))]={$page.url.pathname === "/randomvideo"}>
+                <a href="/randomvideo">
+                    <div class="flex justify-center">
+                        <Binoculars />
+                    </div>
+                    <span>Zufall</span>
+                </a>
+            </div>
+            <div class="shrink-0 p-2 pt-4" class:bg-[hsl(var(--primary))]={$page.url.pathname === "/api"}>
                 <a href="/api">
                     <div class="flex justify-center">
                         <Api />
@@ -78,7 +87,7 @@
                     <span>API</span>
                 </a>
             </div>
-            <div class="shrink-0 p-2">
+            <div class="shrink-0 p-2 pt-4" class:bg-[hsl(var(--primary))]={$page.url.pathname === "/motivation"}>
                 <a href="/motivation">
                     <div class="flex justify-center">
                         <Favorite />
@@ -86,7 +95,7 @@
                     <span>Motivation</span>
                 </a>
             </div>
-            <div class="shrink-0 p-2">
+            <div class="shrink-0 p-2 pt-4" class:bg-[hsl(var(--primary))]={$page.url.pathname === "/settings"}>
                 <a href="/settings">
                     <div class="flex justify-center">
                         <Settings />

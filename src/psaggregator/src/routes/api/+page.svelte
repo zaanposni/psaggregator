@@ -8,6 +8,7 @@
     const curlScheduledContentPieces = `curl -X GET ${location.protocol}//${location.host}/api/scheduledContentPieces?date=${moment().format("YYYY-MM-DD")}&skip=0`;
     const curlVideos = `curl -X GET ${location.protocol}//${location.host}/api/videos?skip=0`;
     const curlVideo = `curl -X GET ${location.protocol}//${location.host}/api/video/[id]`;
+    const curlRandomVideo = `curl -X GET ${location.protocol}//${location.host}/api/randomvideo`;
     const curlTwitch = `curl -X GET ${location.protocol}//${location.host}/api/twitch`;
     const curlThumbnails = `curl -X GET ${location.protocol}//${location.host}/api/thumbnails?skip=0`;
     const curlReddit = `curl -X GET ${location.protocol}//${location.host}/api/reddit`;
@@ -85,6 +86,13 @@
         <span>Einzelne Videos können über den Identifier abgerufen werden.</span>
         <span
             >Als Identifier kann die PSAggregator ID, die PietSmiet ID, die PietSmiet Short URL oder die YouTube Short URL genutzt werden.</span>
+    </div>
+    <span class="text-1xl mt-4 font-bold md:mt-8 md:text-2xl">GET /randomvideo</span>
+    <div class="xl:w-1/2">
+        <Input readonly value={curlRandomVideo} />
+    </div>
+    <div>
+        <span>Ein zufälliges Video wird zurückgegeben.</span>
     </div>
     <span class="text-1xl mt-4 font-bold md:mt-8 md:text-2xl">GET /twitch</span>
     <div class="xl:w-1/2">

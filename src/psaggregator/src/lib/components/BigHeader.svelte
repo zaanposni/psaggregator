@@ -20,6 +20,7 @@
                     <a href="/plan">Uploadplan</a>
                     <a href="/videos">Videos</a>
                     <a href="/news">News</a>
+                    <a href="/randomvideo">Zufall</a>
                     <a href="/api">API</a>
                     <a href="/motivation">Motivation</a>
                     <a href="/settings">Einstellungen</a>

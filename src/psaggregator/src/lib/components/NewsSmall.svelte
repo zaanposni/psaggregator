@@ -20,28 +20,24 @@
     <Tabs.Root>
         <Tabs.List>
             <Tabs.Trigger value="youtube">
-                <div class="mr-2">
+                <div>
                     <LogoYoutube size={32} />
                 </div>
-                <span>YouTube</span>
             </Tabs.Trigger>
             <Tabs.Trigger value="instagram">
-                <div class="mr-2">
+                <div>
                     <LogoInstagram size={32} />
                 </div>
-                <span>Instagram</span>
             </Tabs.Trigger>
             <Tabs.Trigger value="threads">
-                <div class="mr-2">
+                <div>
                     <img alt="threads" src="/threads-logo.svg" class="inline-block h-8 w-8" />
                 </div>
-                <span>Threads</span>
             </Tabs.Trigger>
             <Tabs.Trigger value="twitter">
-                <div class="mr-2">
+                <div>
                     <LogoTwitter size={32} />
                 </div>
-                <span>Twitter</span>
             </Tabs.Trigger>
         </Tabs.List>
         <Tabs.Content value="youtube">
