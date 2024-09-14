@@ -96,7 +96,7 @@ export async function load() {
             }
         },
         include: {
-            InformationResource: true,
+            InformationResource: true
         },
         orderBy: {
             date: "desc"

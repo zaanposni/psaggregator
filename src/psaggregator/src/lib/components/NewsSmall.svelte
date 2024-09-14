@@ -4,12 +4,10 @@
     import { GITHUB_URL } from "../../config/config";
     import { LogoYoutube, LogoTwitter, LogoInstagram, FaceDissatisfied } from "carbon-icons-svelte";
     import { type Information, type InformationResource } from "@prisma/client";
-    import { Tab, TabGroup } from "@skeletonlabs/skeleton";
+    import * as Tabs from "$lib/components/ui/tabs";
 
     export let youtubeCommunityPosts: Array<Information & { InformationResource: InformationResource[] }>;
     export let instagramPosts: Array<Information & { InformationResource: InformationResource[] }>;
-
-    let tabSet: number = 0;
 </script>
 
 <style>
@@ -19,59 +17,68 @@
 </style>
 
 <div class="news-small">
-    <TabGroup>
-        <Tab bind:group={tabSet} name="tab1" value={0}>
-            <div class="flex w-full justify-center" slot="lead">
-                <LogoYoutube size={32} />
-            </div>
-            <span>YouTube</span>
-        </Tab>
-        <Tab bind:group={tabSet} name="tab2" value={1}>
-            <div class="flex w-full justify-center" slot="lead">
-                <LogoInstagram size={32} />
-            </div>
-            <span>Instagram</span>
-        </Tab>
-        <Tab bind:group={tabSet} name="tab3" value={2}>
-            <div class="flex w-full justify-center" slot="lead">
-                <img alt="threads" src="/threads-logo.svg" class="inline-block h-8 w-8" />
-            </div>
-            <span>Threads</span>
-        </Tab>
-        <Tab bind:group={tabSet} name="tab4" value={3}>
-            <div class="flex w-full justify-center" slot="lead">
-                <LogoTwitter size={32} />
-            </div>
-            <span>Twitter</span>
-        </Tab>
-
-        <!-- Tab Panels --->
-        <div slot="panel" class="px-4">
-            {#if tabSet === 0}
-                <div class="flex flex-col gap-y-4">
-                    {#each youtubeCommunityPosts as youtube}
-                        <YouTubeCommunityPost post={youtube} />
-                    {/each}
+    <Tabs.Root>
+        <Tabs.List>
+            <Tabs.Trigger value="youtube">
+                <div>
+                    <LogoYoutube size={32} />
                 </div>
-            {:else if tabSet === 1}
-                <div class="flex flex-col gap-y-4">
-                    {#each instagramPosts as instagram}
-                        <InstagramPost post={instagram} />
-                    {/each}
+            </Tabs.Trigger>
+            <Tabs.Trigger value="instagram">
+                <div>
+                    <LogoInstagram size={32} />
                 </div>
-            {:else if tabSet === 2 || tabSet === 3}
-                <div class="mx-auto flex flex-col items-center text-center">
-                    <div>
-                        <FaceDissatisfied size={32} />
-                    </div>
-                    <span>Leider gibt es noch keinen Threads-Import.</span>
-                    <span>Dieses Projekt ist Open Source.</span>
-                    <span
-                        >Beteilige dich gerne auf
-                        <a href={GITHUB_URL} class="underline" target="_blank">GitHub</a>
-                    </span>
+            </Tabs.Trigger>
+            <Tabs.Trigger value="threads">
+                <div>
+                    <img alt="threads" src="/threads-logo.svg" class="inline-block h-8 w-8" />
                 </div>
-            {/if}
-        </div>
-    </TabGroup>
+            </Tabs.Trigger>
+            <Tabs.Trigger value="twitter">
+                <div>
+                    <LogoTwitter size={32} />
+                </div>
+            </Tabs.Trigger>
+        </Tabs.List>
+        <Tabs.Content value="youtube">
+            <div class="mx-4 flex flex-col gap-y-4">
+                {#each youtubeCommunityPosts as youtube}
+                    <YouTubeCommunityPost post={youtube} />
+                {/each}
+            </div>
+        </Tabs.Content>
+        <Tabs.Content value="instagram">
+            <div class="mx-4 flex flex-col gap-y-4">
+                {#each instagramPosts as instagram}
+                    <InstagramPost post={instagram} />
+                {/each}
+            </div>
+        </Tabs.Content>
+        <Tabs.Content value="threads">
+            <div class="mx-auto flex flex-col items-center text-center">
+                <div>
+                    <FaceDissatisfied size={32} />
+                </div>
+                <span>Leider gibt es noch keinen Threads-Import.</span>
+                <span>Dieses Projekt ist Open Source.</span>
+                <span
+                    >Beteilige dich gerne auf
+                    <a href={GITHUB_URL} class="underline" target="_blank">GitHub</a>
+                </span>
+            </div>
+        </Tabs.Content>
+        <Tabs.Content value="twitter">
+            <div class="mx-auto flex flex-col items-center text-center">
+                <div>
+                    <FaceDissatisfied size={32} />
+                </div>
+                <span>Leider gibt es noch keinen Twitter-Import.</span>
+                <span>Dieses Projekt ist Open Source.</span>
+                <span
+                    >Beteilige dich gerne auf
+                    <a href={GITHUB_URL} class="underline" target="_blank">GitHub</a>
+                </span>
+            </div>
+        </Tabs.Content>
+    </Tabs.Root>
 </div>

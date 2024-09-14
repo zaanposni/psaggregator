@@ -1,23 +1,18 @@
 <script lang="ts">
-    import { CodeBlock } from "@skeletonlabs/skeleton";
-    import hljs from "highlight.js/lib/core";
-    import bash from "highlight.js/lib/languages/bash";
-    import { storeHighlightJs } from "@skeletonlabs/skeleton";
     import moment from "moment";
     import { GITHUB_URL, MAIL_TO_URL } from "../../config/config";
     import Sparkle from "$lib/components/Sparkle.svelte";
+    import Input from "$lib/components/ui/input/input.svelte";
 
     const curlUploadPlan = `curl -X GET ${location.protocol}//${location.host}/api/uploadplan?date=${moment().format("YYYY-MM-DD")}`;
     const curlScheduledContentPieces = `curl -X GET ${location.protocol}//${location.host}/api/scheduledContentPieces?date=${moment().format("YYYY-MM-DD")}&skip=0`;
     const curlVideos = `curl -X GET ${location.protocol}//${location.host}/api/videos?skip=0`;
     const curlVideo = `curl -X GET ${location.protocol}//${location.host}/api/video/[id]`;
+    const curlRandomVideo = `curl -X GET ${location.protocol}//${location.host}/api/randomvideo`;
     const curlTwitch = `curl -X GET ${location.protocol}//${location.host}/api/twitch`;
     const curlThumbnails = `curl -X GET ${location.protocol}//${location.host}/api/thumbnails?skip=0`;
     const curlReddit = `curl -X GET ${location.protocol}//${location.host}/api/reddit`;
     const curlInformation = `curl -X GET ${location.protocol}//${location.host}/api/information?skip=0&date=${moment().format("YYYY-MM-DD")}&type=YouTube`;
-
-    hljs.registerLanguage("bash", bash);
-    storeHighlightJs.set(hljs);
 </script>
 
 <style lang="postcss">
@@ -50,7 +45,7 @@
     </div>
     <span class="text-1xl mt-4 font-bold md:mt-8 md:text-2xl">GET /uploadplan</span>
     <div class="xl:w-1/2">
-        <CodeBlock language="bash" code={curlUploadPlan} />
+        <Input readonly value={curlUploadPlan} />
     </div>
     <div>
         <span>Der Uploadplan wird direkt von der pietsmiet.de importiert.</span>
@@ -58,7 +53,7 @@
     </div>
     <span class="text-1xl mt-4 font-bold md:mt-8 md:text-2xl">GET /scheduledContentPieces</span>
     <div class="xl:w-1/2">
-        <CodeBlock language="bash" code={curlScheduledContentPieces} />
+        <Input readonly value={curlScheduledContentPieces} />
     </div>
     <div>
         <span>scheduledContentPieces sind ähnlich wie der Uploadplan alle potentiell stattfindenden Ereignisse.</span>
@@ -78,23 +73,30 @@
     </div>
     <span class="text-1xl mt-4 font-bold md:mt-8 md:text-2xl">GET /videos</span>
     <div class="xl:w-1/2">
-        <CodeBlock language="bash" code={curlVideos} />
+        <Input readonly value={curlVideos} />
     </div>
     <div>
         <span>Videos werden direkt von der pietsmiet.de importiert.</span>
     </div>
     <span class="text-1xl mt-4 font-bold md:mt-8 md:text-2xl">GET /video/[id]</span>
     <div class="xl:w-1/2">
-        <CodeBlock language="bash" code={curlVideo} />
+        <Input readonly value={curlVideo} />
     </div>
     <div>
         <span>Einzelne Videos können über den Identifier abgerufen werden.</span>
         <span
             >Als Identifier kann die PSAggregator ID, die PietSmiet ID, die PietSmiet Short URL oder die YouTube Short URL genutzt werden.</span>
     </div>
+    <span class="text-1xl mt-4 font-bold md:mt-8 md:text-2xl">GET /randomvideo</span>
+    <div class="xl:w-1/2">
+        <Input readonly value={curlRandomVideo} />
+    </div>
+    <div>
+        <span>Ein zufälliges Video wird zurückgegeben.</span>
+    </div>
     <span class="text-1xl mt-4 font-bold md:mt-8 md:text-2xl">GET /twitch</span>
     <div class="xl:w-1/2">
-        <CodeBlock language="bash" code={curlTwitch} />
+        <Input readonly value={curlTwitch} />
     </div>
     <div>
         <span>Der aktuelle Twitchstatus wird direkt über die Twitch Helix API importiert.</span>
@@ -102,7 +104,7 @@
     </div>
     <span class="text-1xl mt-4 font-bold md:mt-8 md:text-2xl">GET /thumbnails</span>
     <div class="xl:w-1/2">
-        <CodeBlock language="bash" code={curlThumbnails} />
+        <Input readonly value={curlThumbnails} />
     </div>
     <div>
         <span>Die Thumbnails bietet dir ähnlich wie /videos eine Übersicht aller Videos. Jedoch in kompakter Form.</span>
@@ -110,14 +112,14 @@
     </div>
     <span class="text-1xl mt-4 font-bold md:mt-8 md:text-2xl">GET /reddit</span>
     <div class="xl:w-1/2">
-        <CodeBlock language="bash" code={curlReddit} />
+        <Input readonly value={curlReddit} />
     </div>
     <div>
         <span>Die aktuellen populären Posts auf dem r/pietsmiet.</span>
     </div>
     <span class="text-1xl mt-4 font-bold md:mt-8 md:text-2xl">GET /information</span>
     <div class="xl:w-1/2">
-        <CodeBlock language="bash" code={curlInformation} />
+        <Input readonly value={curlInformation} />
     </div>
     <div>
         <span>Verschiedene Communityposts in Textform.</span>

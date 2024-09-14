@@ -1,21 +1,23 @@
 <script lang="ts">
     import type { ScheduledContentPiece } from "@prisma/client";
     import type { PageData } from "./$types";
-    import moment from "moment";
+    import { CalendarDate, startOfWeek } from "@internationalized/date";
     import UploadPlanEntry from "$lib/components/UploadPlanEntry.svelte";
     import MediaQuery from "$lib/utils/MediaQuery.svelte";
     import { ArrowLeft, ArrowRight } from "carbon-icons-svelte";
     import { writable, type Writable } from "svelte/store";
-    import { ProgressRadial } from "@skeletonlabs/skeleton";
+    import DatePicker from "$lib/components/DatePicker.svelte";
+    import moment from "moment";
 
     export let data: PageData;
 
     const plans: Writable<Map<string, ScheduledContentPiece[]>> = writable(new Map([[moment().format("YYYY-MM-DD"), data.today]]));
-    let currentDate = moment();
+    let currentDate = new CalendarDate(moment().year(), moment().month() + 1, moment().date());
 
-    $: today = $plans.get(currentDate.format("YYYY-MM-DD"));
+    $: today = $plans.get(moment(currentDate.toDate("utc")).format("YYYY-MM-DD"));
 
-    async function loadData(date: string) {
+    async function loadData() {
+        const date = moment(currentDate.toDate("utc")).format("YYYY-MM-DD");
         if ($plans.has(date)) {
             return;
         }
@@ -37,16 +39,16 @@
     }
 
     async function carouselLeft() {
-        currentDate = currentDate.subtract(1, "day");
-        await loadData(currentDate.format("YYYY-MM-DD"));
+        currentDate = currentDate.subtract({ days: 1 });
+        await loadData();
     }
 
     async function carouselRight() {
-        if (currentDate.isSame(moment(), "day")) {
+        if (moment(currentDate).isSame(moment(), "day")) {
             return;
         }
-        currentDate = currentDate.add(1, "day");
-        await loadData(currentDate.format("YYYY-MM-DD"));
+        currentDate = currentDate.add({ days: 1 });
+        await loadData();
     }
 </script>
 
@@ -65,17 +67,13 @@
                     <button type="button" class="btn btn-icon variant-filled" on:click={carouselLeft}>
                         <ArrowLeft />
                     </button>
-                    <h1 class="text-3xl font-bold">Uploadplan - {currentDate.format("DD MMMM YYYY")}</h1>
-                    <input
-                        type="date"
-                        value={currentDate.format("YYYY-MM-DD")}
-                        on:change={async (e) => {
-                            const selectedDate = moment(e.target.value);
-                            if (selectedDate.isAfter(moment(), "day")) {
-                                return;
-                            }
-                            currentDate = selectedDate;
-                            await loadData(currentDate.format("YYYY-MM-DD"));
+                    <h1 class="text-3xl font-bold">Uploadplan - {moment(currentDate.toDate("utc")).format("DD MMMM YYYY")}</h1>
+                    <DatePicker
+                        bind:value={currentDate}
+                        on:change={() => {
+                            setTimeout(async () => {
+                                await loadData();
+                            }, 100);
                         }} />
                     <button type="button" class="btn btn-icon variant-filled" on:click={carouselRight}>
                         <ArrowRight />
@@ -87,16 +85,12 @@
                     <button type="button" class="btn-icon variant-filled" on:click={carouselLeft}>
                         <ArrowLeft />
                     </button>
-                    <input
-                        type="date"
-                        value={currentDate.format("YYYY-MM-DD")}
-                        on:change={async (e) => {
-                            const selectedDate = moment(e.target.value);
-                            if (selectedDate.isAfter(moment(), "day")) {
-                                return;
-                            }
-                            currentDate = selectedDate;
-                            await loadData(currentDate.format("YYYY-MM-DD"));
+                    <DatePicker
+                        value={currentDate}
+                        on:change={() => {
+                            setTimeout(async () => {
+                                await loadData();
+                            }, 100);
                         }} />
                     <button type="button" class="btn-icon variant-filled" on:click={carouselRight}>
                         <ArrowRight />
@@ -104,13 +98,8 @@
                 </div>
             {/if}
         </div>
-        <div class="mb-4 flex flex-col md:mb-8">
-            <span>Auf dieser Seite kannst du alte Uploadpläne ansehen.</span>
-            <span>Mit dem Design bin ich hier noch nicht ganz zufrieden.</span>
-            <span>Gib mir gerne Feedback via Mail, Reddit, GitHub.</span>
-        </div>
         {#if today != undefined}
-            <div class="flex shrink-0 grow flex-col">
+            <div class="flex shrink-0 grow flex-col gap-2">
                 {#each today as content}
                     <UploadPlanEntry entry={content} />
                 {:else}
