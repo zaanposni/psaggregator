@@ -42,7 +42,7 @@
             {#if !matches}
                 <div class="flex items-center justify-between">
                     <span class="text-xl font-bold">Version {version}</span>
-                    <button class="btn variant-filled" on:click={openChangelog}>Was ist neu?</button>
+                    <a href="/changelog">Was ist neu?</a>
                 </div>
             {/if}
         </MediaQuery>

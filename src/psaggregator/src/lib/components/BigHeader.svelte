@@ -25,8 +25,6 @@
                     <a href="/motivation">Motivation</a>
                     <a href="/settings">Einstellungen</a>
                     <a href="/changelog">Was ist neu?</a>
-                {:else}
-                    <a href="/changelog">Was ist neu?</a>
                 {/if}
             </div>
             <div class="flex items-center gap-x-4">
