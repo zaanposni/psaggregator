@@ -47,6 +47,9 @@ services:
             - INSTAGRAM_PASSWORD=${INSTAGRAM_PASSWORD}
             - INSTAGRAM_2FA_SECRET=${INSTAGRAM_2FA_SECRET}
             - INSTAGRAM_CONFIG_PATH=/app/config/instagram.json
+            - TWITTER_USERNAME=${TWITTER_USERNAME}
+            - TWITTER_PASSWORD=${TWITTER_PASSWORD}
+            - TWITTER_LIST_ID=${TWITTER_LIST_ID}
         volumes:
             - shared-data:/app/cdn
             - config:/app/config

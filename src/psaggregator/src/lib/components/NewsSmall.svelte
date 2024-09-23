@@ -5,9 +5,11 @@
     import { LogoYoutube, LogoTwitter, LogoInstagram, FaceDissatisfied } from "carbon-icons-svelte";
     import { type Information, type InformationResource } from "@prisma/client";
     import * as Tabs from "$lib/components/ui/tabs";
+    import TwitterPost from "./TwitterPost.svelte";
 
     export let youtubeCommunityPosts: Array<Information & { InformationResource: InformationResource[] }>;
     export let instagramPosts: Array<Information & { InformationResource: InformationResource[] }>;
+    export let twitterPosts: Array<Information & { InformationResource: InformationResource[] }>;
 </script>
 
 <style>
@@ -29,28 +31,35 @@
                     <LogoInstagram size={32} />
                 </div>
             </Tabs.Trigger>
-            <Tabs.Trigger value="threads">
-                <div>
-                    <img alt="threads" src="/threads-logo.svg" class="inline-block h-8 w-8" />
-                </div>
-            </Tabs.Trigger>
             <Tabs.Trigger value="twitter">
                 <div>
                     <LogoTwitter size={32} />
                 </div>
             </Tabs.Trigger>
+            <Tabs.Trigger value="threads">
+                <div>
+                    <img alt="threads" src="/threads-logo.svg" class="inline-block h-8 w-8" />
+                </div>
+            </Tabs.Trigger>
         </Tabs.List>
         <Tabs.Content value="youtube">
-            <div class="mx-4 flex flex-col gap-y-4">
+            <div class="flex flex-col gap-y-4">
                 {#each youtubeCommunityPosts as youtube}
                     <YouTubeCommunityPost post={youtube} />
                 {/each}
             </div>
         </Tabs.Content>
         <Tabs.Content value="instagram">
-            <div class="mx-4 flex flex-col gap-y-4">
+            <div class="flex flex-col gap-y-4">
                 {#each instagramPosts as instagram}
                     <InstagramPost post={instagram} />
+                {/each}
+            </div>
+        </Tabs.Content>
+        <Tabs.Content value="twitter">
+            <div class="flex flex-col gap-y-4">
+                {#each twitterPosts as twitter}
+                    <TwitterPost post={twitter} />
                 {/each}
             </div>
         </Tabs.Content>
@@ -60,19 +69,6 @@
                     <FaceDissatisfied size={32} />
                 </div>
                 <span>Leider gibt es noch keinen Threads-Import.</span>
-                <span>Dieses Projekt ist Open Source.</span>
-                <span
-                    >Beteilige dich gerne auf
-                    <a href={GITHUB_URL} class="underline" target="_blank">GitHub</a>
-                </span>
-            </div>
-        </Tabs.Content>
-        <Tabs.Content value="twitter">
-            <div class="mx-auto flex flex-col items-center text-center">
-                <div>
-                    <FaceDissatisfied size={32} />
-                </div>
-                <span>Leider gibt es noch keinen Twitter-Import.</span>
                 <span>Dieses Projekt ist Open Source.</span>
                 <span
                     >Beteilige dich gerne auf

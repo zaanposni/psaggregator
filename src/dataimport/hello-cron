@@ -12,6 +12,9 @@
 */15 * * * * . /root/project_env.sh; /usr/local/bin/python /app/reddit.py >> /var/log/cron.log 2>&1
 */1 * * * * . /root/project_env.sh; /usr/local/bin/python /app/twitch.py >> /var/log/cron.log 2>&1
 # 10 1 * * * . /root/project_env.sh; /usr/local/bin/python /app/informationopenaianalyze.py >> /var/log/cron.log 2>&1
+41 01 * * * . /root/project_env.sh; /usr/local/bin/python /app/twitter.py >> /var/log/cron.log 2>&1
+47 10 * * * . /root/project_env.sh; /usr/local/bin/python /app/twitter.py >> /var/log/cron.log 2>&1
+33 16 * * * . /root/project_env.sh; /usr/local/bin/python /app/twitter.py >> /var/log/cron.log 2>&1
 2 * * * * . /root/project_env.sh; /usr/local/bin/python /app/pietsmietdeuploadplan.py >> /var/log/cron.log 2>&1
 5 * * * * . /root/project_env.sh; /usr/local/bin/python /app/pietsmietdeuploadplan.py >> /var/log/cron.log 2>&1
 30 * * * * . /root/project_env.sh; /usr/local/bin/python /app/pietsmietdeuploadplan.py >> /var/log/cron.log 2>&1
