@@ -4,16 +4,17 @@
     import PSVideo from "$lib/components/PSVideo.svelte";
     import TwitchStatus from "$lib/components/TwitchStatus.svelte";
     import RedditPost from "$lib/components/RedditPost.svelte";
-    import { List, VideoPlayer, LogoYoutube, LogoInstagram } from "carbon-icons-svelte";
+    import { List, VideoPlayer, LogoYoutube, LogoInstagram, LogoTwitter } from "carbon-icons-svelte";
     import YouTubeCommunityPost from "$lib/components/YouTubeCommunityPost.svelte";
     import MediaQuery from "$lib/utils/MediaQuery.svelte";
     import InstagramPost from "$lib/components/InstagramPost.svelte";
     import TwitchEntry from "$lib/components/TwitchEntry.svelte";
     import { version } from "$app/environment";
+    import { Notification } from "carbon-icons-svelte";
+    import * as Alert from "$lib/components/ui/alert/index.js";
+    import TwitterPost from "$lib/components/TwitterPost.svelte";
 
     export let data: PageServerData;
-
-    function openChangelog() {}
 </script>
 
 <style lang="postcss">
@@ -40,12 +41,19 @@
     <div class="dashboardcontainer p-4 md:p-8">
         <MediaQuery query="(min-width: 1280px)" let:matches>
             {#if !matches}
-                <div class="flex items-center justify-between">
+                <div class="mb-4 flex items-center justify-between">
                     <span class="text-xl font-bold">Version {version}</span>
                     <a href="/changelog">Was ist neu?</a>
                 </div>
             {/if}
         </MediaQuery>
+
+        <Alert.Root>
+            <Notification class="stroke-[hsl(var(--primary))]" />
+            <Alert.Title class="text-[hsl(var(--primary))]">Alarm!</Alert.Title>
+            <Alert.Description>Es gibt nun einen Twitter-Import. Schaut euch die neusten Tweets unter "News" an!</Alert.Description>
+        </Alert.Root>
+
         <div class="flex flex-col-reverse gap-y-4 md:flex-row md:items-start md:gap-x-8 md:gap-y-0">
             <div class="shrink-0 grow">
                 <div class="mb-2 ml-2 flex items-center text-2xl">
@@ -72,7 +80,7 @@
                 </div>
             {/if}
         </div>
-        <div class="grid grid-cols-1 gap-x-8 gap-y-4 md:grid-cols-2 md:gap-y-8 xl:grid-cols-4">
+        <div class="grid grid-cols-1 gap-x-8 gap-y-4 md:grid-cols-2 md:gap-y-8 xl:grid-cols-5">
             <div class="order-2">
                 <div class="mb-2 ml-2 flex items-center text-2xl">
                     <LogoYoutube size={32} class="mr-2" />
@@ -97,12 +105,12 @@
             </div>
             <div class="order-4">
                 <div class="mb-2 ml-2 flex items-center text-2xl">
-                    <img alt="reddit" src="/reddit-logo.svg" class="mr-2 inline-block h-8 w-8" />
-                    Reddit
+                    <LogoTwitter size={32} class="mr-2" />
+                    Twitter
                 </div>
                 <div class="flex flex-col gap-2">
-                    {#each data.redditPosts.slice(0, matches ? 10 : 5) as reddit}
-                        <RedditPost entry={reddit} />
+                    {#each data.twitterPosts as twitter}
+                        <TwitterPost post={twitter} />
                     {/each}
                 </div>
             </div>
@@ -118,6 +126,17 @@
                         <div class="flex items-center mt-4">
                             <span>Momentan sind keine geplanten Streams bekannt.</span>
                         </div>
+                    {/each}
+                </div>
+            </div>
+            <div class="order-6">
+                <div class="mb-2 ml-2 flex items-center text-2xl">
+                    <img alt="reddit" src="/reddit-logo.svg" class="mr-2 inline-block h-8 w-8" />
+                    Reddit
+                </div>
+                <div class="flex flex-col gap-2">
+                    {#each data.redditPosts.slice(0, matches ? 10 : 5) as reddit}
+                        <RedditPost entry={reddit} />
                     {/each}
                 </div>
             </div>

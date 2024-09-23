@@ -6,24 +6,29 @@
     import { LogoYoutube, LogoTwitter, LogoInstagram, FaceDissatisfied } from "carbon-icons-svelte";
     import { browser } from "$app/environment";
     import { ImportType, type Information, type InformationResource } from "@prisma/client";
+    import TwitterPost from "./TwitterPost.svelte";
 
     export let youtubeCommunityPosts: Array<Information & { InformationResource: InformationResource[] }>;
     export let instagramPosts: Array<Information & { InformationResource: InformationResource[] }>;
+    export let twitterPosts: Array<Information & { InformationResource: InformationResource[] }>;
 
     const batchSize = 20;
 
     let skip = 0;
     let loading = {
         [ImportType.YouTube]: false,
-        [ImportType.Instagram]: false
+        [ImportType.Instagram]: false,
+        [ImportType.Twitter]: false
     };
+
     let endReached = {
-        [ImportType.YouTube]: youtubeCommunityPosts.length < batchSize,
-        [ImportType.Instagram]: instagramPosts.length < batchSize
+        [ImportType.YouTube]: youtubeCommunityPosts.length % batchSize !== 0,
+        [ImportType.Instagram]: instagramPosts.length % batchSize !== 0,
+        [ImportType.Twitter]: twitterPosts.length % batchSize !== 0
     };
 
     async function loadMore() {
-        for (const type of [ImportType.YouTube, ImportType.Instagram]) {
+        for (const type of [ImportType.YouTube, ImportType.Instagram, ImportType.Twitter]) {
             if (loading[type] || endReached[type]) {
                 continue;
             }
@@ -38,6 +43,8 @@
                 youtubeCommunityPosts = [...youtubeCommunityPosts, ...newInformation];
             } else if (type === ImportType.Instagram) {
                 instagramPosts = [...instagramPosts, ...newInformation];
+            } else if (type === ImportType.Twitter) {
+                twitterPosts = [...twitterPosts, ...newInformation];
             }
 
             loading[type] = false;
@@ -112,6 +119,20 @@
     </div>
     <div>
         <div class="mb-2 ml-2 flex items-center text-2xl">
+            <LogoTwitter size={32} class="mr-2" />
+            Twitter
+        </div>
+        <div class="flex flex-col gap-y-4">
+            {#each twitterPosts as twitter}
+                <TwitterPost post={twitter} />
+            {/each}
+        </div>
+        {#if loading[ImportType.Twitter]}
+            <div class="col-span-full mt-4 flex w-full items-center justify-center text-center md:mt-8">loading...</div>
+        {/if}
+    </div>
+    <div>
+        <div class="mb-2 ml-2 flex items-center text-2xl">
             <img alt="threads" src="/threads-logo.svg" class="mr-2 inline-block h-8 w-8" />
             Threads
         </div>
@@ -120,23 +141,6 @@
                 <FaceDissatisfied size={32} />
             </div>
             <span>Leider gibt es noch keinen Threads-Import.</span>
-            <span>Dieses Projekt ist Open Source.</span>
-            <span
-                >Beteilige dich gerne auf
-                <a href={GITHUB_URL} class="underline" target="_blank">GitHub</a>
-            </span>
-        </div>
-    </div>
-    <div>
-        <div class="mb-2 ml-2 flex items-center text-2xl">
-            <LogoTwitter size={32} class="mr-2" />
-            Twitter
-        </div>
-        <div class="mx-auto flex flex-col items-center text-center">
-            <div>
-                <FaceDissatisfied size={32} />
-            </div>
-            <span>Leider gibt es noch keinen Twitter-Import.</span>
             <span>Dieses Projekt ist Open Source.</span>
             <span
                 >Beteilige dich gerne auf

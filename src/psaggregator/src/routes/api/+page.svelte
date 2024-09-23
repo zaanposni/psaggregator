@@ -128,7 +128,8 @@
         <ul class="list mb-2">
             <li>pietsmiet.de Uploadplan</li>
             <li>YouTube Communityposts des Hauptkanals</li>
-            <li>Instagram Posts der ersten Reihe</li>
+            <li>Instagram Posts und Stories der ersten Reihe</li>
+            <li>Twitter Posts der ersten Reihe</li>
         </ul>
         <span>Über den ?type Parameter kannst du einen Filter auf die Importquelle anwenden.</span>
         <span>Zukünftig sind hier noch Importe aus anderen Social Media geplant.</span>
