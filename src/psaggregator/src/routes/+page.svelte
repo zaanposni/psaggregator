@@ -48,12 +48,6 @@
             {/if}
         </MediaQuery>
 
-        <Alert.Root>
-            <Notification class="stroke-[hsl(var(--primary))]" />
-            <Alert.Title class="text-[hsl(var(--primary))]">Alarm!</Alert.Title>
-            <Alert.Description>Es gibt nun einen Twitter-Import. Schaut euch die neusten Tweets unter "News" an!</Alert.Description>
-        </Alert.Root>
-
         <div class="flex flex-col-reverse gap-y-4 md:flex-row md:items-start md:gap-x-8 md:gap-y-0">
             <div class="shrink-0 grow">
                 <div class="mb-2 ml-2 flex items-center text-2xl">
