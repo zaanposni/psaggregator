@@ -20,12 +20,6 @@
             <InstagramStoriesContainer stories={data.instagramStories} filterKey="chris" />
         </div>
 
-        <Alert.Root>
-            <Notification class="stroke-[hsl(var(--primary))]" />
-            <Alert.Title class="text-[hsl(var(--primary))]">Alarm!</Alert.Title>
-            <Alert.Description>Es gibt nun einen Twitter-Import. Schaut euch die neusten Tweets an!</Alert.Description>
-        </Alert.Root>
-
         {#if matches}
             <NewsBig
                 youtubeCommunityPosts={data.youtubeCommunityPosts}
