@@ -77,6 +77,8 @@
     </div>
     <div>
         <span>Videos werden direkt von der pietsmiet.de importiert.</span>
+        <span>Der ?skip Parameter kann genutzt werden um weitere Einträge zu laden.</span>
+        <span>Der ?newSince Parameter kann genutzt werden um nur Videos ab einem bestimmten Datum zu laden (UNIX Timestamp).</span>
     </div>
     <span class="text-1xl mt-4 font-bold md:mt-8 md:text-2xl">GET /video/[id]</span>
     <div class="xl:w-1/2">
@@ -109,6 +111,8 @@
     <div>
         <span>Die Thumbnails bietet dir ähnlich wie /videos eine Übersicht aller Videos. Jedoch in kompakter Form.</span>
         <span>Dieser Endpunkt wird für die Seite "Videos" genutzt.</span>
+        <span>Der ?skip Parameter kann genutzt werden um weitere Einträge zu laden.</span>
+        <span>Der ?newSince Parameter kann genutzt werden um nur Videos ab einem bestimmten Datum zu laden (UNIX Timestamp).</span>
     </div>
     <span class="text-1xl mt-4 font-bold md:mt-8 md:text-2xl">GET /reddit</span>
     <div class="xl:w-1/2">
@@ -132,6 +136,7 @@
             <li>Twitter Posts der ersten Reihe</li>
         </ul>
         <span>Über den ?type Parameter kannst du einen Filter auf die Importquelle anwenden.</span>
+        <span>Der ?skip Parameter kann genutzt werden um weitere Einträge zu laden.</span>
         <span>Zukünftig sind hier noch Importe aus anderen Social Media geplant.</span>
     </div>
     <span class="text-1xl mt-4 font-bold md:mt-8 md:text-2xl">Ausblick</span>
