@@ -1,5 +1,6 @@
 import { json } from "@sveltejs/kit";
 import prisma from "$lib/prisma";
+import moment from "moment";
 
 export async function GET({ url }) {
     let skip = 0;
@@ -12,10 +13,27 @@ export async function GET({ url }) {
         }
     }
 
+    let newSince = undefined;
+    if (url.searchParams.has("newSince")) {
+        const value = url.searchParams.get("newSince");
+        if (value) {
+            try {
+                newSince = moment.unix(parseInt(value));
+            } finally {
+                if (!newSince || !newSince.isValid()) {
+                    newSince = undefined;
+                }
+            }
+        }
+    }
+
     const data = await prisma.contentPiece.findMany({
         where: {
             type: "PSVideo",
-            importedFrom: "PietSmietDE"
+            importedFrom: "PietSmietDE",
+            startDate: {
+                gt: newSince ? newSince.toDate() : undefined
+            }
         },
         orderBy: {
             startDate: "desc"
