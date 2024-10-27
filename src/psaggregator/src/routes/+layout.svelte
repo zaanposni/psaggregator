@@ -16,9 +16,11 @@
     import { browser } from "$app/environment";
     import { onMount } from "svelte";
     import type { LayoutData } from "./$types";
-    import { CloseLarge, WarningAltFilled } from "carbon-icons-svelte";
+    import { CloseLarge } from "carbon-icons-svelte";
     import { ModeWatcher } from "mode-watcher";
     import { Toaster } from "$lib/components/ui/sonner";
+    import * as Alert from "$lib/components/ui/alert";
+    import { slide } from "svelte/transition";
 
     export let data: LayoutData;
 
@@ -51,22 +53,21 @@
     <div style="display: contents" class="h-full overflow-hidden">
         <div class="flex h-full w-full flex-col overflow-hidden">
             <BigHeader />
-            {#each data.announcements as announcement}
-                <aside class="alert variant-filled-warning flex-row items-center">
-                    <div>
-                        <WarningAltFilled size={32} />
-                    </div>
-                    <div class="alert-message !mt-0 px-2">
-                        <p>{announcement.text}</p>
-                    </div>
-                    <button
-                        class="alert-actions !mt-0"
-                        on:click={() => {
-                            data.announcements = data.announcements.filter((a) => a.id !== announcement.id);
-                        }}>
-                        <CloseLarge />
-                    </button>
-                </aside>
+            {#each data.announcements as announcement (announcement.id)}
+                <div out:slide>
+                    <Alert.Root class="bg-primary flex items-center justify-between gap-x-2 rounded-none border-none">
+                        <div class="text-primary-foreground font-bold">
+                            {@html announcement.text}
+                        </div>
+                        <button
+                            class="alert-actions !mt-0"
+                            on:click={() => {
+                                data.announcements = data.announcements.filter((a) => a.id !== announcement.id);
+                            }}>
+                            <CloseLarge class="text-primary-foreground" />
+                        </button>
+                    </Alert.Root>
+                </div>
             {/each}
             <div class="flex h-full w-full flex-auto overflow-hidden">
                 <div class="flex flex-1 flex-col overflow-x-hidden" style="scrollbar-gutter: auto;" id="page">
