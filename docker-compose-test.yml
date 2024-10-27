@@ -56,6 +56,7 @@ services:
             - TWITTER_USERNAME=${TWITTER_USERNAME}
             - TWITTER_PASSWORD=${TWITTER_PASSWORD}
             - TWITTER_LIST_ID=${TWITTER_LIST_ID}
+            - YOUTUBE_API_KEY=${YOUTUBE_API_KEY}
         volumes:
             - shared-data:/app/cdn
             - config:/app/config

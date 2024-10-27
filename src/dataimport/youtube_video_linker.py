@@ -11,18 +11,18 @@ from dateutil.parser import parse
 
 console = Console()
 
-server_base_url = (
-    os.getenv("YT_SERVER_BASE_URL")
-    if os.getenv("YT_SERVER_BASE_URL")
-    else "http://localhost:8080"
-)
+youtube_key = os.getenv("YOUTUBE_API_KEY")
+
+if not youtube_key:
+    raise Exception("YOUTUBE_API_KEY not set")
+
 channel_ids = [
     "UCqwGaUvq_l0RKszeHhZ5leA",  # PietSmiet
     "UC3wla9xMoxDu7MIZImad1kQ",  # PietSmietTV
     "UCYCQdW5rvpLA5Jd1nM6YxxA",  # PietSmietLive
     "UC5yPQPrd8h6r3mGpbbbWVFg",  # Best of PietSmiet
 ]
-collection_url = "https://yt.lemnoslife.com/noKey/search?part=snippet&order=date&maxResults=50&channelId={}&type=video"
+collection_url = "https://www.googleapis.com/youtube/v3/search?part=snippet&order=date&maxResults=50&channelId={}&type=video&key={}"
 youtube_url_template = "https://youtu.be/{}"
 
 UPDATE_STATEMENT = "UPDATE ContentPiece SET description = :description, secondaryHref = :secondaryHref WHERE id = :id"
@@ -54,7 +54,9 @@ async def youtube():
     console.log("Fetching yt data...")
     for channel in channel_ids:
         console.log(f"Fetching yt data for {channel}")
-        yt_data = requests.get(collection_url.format(channel)).json()["items"]
+        yt_data = requests.get(collection_url.format(channel, youtube_key)).json()[
+            "items"
+        ]
 
         for video in yt_data:
             console.log(f"Processing youtube video '{video['snippet']['title']}'")
