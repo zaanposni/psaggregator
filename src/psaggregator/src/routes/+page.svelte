@@ -58,9 +58,7 @@
                     {#each data.today as content}
                         <UploadPlanEntry entry={content} />
                     {:else}
-                        <div class="flex items-center mt-4">
-                            <span>Bisher konnte heute kein Uploadplan importiert werden.</span>
-                        </div>
+                        <div class="flex items-center">Bisher konnte heute kein Uploadplan importiert werden.</div>
                     {/each}
                 </div>
             </div>
@@ -108,7 +106,18 @@
                     {/each}
                 </div>
             </div>
-            <div class="order-1 md:order-5">
+            <div class="order-5">
+                <div class="mb-2 ml-2 flex items-center text-2xl">
+                    <img alt="reddit" src="/reddit-logo.svg" class="mr-2 inline-block h-8 w-8" />
+                    Reddit
+                </div>
+                <div class="flex flex-col gap-2">
+                    {#each data.redditPosts.slice(0, matches ? 10 : 5) as reddit}
+                        <RedditPost entry={reddit} />
+                    {/each}
+                </div>
+            </div>
+            <div class="order-1 md:order-6">
                 <div class="mb-2 ml-2 flex items-center text-2xl">
                     <img alt="twitch" src="/twitch-logo.svg" class="mr-2 inline-block h-8 w-8" />
                     Anstehende Streams
@@ -117,20 +126,7 @@
                     {#each data.upcomingStreams as stream}
                         <TwitchEntry entry={stream} />
                     {:else}
-                        <div class="flex items-center mt-4">
-                            <span>Momentan sind keine geplanten Streams bekannt.</span>
-                        </div>
-                    {/each}
-                </div>
-            </div>
-            <div class="order-6">
-                <div class="mb-2 ml-2 flex items-center text-2xl">
-                    <img alt="reddit" src="/reddit-logo.svg" class="mr-2 inline-block h-8 w-8" />
-                    Reddit
-                </div>
-                <div class="flex flex-col gap-2">
-                    {#each data.redditPosts.slice(0, matches ? 10 : 5) as reddit}
-                        <RedditPost entry={reddit} />
+                        <div class="flex items-center">Momentan sind keine geplanten Streams bekannt.</div>
                     {/each}
                 </div>
             </div>

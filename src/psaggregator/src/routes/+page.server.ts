@@ -124,7 +124,7 @@ export async function load() {
                 orderBy: {
                     date: "desc"
                 },
-                take: 3
+                take: 7
             })
         ]);
 

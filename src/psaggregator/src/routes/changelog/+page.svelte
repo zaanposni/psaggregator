@@ -25,8 +25,12 @@
         </div>
         <h2 class="mb-2 mt-4 text-2xl font-bold">Neue Features</h2>
         <div>
+            <span>Anpassung Footer</span>
+            <span>Die Navigationsleiste auf mobilen Endgeräten wurde angepasst. Sie enthält keine Labels mehr dafür größere Icons.</span>
+        </div>
+        <div>
             <span>Anzeige von neuen Videos!</span>
-            <span> Auf der Videos-Seite erhältst du nun eine Meldung, sollten neue Videos verfügbar sein. </span>
+            <span>Auf der Videos-Seite erhältst du nun eine Meldung, sollten neue Videos verfügbar sein.</span>
         </div>
         <div>
             <span>Verlinkung von YouTube-Videos!</span>

@@ -2,13 +2,27 @@
     import MediaQuery from "$lib/utils/MediaQuery.svelte";
     import { GITHUB_AUTHOR_URL, GITHUB_URL, LEGAL_URL, MAIL_TO_URL } from "../../config/config";
     import { version } from "$app/environment";
-    import { Api, Favorite, Home, Document, Thumbnail_2, Settings, EventSchedule, Binoculars } from "carbon-icons-svelte";
+    import {
+        Api,
+        Favorite,
+        Home,
+        Document,
+        Thumbnail_2,
+        Settings,
+        EventSchedule,
+        Binoculars,
+        IbmWatsonxCodeAssistantForZRefactor
+    } from "carbon-icons-svelte";
     import { page } from "$app/stores";
 </script>
 
 <style lang="postcss">
     :global(.tab-list) {
         justify-content: unset !important;
+    }
+
+    #iconfooter > a {
+        @apply flex items-center justify-center p-4 pt-4;
     }
 </style>
 
@@ -38,71 +52,34 @@
             <span> Dies ist ein privates Projekt und steht in keiner Verbindung zur PietSmiet UG & Co. KG. </span>
         </div>
     {:else}
-        <div class="h-18 flex w-full flex-row items-center gap-x-2 overflow-x-auto overflow-y-hidden border-t">
-            <div class="shrink-0 p-2 pt-4" class:bg-[hsl(var(--primary))]={$page.url.pathname === "/"}>
-                <a href="/">
-                    <div class="flex justify-center">
-                        <Home />
-                    </div>
-                    <span>Home</span>
-                </a>
-            </div>
-            <div class="shrink-0 p-2 pt-4" class:bg-[hsl(var(--primary))]={$page.url.pathname === "/plan"}>
-                <a href="/plan">
-                    <div class="flex justify-center">
-                        <EventSchedule />
-                    </div>
-                    <span>Uploadplan</span>
-                </a>
-            </div>
-            <div class="shrink-0 p-2 pt-4" class:bg-[hsl(var(--primary))]={$page.url.pathname === "/videos"}>
-                <a href="/videos">
-                    <div class="flex justify-center">
-                        <Thumbnail_2 />
-                    </div>
-                    <span>Videos</span>
-                </a>
-            </div>
-            <div class="shrink-0 p-2 pt-4" class:bg-[hsl(var(--primary))]={$page.url.pathname === "/news"}>
-                <a href="/news">
-                    <div class="flex justify-center">
-                        <Document />
-                    </div>
-                    <span>News</span>
-                </a>
-            </div>
-            <div class="shrink-0 p-2 pt-4" class:bg-[hsl(var(--primary))]={$page.url.pathname === "/randomvideo"}>
-                <a href="/randomvideo">
-                    <div class="flex justify-center">
-                        <Binoculars />
-                    </div>
-                    <span>Zufall</span>
-                </a>
-            </div>
-            <div class="shrink-0 p-2 pt-4" class:bg-[hsl(var(--primary))]={$page.url.pathname === "/api"}>
-                <a href="/api">
-                    <div class="flex justify-center">
-                        <Api />
-                    </div>
-                    <span>API</span>
-                </a>
-            </div>
-            <div class="shrink-0 p-2 pt-4" class:bg-[hsl(var(--primary))]={$page.url.pathname === "/motivation"}>
-                <a href="/motivation">
-                    <div class="flex justify-center">
-                        <Favorite />
-                    </div>
-                    <span>Motivation</span>
-                </a>
-            </div>
-            <div class="shrink-0 p-2 pt-4" class:bg-[hsl(var(--primary))]={$page.url.pathname === "/settings"}>
-                <a href="/settings">
-                    <div class="flex justify-center">
-                        <Settings />
-                    </div>
-                    <span>Einstellungen</span>
-                </a>
-            </div>
+        <div class="flex h-16 flex-row items-center overflow-x-auto overflow-y-hidden border-t" id="iconfooter">
+            <a href="/" class="" class:bg-[hsl(var(--primary))]={$page.url.pathname === "/"}>
+                <Home size={24} />
+            </a>
+            <a href="/plan" class:bg-[hsl(var(--primary))]={$page.url.pathname === "/plan"}>
+                <EventSchedule size={24} />
+            </a>
+            <a href="/videos" class:bg-[hsl(var(--primary))]={$page.url.pathname === "/videos"}>
+                <Thumbnail_2 size={24} />
+            </a>
+            <a href="/news" class:bg-[hsl(var(--primary))]={$page.url.pathname === "/news"}>
+                <Document size={24} />
+            </a>
+            <a href="/randomvideo" class:bg-[hsl(var(--primary))]={$page.url.pathname === "/randomvideo"}>
+                <Binoculars size={24} />
+            </a>
+            <a href="/api" class:bg-[hsl(var(--primary))]={$page.url.pathname === "/api"}>
+                <Api size={24} />
+            </a>
+            <a href="/motivation" class:bg-[hsl(var(--primary))]={$page.url.pathname === "/motivation"}>
+                <Favorite size={24} />
+            </a>
+            <a href="/changelog" class:bg-[hsl(var(--primary))]={$page.url.pathname === "/changelog"}>
+                <IbmWatsonxCodeAssistantForZRefactor size={24} />
+            </a>
+            <a href="/settings" class:bg-[hsl(var(--primary))]={$page.url.pathname === "/settings"}>
+                <Settings size={24} />
+            </a>
         </div>
     {/if}
 </MediaQuery>
