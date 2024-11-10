@@ -23,4 +23,4 @@ RUN npm run build
 
 EXPOSE 3000
 ENV NODE_ENV=production
-CMD npx prisma migrate deploy --schema ./src/config/schema.prisma && node build
+CMD npx prisma migrate deploy --schema ./src/config/schema.prisma && node server.js
