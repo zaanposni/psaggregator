@@ -19,6 +19,7 @@ services:
         image: ghcr.io/zaanposni/psaggregator_frontend:latest
         environment:
             - PRIVATE_DATABASE_URL=${DATABASE_URL}
+            - PRIVATE_API_ANALYTICS_KEY=${API_ANALYTICS_KEY}
             - PUBLIC_LEGAL_URL=${LEGAL_URL}
             - PUBLIC_UMAMI_ID=${UMAMI_ID}
             - PUBLIC_KOFI_USERNAME=${KOFI_USERNAME}
