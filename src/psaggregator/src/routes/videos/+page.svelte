@@ -42,7 +42,7 @@
     async function checkForNewVideos() {
         if (!browser) return;
 
-        const newSince = moment(data.videos[0].startDate).unix() - 1;
+        const newSince = moment(data.videos[0].startDate).unix();
 
         const response = await fetch(`/api/thumbnails?newSince=${newSince}`);
         potentialNewVideos = await response.json();
@@ -139,7 +139,7 @@
 
     onMount(async () => {
         if (browser) {
-            checkForNewVideosInterval = setInterval(checkForNewVideos, 1000 * 10);
+            checkForNewVideosInterval = setInterval(checkForNewVideos, 1000 * 60 * 5);
 
             FaviconNotification.init({
                 color: "#ff0000",
