@@ -1,6 +1,6 @@
 {
     "name": "psaggregator",
-    "version": "1.14.1",
+    "version": "1.15.0",
     "scripts": {
         "dev": "vite dev",
         "build": "vite build",
@@ -17,6 +17,7 @@
         "@fontsource/fira-mono": "^4.5.10",
         "@neoconfetti/svelte": "^1.0.0",
         "@prisma/client": "4.15.0-integration-feat-client-esm.27",
+        "@sentry/vite-plugin": "^2.22.6",
         "@sveltejs/adapter-auto": "^3.0.0",
         "@sveltejs/adapter-node": "^4.0.1",
         "@sveltejs/kit": "^2.4.3",
@@ -49,8 +50,10 @@
     "type": "module",
     "dependencies": {
         "@internationalized/date": "^3.5.5",
+        "@sentry/sveltekit": "^8.37.1",
         "bits-ui": "^0.21.13",
         "clsx": "^2.1.1",
+        "favicon-notification": "^0.1.4",
         "lucide-svelte": "^0.441.0",
         "mode-watcher": "^0.4.1",
         "svelte-sonner": "^0.3.28",

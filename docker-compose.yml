@@ -20,8 +20,9 @@ services:
         environment:
             - PRIVATE_DATABASE_URL=${DATABASE_URL}
             - PUBLIC_LEGAL_URL=${LEGAL_URL}
-            - PUBLIC_MICROANALYTICS_ID=${MICROANALYTICS_ID}
+            - PUBLIC_UMAMI_ID=${UMAMI_ID}
             - PUBLIC_KOFI_USERNAME=${KOFI_USERNAME}
+            - PUBLIC_SENTRY_DSN=${SVELTEKIT_SENTRY_DSN}
         depends_on:
             - db
         networks:

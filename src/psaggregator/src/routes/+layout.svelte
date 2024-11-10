@@ -5,7 +5,7 @@
     import {
         LINK_YOUTUBE,
         LINK_YOUTUBE_KEY,
-        MICROANALYTICS_ID,
+        UMAMI_ID,
         SHOW_ABSOLUTE_DATES,
         SHOW_ABSOLUTE_DATES_KEY,
         VIDEO_COMPLEXE_VIEW,
@@ -79,12 +79,6 @@
     </div>
 </MediaQuery>
 
-{#if MICROANALYTICS_ID}
-    <script
-        data-host="https://app.microanalytics.io"
-        data-dnt="false"
-        src="https://app.microanalytics.io/js/script.js"
-        id={MICROANALYTICS_ID}
-        async
-        defer></script>
+{#if UMAMI_ID}
+    <script defer src="https://cloud.umami.is/script.js" data-website-id={UMAMI_ID}></script>
 {/if}

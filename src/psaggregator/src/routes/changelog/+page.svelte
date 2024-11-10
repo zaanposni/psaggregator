@@ -1,21 +1,37 @@
-<script lang="ts">
-    import { version } from "$app/environment";
-</script>
-
 <style lang="postcss">
-    #changelog-contents > div {
+    .changelog-contents > div {
         @apply mb-2 flex flex-col;
     }
-    #changelog-contents > div > span:first-child {
+    .changelog-contents > div > span:first-child {
         @apply font-bold;
+    }
+
+    h2 {
+        @apply mt-4;
+    }
+
+    h2:first-child {
+        @apply mt-0;
     }
 </style>
 
 <div class="flex-col p-4">
-    <h1 class="mb-4 text-4xl font-bold">Version {version}</h1>
+    <h2 class="mb-2 text-2xl font-bold">Version 1.15.0</h2>
+    <div class="changelog-contents w-full grow overflow-y-auto lg:w-1/2">
+        <h3 class="mb-2 text-xl font-bold">Neue Features</h3>
+        <div>
+            <span>Neue Videos-Markierung</span>
+            <span>Auf der Videos-Seite ändert sich nun das Favicon, sollten neue Videos verfügbar sein.</span>
+        </div>
+        <div>
+            <span>Problem melden</span>
+            <span>Im Footer gibt es nun dauerhaft die Option, Probleme zu melden.</span>
+        </div>
+    </div>
 
-    <div class="w-full grow overflow-y-auto lg:w-1/2" id="changelog-contents">
-        <h2 class="mb-2 text-2xl font-bold">Neues Design</h2>
+    <h2 class="mb-2 text-2xl font-bold">Version 1.14.1</h2>
+    <div class="changelog-contents w-full grow overflow-y-auto lg:w-1/2">
+        <h3 class="mb-2 text-xl font-bold">Neues Design</h3>
         <div>
             <span />
             <span>
@@ -23,7 +39,7 @@
                 Schriftart wurde geändert. Lasst mich gerne wissen, wie es euch gefällt!
             </span>
         </div>
-        <h2 class="mb-2 mt-4 text-2xl font-bold">Neue Features</h2>
+        <h3 class="mb-2 mt-4 text-xl font-bold">Neue Features</h3>
         <div>
             <span>Anpassung Footer</span>
             <span>Die Navigationsleiste auf mobilen Endgeräten wurde angepasst. Sie enthält keine Labels mehr dafür größere Icons.</span>
