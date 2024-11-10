@@ -53,6 +53,7 @@
         "@sentry/sveltekit": "^8.37.1",
         "bits-ui": "^0.21.13",
         "clsx": "^2.1.1",
+        "favicon-notification": "^0.1.4",
         "lucide-svelte": "^0.441.0",
         "mode-watcher": "^0.4.1",
         "svelte-sonner": "^0.3.28",

@@ -13,6 +13,7 @@
     import { Button } from "$lib/components/ui/button";
     import { Warning } from "carbon-icons-svelte";
     import { toast } from "svelte-sonner";
+    import FaviconNotification from "favicon-notification";
 
     export let data: PageData;
 
@@ -23,7 +24,7 @@
     let loading = false;
     let endReached = data.videos.length < batchSize;
 
-    let checkForNewVideosInterval: number;
+    let checkForNewVideosInterval: number | NodeJS.Timeout | undefined = undefined;
     let newVideosToast: string | number | undefined = undefined;
     let potentialNewVideos: ContentPiece[] = [];
 
@@ -41,13 +42,19 @@
     async function checkForNewVideos() {
         if (!browser) return;
 
-        const newSince = moment(data.videos[0].startDate).unix();
+        const newSince = moment(data.videos[0].startDate).unix() - 1;
 
         const response = await fetch(`/api/thumbnails?newSince=${newSince}`);
         potentialNewVideos = await response.json();
 
         if (potentialNewVideos.length > 0) {
             if (newVideosToast !== undefined) toast.dismiss(newVideosToast);
+
+            try {
+                FaviconNotification.add();
+            } catch (e) {
+                console.error(e);
+            }
 
             newVideosToast = toast(`Neue Videos verfügbar (${potentialNewVideos.length > 20 ? "20+" : potentialNewVideos.length})`, {
                 duration: Number.POSITIVE_INFINITY,
@@ -61,6 +68,12 @@
                 },
                 dismissable: true
             });
+        } else {
+            try {
+                FaviconNotification.remove();
+            } catch (e) {
+                console.error(e);
+            }
         }
     }
 
@@ -83,6 +96,12 @@
     function loadNewVideos() {
         if (potentialNewVideos.length === 0) {
             return;
+        }
+
+        try {
+            FaviconNotification.remove();
+        } catch (e) {
+            console.error(e);
         }
 
         if (potentialNewVideos.length > 20) {
@@ -120,7 +139,13 @@
 
     onMount(async () => {
         if (browser) {
-            checkForNewVideosInterval = setInterval(checkForNewVideos, 1000 * 60 * 5);
+            checkForNewVideosInterval = setInterval(checkForNewVideos, 1000 * 10);
+
+            FaviconNotification.init({
+                color: "#ff0000",
+                lineColor: "#000000",
+                url: "/favicon.png"
+            });
         }
     });
 
