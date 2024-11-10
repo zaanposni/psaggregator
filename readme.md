@@ -5,7 +5,7 @@
 [![Website][repo_website_img]][website_url]
 [![License][repo_license_img]][repo_license_url]
 
-PietSmiet Aggregator is a selfhostable web application that aggregates all the videos, streams and additional content from PietSmiet and displays them in a nice overview.
+psaggregator is a selfhostable web application that aggregates all the videos, streams and additional content from PietSmiet and displays them in a nice overview.
 
 ⭐ **Dashboard** - Display all PietSmiet videos and streams in a nice overview.\
 ⭐ **API** - Free and Public JSON HTTP API.\

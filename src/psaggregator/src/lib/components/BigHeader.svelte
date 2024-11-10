@@ -10,7 +10,7 @@
     <div class="flex items-center gap-x-4 border-b p-4">
         <div>
             <a href="/">
-                <img src="/ps.png" alt="PS Aggregator Logo" class="h-8 w-8" />
+                <img src="/ps.png" alt="psaggregator logo, pietsmiet logo turned upside down, green game controller" class="h-8 w-8" />
             </a>
         </div>
         <div class="flex grow flex-nowrap items-center justify-between">
@@ -35,7 +35,7 @@
                 {/if}
                 {#if KOFI_USERNAME}
                     <a href="https://ko-fi.com/{KOFI_USERNAME}" target="_blank">
-                        <span>Ko-fi</span>
+                        <span>Donate</span>
                     </a>
                 {/if}
                 <a href="https://pietsmiet.de" target="_blank">

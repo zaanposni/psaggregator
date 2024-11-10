@@ -77,7 +77,7 @@
         <div class="flex w-full flex-row flex-nowrap items-center gap-x-4 p-2">
             <span class="mr-12">
                 <a href={GITHUB_URL} target="_blank">
-                    <span>PS Aggregator</span>
+                    <span>psaggregator</span>
                 </a>by
                 <a href={GITHUB_AUTHOR_URL} target="_blank">
                     <span>zaanposni</span>

@@ -87,7 +87,7 @@
     <div>
         <span>Einzelne Videos können über den Identifier abgerufen werden.</span>
         <span
-            >Als Identifier kann die PSAggregator ID, die PietSmiet ID, die PietSmiet Short URL oder die YouTube Short URL genutzt werden.</span>
+            >Als Identifier kann die psaggregator ID, die PietSmiet ID, die PietSmiet Short URL oder die YouTube Short URL genutzt werden.</span>
     </div>
     <span class="text-1xl mt-4 font-bold md:mt-8 md:text-2xl">GET /randomvideo</span>
     <div class="xl:w-1/2">
