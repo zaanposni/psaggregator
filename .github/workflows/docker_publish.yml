@@ -24,7 +24,15 @@ jobs:
 
             - name: Build frontend
               working-directory: ./src/psaggregator
-              run: docker build -t ghcr.io/${{ github.repository_owner }}/psaggregator_frontend:latest -t ghcr.io/${{ github.repository_owner }}/psaggregator_frontend:${{ env.VERSION }} .
+              run: |
+                  docker build \
+                    -t ghcr.io/${{ github.repository_owner }}/psaggregator_frontend:latest \
+                    -t ghcr.io/${{ github.repository_owner }}/psaggregator_frontend:${{ env.VERSION }} \
+                    --build-arg SENTRY_UPLOAD_SOURCEMAPS=true \
+                    --build-arg SENTRY_ORG=${{ vars.SENTRY_ORG }} \
+                    --build-arg SENTRY_PROJECT=${{ vars.SENTRY_PROJECT }} \
+                    --build-arg SENTRY_AUTH_TOKEN=${{ secrets.SENTRY_AUTH_TOKEN }} \
+                    .
 
             - name: Build nginx
               working-directory: ./src/nginx

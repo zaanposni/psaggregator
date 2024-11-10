@@ -16,3 +16,5 @@ export const LINK_YOUTUBE = writable(false);
 export const SHOW_ABSOLUTE_DATES_KEY = "showAbsoluteDates";
 export const VIDEO_COMPLEXE_VIEW_KEY = "videoComplexeView";
 export const LINK_YOUTUBE_KEY = "linkYoutube";
+
+export const SENTRY_DSN = env.PUBLIC_SENTRY_DSN;
