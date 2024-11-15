@@ -17,7 +17,7 @@
             <Button
                 on:click={() => {
                     invalidate("data:randomvideo");
-                }}>Nächstes Video</Button>
+                }}>Nächstes zufällige Video</Button>
             <Button
                 variant="secondary"
                 on:click={() => {

@@ -13,8 +13,10 @@
 </script>
 
 <div class="p-4 md:p-8">
-    <div class="mb-4 md:mb-8">
-        <h1 class="text-3xl font-bold">Einstellungen</h1>
+    <div class="mb-4">
+        <h1 class="text-2xl font-bold md:text-4xl">Einstellungen</h1>
+    </div>
+    <div class="mb-4">
         <span>Einstellungen werden lokal auf deinem Endgerät gespeichert und sind nur für dich sichtbar.</span>
     </div>
     <div class="flex flex-col gap-y-2">

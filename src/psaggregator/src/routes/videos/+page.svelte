@@ -175,9 +175,9 @@
 
 <MediaQuery query="(min-width: 768px)" let:matches>
     <div class="p-4 md:p-8">
-        <div class="mb-4 flex w-full flex-col justify-between gap-y-4 md:mb-8 md:flex-row md:items-center">
+        <div class="mb-4 flex w-full flex-col justify-between gap-y-4 md:flex-row md:items-center">
             <div class="flex items-center gap-4">
-                <h1 class="text-3xl font-bold">Alle Videos</h1>
+                <h1 class="text-2xl font-bold md:text-4xl">Alle Videos</h1>
                 {#if potentialNewVideos.length > 0}
                     <div>
                         <Button variant="default" on:click={loadNewVideos}>
