@@ -24,6 +24,9 @@
 
     export let data: LayoutData;
 
+    let scrollableContent: HTMLElement;
+    let atTop = false;
+
     afterNavigate(() => {
         if (browser) {
             disableScrollHandling();
@@ -37,11 +40,25 @@
         }
     });
 
+    function scrollToTop(event: TouchEvent) {
+        const touchY = event.touches[0].clientY;
+        if (touchY < 10 && !atTop) {
+            scrollableContent.scrollTo({ top: 0, behavior: "smooth" });
+        }
+    }
+
     onMount(() => {
         if (browser) {
             SHOW_ABSOLUTE_DATES.set(localStorage.getItem(SHOW_ABSOLUTE_DATES_KEY) === "true");
             VIDEO_COMPLEXE_VIEW.set(localStorage.getItem(VIDEO_COMPLEXE_VIEW_KEY) === "true");
             LINK_YOUTUBE.set(localStorage.getItem(LINK_YOUTUBE_KEY) === "true");
+
+            scrollableContent &&
+                scrollableContent.addEventListener("scroll", () => {
+                    atTop = scrollableContent.scrollTop === 0;
+                });
+
+            window && window.addEventListener("touchstart", scrollToTop, { passive: true });
         }
     });
 </script>
@@ -70,7 +87,7 @@
                 </div>
             {/each}
             <div class="flex h-full w-full flex-auto overflow-hidden">
-                <div class="flex flex-1 flex-col overflow-x-hidden" style="scrollbar-gutter: auto;" id="page">
+                <div class="flex flex-1 flex-col overflow-x-hidden" style="scrollbar-gutter: auto;" id="page" bind:this={scrollableContent}>
                     <slot />
                 </div>
             </div>

@@ -61,13 +61,13 @@
 
 <MediaQuery query="(min-width: 768px)" let:matches>
     <div class="p-4 md:p-8">
-        <div class="mb-4 md:mb-8">
+        <div class="mb-4">
             {#if matches}
                 <div class="flex items-center gap-x-4">
                     <button type="button" class="btn btn-icon variant-filled" on:click={carouselLeft}>
                         <ArrowLeft />
                     </button>
-                    <h1 class="text-3xl font-bold">Uploadplan - {moment(currentDate.toDate("utc")).format("DD MMMM YYYY")}</h1>
+                    <h1 class="text-2xl font-bold md:text-4xl">Uploadplan - {moment(currentDate.toDate("utc")).format("DD MMMM YYYY")}</h1>
                     <DatePicker
                         bind:value={currentDate}
                         on:change={() => {

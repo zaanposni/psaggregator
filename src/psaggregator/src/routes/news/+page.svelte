@@ -4,8 +4,6 @@
     import NewsSmall from "$lib/components/NewsSmall.svelte";
     import MediaQuery from "$lib/utils/MediaQuery.svelte";
     import InstagramStoriesContainer from "$lib/components/InstagramStoriesContainer.svelte";
-    import { Notification } from "carbon-icons-svelte";
-    import * as Alert from "$lib/components/ui/alert/index.js";
 
     export let data: PageData;
 </script>
