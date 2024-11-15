@@ -15,10 +15,12 @@ if (process.env.PRIVATE_API_ANALYTICS_KEY) {
     const apiAnalytics = expressAnalytics(process.env.PRIVATE_API_ANALYTICS_KEY, apiAnalyticsConfig);
 
     const customMiddleware = (req, res, next) => {
-        if (req.path.startsWith("/api/")) {
-            return apiAnalytics(req, res, next);
-        }
-        next();
+        if (!req.path.startsWith("/api/")) return next();
+        if (req.path.endsWith("__data.json")) return next();
+        const referer = req.get("Referer");
+        if (referer && referer.includes(process.env.PRIVATE_API_HOSTNAME)) return next();
+
+        return apiAnalytics(req, res, next);
     };
 
     app.use(customMiddleware);
