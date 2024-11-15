@@ -10,9 +10,8 @@
     import InstagramPost from "$lib/components/InstagramPost.svelte";
     import TwitchEntry from "$lib/components/TwitchEntry.svelte";
     import { version } from "$app/environment";
-    import { Notification } from "carbon-icons-svelte";
-    import * as Alert from "$lib/components/ui/alert/index.js";
     import TwitterPost from "$lib/components/TwitterPost.svelte";
+    import { GITHUB_URL, MAIL_TO_URL } from "../config/config";
 
     export let data: PageServerData;
 </script>
@@ -143,4 +142,18 @@
             </div>
         </div>
     </div>
+    {#if !matches}
+        <div class="md-px:8 flex w-full items-center justify-between px-4 pb-2">
+            <a href={MAIL_TO_URL} target="_blank">
+                <span>Kontakt</span>
+            </a>
+            <a href={GITHUB_URL} target="_blank">
+                <span>GitHub</span>
+            </a>
+            <span>v{version}</span>
+        </div>
+        <div class="w-full pb-4 text-center">
+            <span> Dies ist ein privates Projekt und steht in keiner Verbindung zur PietSmiet UG & Co. KG. </span>
+        </div>
+    {/if}
 </MediaQuery>
