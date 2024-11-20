@@ -16,6 +16,19 @@
 </style>
 
 <div class="flex-col p-4">
+    <h2 class="mb-2 text-2xl font-bold">Version 1.17.0</h2>
+    <div class="changelog-contents w-full grow overflow-y-auto lg:w-1/2">
+        <h3 class="mb-2 text-xl font-bold">Neue Features</h3>
+        <div>
+            <span>Instagram Videos Import</span>
+            <span>Wenn ein Instagram nur aus einem Video besteht, wird dieses nun auch importiert und abgespielt.</span>
+        </div>
+        <div>
+            <span>Datensparmodus</span>
+            <span>In den Einstellungen kann der Datensparmodus aktiviert werden. Dieser blockiert das Laden von Videos.</span>
+        </div>
+    </div>
+
     <h2 class="mb-2 text-2xl font-bold">Version 1.16.0</h2>
     <div class="changelog-contents w-full grow overflow-y-auto lg:w-1/2">
         <h3 class="mb-2 text-xl font-bold">Neue Features</h3>
