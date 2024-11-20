@@ -14,7 +14,13 @@ if (SENTRY_DSN) {
         replaysSessionSampleRate: import.meta.env.MODE === "development" ? 0 : 0.1,
         replaysOnErrorSampleRate: 1.0,
 
-        integrations: [replayIntegration()]
+        integrations: [
+            replayIntegration({
+                maskAllInputs: false,
+                maskAllText: false,
+                blockAllMedia: false
+            })
+        ]
     });
 }
 
