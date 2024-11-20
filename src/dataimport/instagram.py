@@ -186,6 +186,33 @@ async def instagram():
                     "date": media.taken_at.strftime("%Y-%m-%d %H:%M:%S"),
                 },
             )
+
+            if media.video_url:
+                time.sleep(random.randint(10, 30))
+
+                console.log(f"Downloading video for {remote_id}")
+                video_url = media.video_url
+                try:
+                    video = requests.get(media.video_url).content
+                    filename = f"r_{uuid4()}.mp4"
+                    with open(f"/app/cdn/instagram/{filename}", "wb") as f:
+                        f.write(video)
+                    video_url = f"/cdn/instagram/{filename}"
+                except Exception as e:
+                    console.log(f"Error downloading video: {e}", style="bold red")
+                    continue
+
+                await db.execute(
+                    INSERT_QUERY_RESOURCE,
+                    {
+                        "id": uuid4(),
+                        "remoteId": remote_id,
+                        "informationId": media_db_id,
+                        "imageUri": thumbnail_url,
+                        "videoUri": video_url,
+                    },
+                )
+
             for resource in media.resources:
                 time.sleep(random.randint(10, 30))
                 thumbnail_url = resource.thumbnail_url

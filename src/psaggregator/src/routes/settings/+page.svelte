@@ -8,7 +8,9 @@
         VIDEO_COMPLEXE_VIEW,
         VIDEO_COMPLEXE_VIEW_KEY,
         LINK_YOUTUBE,
-        LINK_YOUTUBE_KEY
+        LINK_YOUTUBE_KEY,
+        LOW_DATA_MODE,
+        LOW_DATA_MODE_KEY
     } from "../../config/config";
 </script>
 
@@ -81,6 +83,27 @@
                 <p class="text-muted-foreground text-sm">
                     Soweit verfügbar, sind Videos mit einem Link zu YouTube versehen. Wenn diese Option deaktiviert ist, wird stattdessen
                     auf pietsmiet.de verlinkt.
+                </p>
+            </div>
+        </div>
+        <div class="items-top flex space-x-2">
+            <Checkbox
+                id="low-data-mode"
+                checked={$LOW_DATA_MODE}
+                on:click={() => {
+                    LOW_DATA_MODE.set(!$LOW_DATA_MODE);
+                    if (browser) {
+                        localStorage.setItem(LOW_DATA_MODE_KEY, $LOW_DATA_MODE.toString());
+                    }
+                }} />
+            <div class="grid gap-1.5 leading-none">
+                <Label
+                    for="low-data-mode"
+                    class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                    Datensparmodus
+                </Label>
+                <p class="text-muted-foreground text-sm">
+                    Soweit verfügbar, werden Videos durch Thumbnails ersetzt, um Datenvolumen zu sparen.
                 </p>
             </div>
         </div>

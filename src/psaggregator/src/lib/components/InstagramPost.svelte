@@ -1,10 +1,16 @@
 <script lang="ts">
     import type { Information, InformationResource } from "@prisma/client";
-    import { SHOW_ABSOLUTE_DATES } from "../../config/config";
+    import { LOW_DATA_MODE, SHOW_ABSOLUTE_DATES } from "../../config/config";
     import { dateFormat } from "$lib/utils/dateFormat";
     import * as Card from "$lib/components/ui/card";
 
     export let post: Information & { InformationResource: InformationResource[] };
+
+    let video: HTMLVideoElement;
+    $: isVideoOnly =
+        post.InformationResource.length === 1 &&
+        post.InformationResource[0].videoUri !== null &&
+        post.InformationResource[0].imageUri === post.imageUri;
 
     function titleCase(str: string | null) {
         if (!str) return "";
@@ -21,7 +27,17 @@
             {/if}
         </div>
         <div class="mb-4">{post.text}</div>
-        {#if post.InformationResource.filter((x) => x.imageUri).length > 1}
+        {#if isVideoOnly && !$LOW_DATA_MODE}
+            <video
+                bind:this={video}
+                src={post.InformationResource[0].videoUri}
+                autoplay
+                loop
+                muted
+                playsinline
+                controls
+                class="h-full w-full object-contain"></video>
+        {:else if post.InformationResource.filter((x) => x.imageUri).length > 1}
             <div class="flex w-full gap-2 overflow-x-auto scroll-smooth pb-2">
                 {#each post.InformationResource.filter((x) => x.imageUri) as resource}
                     <div class="w-full shrink-0">
