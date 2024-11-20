@@ -36,7 +36,9 @@
                 muted
                 playsinline
                 controls
-                class="h-full w-full object-contain"></video>
+                class="h-full w-full object-contain"
+                on:pointerdown={(event) => event.stopPropagation()}
+                on:click={(event) => event.stopPropagation()}></video>
         {:else if post.InformationResource.filter((x) => x.imageUri).length > 1}
             <div class="flex w-full gap-2 overflow-x-auto scroll-smooth pb-2">
                 {#each post.InformationResource.filter((x) => x.imageUri) as resource}
