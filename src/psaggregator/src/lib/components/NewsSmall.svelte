@@ -20,25 +20,20 @@
 
 <div class="news-small">
     <Tabs.Root>
-        <Tabs.List>
-            <Tabs.Trigger value="youtube">
+        <Tabs.List class="w-full justify-evenly">
+            <Tabs.Trigger value="youtube" class="grow">
                 <div>
                     <LogoYoutube size={32} />
                 </div>
             </Tabs.Trigger>
-            <Tabs.Trigger value="instagram">
+            <Tabs.Trigger value="instagram" class="grow">
                 <div>
                     <LogoInstagram size={32} />
                 </div>
             </Tabs.Trigger>
-            <Tabs.Trigger value="twitter">
+            <Tabs.Trigger value="twitter" class="grow">
                 <div>
                     <LogoTwitter size={32} />
-                </div>
-            </Tabs.Trigger>
-            <Tabs.Trigger value="threads">
-                <div>
-                    <img alt="threads" src="/threads-logo.svg" class="inline-block h-8 w-8" />
                 </div>
             </Tabs.Trigger>
         </Tabs.List>
@@ -61,19 +56,6 @@
                 {#each twitterPosts as twitter}
                     <TwitterPost post={twitter} />
                 {/each}
-            </div>
-        </Tabs.Content>
-        <Tabs.Content value="threads">
-            <div class="mx-auto flex flex-col items-center text-center">
-                <div>
-                    <FaceDissatisfied size={32} />
-                </div>
-                <span>Leider gibt es noch keinen Threads-Import.</span>
-                <span>Dieses Projekt ist Open Source.</span>
-                <span
-                    >Beteilige dich gerne auf
-                    <a href={GITHUB_URL} class="underline" target="_blank">GitHub</a>
-                </span>
             </div>
         </Tabs.Content>
     </Tabs.Root>
