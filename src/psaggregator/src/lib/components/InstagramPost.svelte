@@ -19,14 +19,18 @@
 </script>
 
 <Card.Root>
-    <a class="flex flex-col gap-x-4 p-4" href={post.href} target="_blank">
-        <div class="mb-2 flex justify-between">
-            <span>{titleCase(post.additionalInfo)}</span>
-            {#if post.date}
-                <span class="text-sm">{dateFormat(post.date, $SHOW_ABSOLUTE_DATES)}</span>
-            {/if}
+    <div class="flex flex-col gap-4 p-4">
+        <div>
+            <a href={post.href} target="_blank">
+                <div class="mb-2 flex justify-between">
+                    <span>{titleCase(post.additionalInfo)}</span>
+                    {#if post.date}
+                        <span class="text-sm">{dateFormat(post.date, $SHOW_ABSOLUTE_DATES)}</span>
+                    {/if}
+                </div>
+            </a>
+            <div>{post.text}</div>
         </div>
-        <div class="mb-4">{post.text}</div>
         {#if isVideoOnly && !$LOW_DATA_MODE}
             <video
                 bind:this={video}
@@ -50,5 +54,5 @@
         {:else if post.imageUri}
             <img class="m-4 rounded-xl md:m-8" src={post.imageUri} alt={"community post attachment"} />
         {/if}
-    </a>
+    </div>
 </Card.Root>
