@@ -131,21 +131,4 @@
             <div class="col-span-full mt-4 flex w-full items-center justify-center text-center md:mt-8">loading...</div>
         {/if}
     </div>
-    <div>
-        <div class="mb-2 ml-2 flex items-center text-2xl">
-            <img alt="threads" src="/threads-logo.svg" class="mr-2 inline-block h-8 w-8" />
-            Threads
-        </div>
-        <div class="mx-auto flex flex-col items-center text-center">
-            <div>
-                <FaceDissatisfied size={32} />
-            </div>
-            <span>Leider gibt es noch keinen Threads-Import.</span>
-            <span>Dieses Projekt ist Open Source.</span>
-            <span
-                >Beteilige dich gerne auf
-                <a href={GITHUB_URL} class="underline" target="_blank">GitHub</a>
-            </span>
-        </div>
-    </div>
 </div>
