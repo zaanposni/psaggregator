@@ -2,8 +2,6 @@
     import MediaQuery from "$lib/utils/MediaQuery.svelte";
     import { GITHUB_URL, KOFI_USERNAME, LEGAL_URL } from "../../config/config";
     import LightSwitch from "./LightSwitch.svelte";
-
-    function openChangelog() {}
 </script>
 
 <MediaQuery query="(min-width: 1280px)" let:matches>

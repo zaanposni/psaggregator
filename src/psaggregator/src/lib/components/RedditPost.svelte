@@ -2,6 +2,7 @@
     import type { RedditPost } from "@prisma/client";
     import { PinFilled, MacShift, AddComment } from "carbon-icons-svelte";
     import * as Card from "$lib/components/ui/card";
+    import CdnImage from "./CDNImage.svelte";
 
     export let entry: RedditPost;
 </script>
@@ -19,7 +20,7 @@
             </div>
         </div>
         {#if entry.imageUri}
-            <img alt="thumbnail" class="h-14 w-14 flex-shrink-0" src={entry.imageUri} />
+            <CdnImage size="small" alt="thumbnail" class="h-14 w-14 flex-shrink-0" src={entry.imageUri} title={entry.title} />
         {/if}
         <div class="flex flex-col overflow-x-hidden text-ellipsis whitespace-nowrap">
             <div class="flex items-center gap-x-4">

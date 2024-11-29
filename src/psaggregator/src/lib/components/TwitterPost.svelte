@@ -3,6 +3,7 @@
     import { SHOW_ABSOLUTE_DATES } from "../../config/config";
     import { dateFormat } from "$lib/utils/dateFormat";
     import * as Card from "$lib/components/ui/card";
+    import CdnImage from "./CDNImage.svelte";
 
     export let post: Information & { InformationResource: InformationResource[] };
 
@@ -35,11 +36,12 @@
                                 autoplay
                                 muted />
                         {:else if resource.imageUri}
-                            <img
+                            <CdnImage
+                                size="large"
                                 class="rounded-xl"
                                 src={resource.imageUri}
                                 alt={resource.remoteId}
-                                title={resource.remoteId}
+                                title={resource.id}
                                 loading="lazy" />
                         {/if}
                     </div>

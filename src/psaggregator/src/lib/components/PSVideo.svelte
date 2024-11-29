@@ -3,6 +3,7 @@
     import type { ContentPiece } from "@prisma/client";
     import { LINK_YOUTUBE, SHOW_ABSOLUTE_DATES } from "../../config/config";
     import * as Card from "$lib/components/ui/card";
+    import CdnImage from "./CDNImage.svelte";
 
     export let video: ContentPiece;
     export let isSquare = false;
@@ -42,7 +43,7 @@
     <Card.Root class="flex h-full w-full flex-col">
         <div class="block">
             <div class="relative aspect-video">
-                <img class="h-full w-full object-cover" src={video.imageUri} alt={video.title} />
+                <CdnImage size="large" class="h-full w-full object-cover" src={video.imageUri} alt={video.title} title={video.title} />
                 <div class="overlap"></div>
                 {#if humanReadableMinutes !== null && humanReadableSeconds !== null}
                     <span class="absolute bottom-0 right-0 m-2 text-xs font-bold text-white"

@@ -102,35 +102,35 @@
         </div>
     {:else}
         <div class="flex h-16 flex-row items-center overflow-x-auto overflow-y-hidden border-t" id="iconfooter">
-            <a href="/" class="" class:bg-[hsl(var(--primary))]={$page.url.pathname === "/"}>
+            <a href="/" class="" aria-label="Home" class:bg-[hsl(var(--primary))]={$page.url.pathname === "/"}>
                 <Home size={24} />
             </a>
-            <a href="/plan" class:bg-[hsl(var(--primary))]={$page.url.pathname === "/plan"}>
+            <a href="/plan" aria-label="Uploadplan" class:bg-[hsl(var(--primary))]={$page.url.pathname === "/plan"}>
                 <EventSchedule size={24} />
             </a>
-            <a href="/videos" class:bg-[hsl(var(--primary))]={$page.url.pathname === "/videos"}>
+            <a href="/videos" aria-label="Videos" class:bg-[hsl(var(--primary))]={$page.url.pathname === "/videos"}>
                 <Thumbnail_2 size={24} />
             </a>
-            <a href="/news" class:bg-[hsl(var(--primary))]={$page.url.pathname === "/news"}>
+            <a href="/news" aria-label="News" class:bg-[hsl(var(--primary))]={$page.url.pathname === "/news"}>
                 <Document size={24} />
             </a>
-            <a href="/randomvideo" class:bg-[hsl(var(--primary))]={$page.url.pathname === "/randomvideo"}>
+            <a href="/randomvideo" aria-label="Random Video" class:bg-[hsl(var(--primary))]={$page.url.pathname === "/randomvideo"}>
                 <Binoculars size={24} />
             </a>
-            <a href="/api" class:bg-[hsl(var(--primary))]={$page.url.pathname === "/api"}>
+            <a href="/api" aria-label="API" class:bg-[hsl(var(--primary))]={$page.url.pathname === "/api"}>
                 <Api size={24} />
             </a>
-            <a href="/motivation" class:bg-[hsl(var(--primary))]={$page.url.pathname === "/motivation"}>
+            <a href="/motivation" aria-label="Motivation" class:bg-[hsl(var(--primary))]={$page.url.pathname === "/motivation"}>
                 <Favorite size={24} />
             </a>
-            <a href="/changelog" class:bg-[hsl(var(--primary))]={$page.url.pathname === "/changelog"}>
+            <a href="/changelog" aria-label="Changelog" class:bg-[hsl(var(--primary))]={$page.url.pathname === "/changelog"}>
                 <IbmWatsonxCodeAssistantForZRefactor size={24} />
             </a>
-            <a href="/settings" class:bg-[hsl(var(--primary))]={$page.url.pathname === "/settings"}>
+            <a href="/settings" aria-label="Settings" class:bg-[hsl(var(--primary))]={$page.url.pathname === "/settings"}>
                 <Settings size={24} />
             </a>
             {#if SENTRY_DSN}
-                <button on:click={openFeedback}>
+                <button aria-label="Open Feedback" title="Open Feedback" on:click={openFeedback}>
                     <Debug size={24} />
                 </button>
             {/if}
