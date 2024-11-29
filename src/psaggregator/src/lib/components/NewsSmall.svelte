@@ -21,17 +21,17 @@
 <div class="news-small">
     <Tabs.Root>
         <Tabs.List class="w-full justify-evenly">
-            <Tabs.Trigger value="youtube" class="grow">
+            <Tabs.Trigger value="youtube" class="grow" aria-label="view youtube community posts">
                 <div>
                     <LogoYoutube size={32} />
                 </div>
             </Tabs.Trigger>
-            <Tabs.Trigger value="instagram" class="grow">
+            <Tabs.Trigger value="instagram" class="grow" aria-label="view instagram posts">
                 <div>
                     <LogoInstagram size={32} />
                 </div>
             </Tabs.Trigger>
-            <Tabs.Trigger value="twitter" class="grow">
+            <Tabs.Trigger value="twitter" class="grow" aria-label="view twitter posts">
                 <div>
                     <LogoTwitter size={32} />
                 </div>

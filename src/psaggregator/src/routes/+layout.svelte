@@ -81,6 +81,7 @@
                         </div>
                         <button
                             class="alert-actions !mt-0"
+                            aria-label="Close announcement"
                             on:click={() => {
                                 data.announcements = data.announcements.filter((a) => a.id !== announcement.id);
                             }}>
