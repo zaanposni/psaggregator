@@ -38,15 +38,6 @@
 
 <MediaQuery query="(min-width: 768px)" let:matches>
     <div class="dashboardcontainer p-4 md:p-8">
-        <MediaQuery query="(min-width: 1280px)" let:matches>
-            {#if !matches}
-                <div class="mb-4 flex items-center justify-between">
-                    <span class="text-xl font-bold">Version {version}</span>
-                    <a href="/changelog">Was ist neu?</a>
-                </div>
-            {/if}
-        </MediaQuery>
-
         <div class="flex flex-col-reverse gap-y-4 md:flex-row md:items-start md:gap-x-8 md:gap-y-0">
             <div class="shrink-0 grow">
                 <div class="mb-2 ml-2 flex items-center text-2xl">
