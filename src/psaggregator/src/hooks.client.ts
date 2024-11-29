@@ -14,6 +14,12 @@ if (SENTRY_DSN) {
         replaysSessionSampleRate: import.meta.env.MODE === "development" ? 0 : 0.1,
         replaysOnErrorSampleRate: 1.0,
 
+        ignoreErrors: [
+            "undefined is not an object (evaluating 'media.currentTime')",
+            "Importing a module script failed.",
+            "Can't find variable: logMutedMessage"
+        ],
+
         integrations: [
             replayIntegration({
                 maskAllInputs: false,
