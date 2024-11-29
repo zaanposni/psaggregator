@@ -8,7 +8,7 @@
     <div class="flex items-center gap-x-4 border-b p-4">
         <div>
             <a href="/">
-                <img src="/ps.png" alt="psaggregator logo, pietsmiet logo turned upside down, green game controller" class="h-8 w-8" />
+                <img src="/ps.avif" alt="psaggregator logo, pietsmiet logo turned upside down, green game controller" class="h-8 w-8" />
             </a>
         </div>
         <div class="flex grow flex-nowrap items-center justify-between">
