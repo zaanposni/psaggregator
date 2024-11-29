@@ -5,6 +5,7 @@
     import type { Information, InformationResource } from "@prisma/client";
     import { CloseLarge, VolumeMute, VolumeUp } from "carbon-icons-svelte";
     import { onMount } from "svelte";
+    import CdnImage from "./CDNImage.svelte";
 
     export let stories: Array<Information & { InformationResource: InformationResource[] }>;
     export let filterKey: "peter" | "brammen" | "jay" | "sep" | "chris";
@@ -254,7 +255,12 @@
                                 playsinline
                                 class="h-full w-full object-contain"></video>
                         {:else}
-                            <img src={selectedStory.imageUri} alt={selectedStory.text} class="h-full w-full object-contain" />
+                            <CdnImage
+                                size="full"
+                                src={selectedStory.imageUri}
+                                alt={selectedStory.text}
+                                title={selectedStory.text}
+                                class="h-full w-full object-contain" />
                         {/if}
                     {/if}
                 </div>

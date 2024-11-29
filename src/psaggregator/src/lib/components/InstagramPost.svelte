@@ -3,6 +3,7 @@
     import { LOW_DATA_MODE, SHOW_ABSOLUTE_DATES } from "../../config/config";
     import { dateFormat } from "$lib/utils/dateFormat";
     import * as Card from "$lib/components/ui/card";
+    import CdnImage from "./CDNImage.svelte";
 
     export let post: Information & { InformationResource: InformationResource[] };
 
@@ -47,12 +48,18 @@
             <div class="flex w-full gap-2 overflow-x-auto scroll-smooth pb-2">
                 {#each post.InformationResource.filter((x) => x.imageUri) as resource}
                     <div class="w-full shrink-0">
-                        <img class="rounded-xl" src={resource.imageUri} alt={resource.remoteId} title={resource.remoteId} loading="lazy" />
+                        <CdnImage
+                            size="large"
+                            class="rounded-xl"
+                            src={resource.imageUri}
+                            alt={resource.remoteId}
+                            title={resource.remoteId}
+                            loading="lazy" />
                     </div>
                 {/each}
             </div>
         {:else if post.imageUri}
-            <img class="m-4 rounded-xl md:m-8" src={post.imageUri} alt={"community post attachment"} />
+            <CdnImage size="large" class="m-4 rounded-xl md:m-8" src={post.imageUri} alt={"community post attachment"} title={post.text} />
         {/if}
     </div>
 </Card.Root>

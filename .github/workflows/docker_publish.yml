@@ -42,12 +42,18 @@ jobs:
               working-directory: ./src/dataimport
               run: docker build -t ghcr.io/${{ github.repository_owner }}/psaggregator_dataimport:latest -t ghcr.io/${{ github.repository_owner }}/psaggregator_dataimport:${{ env.VERSION }} .
 
+            - name: Build imageresizer
+              working-directory: ./src/imageresizer
+              run: docker build -t ghcr.io/${{ github.repository_owner }}/psaggregator_imageresizer:latest -t ghcr.io/${{ github.repository_owner }}/psaggregator_imageresizer:${{ env.VERSION }} .
+
             - name: Push images
               run: |
                   echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u zaanposni --password-stdin
                   docker push ghcr.io/${{ github.repository_owner }}/psaggregator_frontend:${{ env.VERSION }}
                   docker push ghcr.io/${{ github.repository_owner }}/psaggregator_nginx:${{ env.VERSION }}
                   docker push ghcr.io/${{ github.repository_owner }}/psaggregator_dataimport:${{ env.VERSION }}
+                  docker push ghcr.io/${{ github.repository_owner }}/psaggregator_imageresizer:${{ env.VERSION }}
                   docker push ghcr.io/${{ github.repository_owner }}/psaggregator_frontend:latest
                   docker push ghcr.io/${{ github.repository_owner }}/psaggregator_nginx:latest
                   docker push ghcr.io/${{ github.repository_owner }}/psaggregator_dataimport:latest
+                  docker push ghcr.io/${{ github.repository_owner }}/psaggregator_imageresizer:latest

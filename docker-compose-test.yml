@@ -1,3 +1,5 @@
+version: "2.1"
+
 services:
     db:
         container_name: psaggregator_db
@@ -14,6 +16,10 @@ services:
             - "127.0.0.1:3306:3306"
         networks:
             - mysql
+        healthcheck:
+            test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+            timeout: 20s
+            retries: 10
 
     frontend:
         container_name: psaggregator_frontend
@@ -27,7 +33,8 @@ services:
             - PUBLIC_UMAMI_ID=${UMAMI_ID}
             - PUBLIC_KOFI_USERNAME=${KOFI_USERNAME}
         depends_on:
-            - db
+            db:
+                condition: service_healthy
         networks:
             - mysql
             - nginx
@@ -61,9 +68,10 @@ services:
             - shared-data:/app/cdn
             - config:/app/config
         depends_on:
-            - db
-            - frontend
-            - youtube-api
+            db:
+                condition: service_healthy
+            youtube-api:
+                condition: service_started
         networks:
             - mysql
             - youtube
@@ -74,14 +82,30 @@ services:
         build:
             context: ./src/nginx
             dockerfile: Dockerfile
-        volumes:
-            - shared-data:/app/cdn
         depends_on:
             - frontend
+            - imageresizer
         ports:
             - "127.0.0.1:5650:80"
         networks:
             - nginx
+            - imageresizer
+
+    imageresizer:
+        container_name: psaggregator_imageresizer
+        restart: unless-stopped
+        build:
+            context: ./src/imageresizer
+            dockerfile: Dockerfile
+        environment:
+            - PORT=3000
+            - CDN_FILE_BASE_DIRECTORY=/app/cdn
+        volumes:
+            - shared-data:/app/cdn
+        ports:
+            - "3000"
+        networks:
+            - imageresizer
 
     youtube-api:
         image: benjaminloison/youtube-operational-api
@@ -96,6 +120,7 @@ networks:
     mysql:
     nginx:
     youtube:
+    imageresizer:
 
 volumes:
     mysql:

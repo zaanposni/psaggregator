@@ -4,6 +4,7 @@
     import type { TwitchStatus } from "@prisma/client";
     import moment from "moment";
     import * as Card from "$lib/components/ui/card";
+    import CdnImage from "./CDNImage.svelte";
 
     export let twitch: TwitchStatus;
 </script>
@@ -11,7 +12,7 @@
 <MediaQuery query="(min-width: 768px)" let:matches>
     <Card.Root>
         <a class="relative" href="https://twitch.tv/pietsmiet" target="_blank">
-            <img src={twitch.thumbnail} alt="Twitch thumbnail" />
+            <CdnImage size="medium" src={twitch.thumbnail} alt="Twitch thumbnail" title="Twitch Thumbnail" />
             <div class="flex items-center p-2 md:p-4">
                 <div class="flex flex-col">
                     <div class="flex flex-row items-center">

@@ -12,7 +12,7 @@ jobs:
 
             - name: Build frontend
               working-directory: ./src/psaggregator
-              run: docker build -t ghcr.io/${{ github.repository_owner }}/psaggregator_frontend:latest .
+              run: docker build .
 
     build_nginx:
         runs-on: ubuntu-latest
@@ -22,7 +22,7 @@ jobs:
 
             - name: Build nginx
               working-directory: ./src/nginx
-              run: docker build -t ghcr.io/${{ github.repository_owner }}/psaggregator_nginx:latest .
+              run: docker build .
 
     build_dataimport:
         runs-on: ubuntu-latest
@@ -32,4 +32,14 @@ jobs:
 
             - name: Build dataimport
               working-directory: ./src/dataimport
-              run: docker build -t ghcr.io/${{ github.repository_owner }}/psaggregator_dataimport:latest .
+              run: docker build .
+
+    build_imageresizer:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+
+            - name: Build dataimport
+              working-directory: ./src/imageresizer
+              run: docker build .

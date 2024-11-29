@@ -14,6 +14,7 @@
     import { Warning } from "carbon-icons-svelte";
     import { toast } from "svelte-sonner";
     import FaviconNotification from "favicon-notification";
+    import CdnImage from "$lib/components/CDNImage.svelte";
 
     export let data: PageData;
 
@@ -233,10 +234,12 @@
                         href={$LINK_YOUTUBE && video.secondaryHref ? video.secondaryHref : video.href}
                         target="_blank"
                         class="overflow-hidden">
-                        <img
+                        <CdnImage
+                            size="large"
                             class="h-auto max-w-full transform rounded-lg transition-transform duration-500 hover:scale-110"
                             src={video.imageUri}
-                            alt={video.title} />
+                            alt={video.title}
+                            title={video.title} />
                     </a>
                 {/if}
             {/each}
