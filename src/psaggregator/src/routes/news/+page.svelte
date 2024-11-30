@@ -9,8 +9,8 @@
 </script>
 
 <MediaQuery query="(min-width: 768px)" let:matches>
-    <div class="mx-4 flex flex-col gap-y-4 md:mx-8">
-        <div class="h-18 mt-4 flex items-center gap-x-1 md:mb-0 md:mt-8 md:h-24 md:gap-x-4">
+    <div class="flex flex-col gap-y-4 p-4 md:p-8">
+        <div class="flex h-16 max-w-full items-center gap-x-1 md:h-24 md:gap-x-4">
             <InstagramStoriesContainer stories={data.instagramStories} filterKey="peter" />
             <InstagramStoriesContainer stories={data.instagramStories} filterKey="brammen" />
             <InstagramStoriesContainer stories={data.instagramStories} filterKey="jay" />

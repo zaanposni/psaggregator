@@ -88,7 +88,7 @@
     });
 </script>
 
-<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 md:gap-8 md:p-8 xl:grid-cols-3">
+<div class="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-8 xl:grid-cols-3">
     <div>
         <div class="mb-2 ml-2 flex items-center text-2xl">
             <LogoYoutube size={32} class="mr-2" />

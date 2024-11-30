@@ -70,5 +70,5 @@
 </script>
 
 {#if imageSrc}
-    <img src={imageSrc} alt={alt ?? "unknown"} title={title ?? alt ?? "unknown"} {loading} class={style} />
+    <img src={imageSrc} alt={alt ?? "unknown"} title={title ?? alt ?? "unknown"} {loading} class={classes} {style} />
 {/if}
