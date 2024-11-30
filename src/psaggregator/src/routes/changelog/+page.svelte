@@ -18,6 +18,11 @@
 <div class="flex-col p-4">
     <h2 class="mb-2 text-2xl font-bold">Version 1.19.0</h2>
     <div class="changelog-contents w-full grow overflow-y-auto lg:w-1/2">
+        <h3 class="mb-2 text-xl font-bold">Neue Features</h3>
+        <div>
+            <span>Automatisches Neuladen</span>
+            <span>Die Startseite lädt nun alle fünf Minuten automatisch neu, um neue Inhalte anzuzeigen.</span>
+        </div>
         <h3 class="mb-2 text-xl font-bold">Überarbeitungen</h3>
         <div>
             <span>Verbesserte Ladezeiten</span>
@@ -67,15 +72,15 @@
             <span>Nach oben scrollen</span>
             <span>Wenn auf mobilen Endgeräten nun auf den oberen Bildschirmrand getippt wird, wird die Seite nach oben gescrollt.</span>
         </div>
-    </div>
-    <h3 class="mb-2 text-xl font-bold">Überarbeitungen</h3>
-    <div>
-        <span>Einheitlichere Überschriften</span>
-        <span>Die Überschriften wurden einheitlicher gestaltet.</span>
-    </div>
-    <div>
-        <span>Mehr Footer-Informationen</span>
-        <span>Auf mobilen Endgeräten wird nun mehr Information im Footer angezeigt.</span>
+        <h3 class="mb-2 text-xl font-bold">Überarbeitungen</h3>
+        <div>
+            <span>Einheitlichere Überschriften</span>
+            <span>Die Überschriften wurden einheitlicher gestaltet.</span>
+        </div>
+        <div>
+            <span>Mehr Footer-Informationen</span>
+            <span>Auf mobilen Endgeräten wird nun mehr Information im Footer angezeigt.</span>
+        </div>
     </div>
 
     <h2 class="mb-2 text-2xl font-bold">Version 1.15.0</h2>
