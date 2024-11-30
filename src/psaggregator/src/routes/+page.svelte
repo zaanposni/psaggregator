@@ -69,8 +69,8 @@
                     YouTube
                 </div>
                 <div class="flex flex-col gap-2">
-                    {#each data.youtubeCommunityPosts as youtube}
-                        <YouTubeCommunityPost post={youtube} />
+                    {#each data.youtubeCommunityPosts as youtube, index}
+                        <YouTubeCommunityPost post={youtube} loading={index < 2 ? "eager" : "lazy"} />
                     {/each}
                 </div>
             </div>
@@ -80,8 +80,8 @@
                     Instagram
                 </div>
                 <div class="flex flex-col gap-2">
-                    {#each data.instagramPosts as instagram}
-                        <InstagramPost post={instagram} />
+                    {#each data.instagramPosts as instagram, index}
+                        <InstagramPost post={instagram} loading={index < 2 ? "eager" : "lazy"} />
                     {/each}
                 </div>
             </div>
@@ -91,8 +91,8 @@
                     Twitter
                 </div>
                 <div class="flex flex-col gap-2">
-                    {#each data.twitterPosts as twitter}
-                        <TwitterPost post={twitter} />
+                    {#each data.twitterPosts as twitter, index}
+                        <TwitterPost post={twitter} loading={index < 2 ? "eager" : "lazy"} />
                     {/each}
                 </div>
             </div>
@@ -102,8 +102,8 @@
                     Reddit
                 </div>
                 <div class="flex flex-col gap-2">
-                    {#each data.redditPosts.slice(0, matches ? 10 : 5) as reddit}
-                        <RedditPost entry={reddit} />
+                    {#each data.redditPosts.slice(0, matches ? 10 : 5) as reddit, index}
+                        <RedditPost entry={reddit} loading={index < 4 ? "eager" : "lazy"} />
                     {/each}
                 </div>
             </div>

@@ -1,8 +1,7 @@
 <script lang="ts">
     import InstagramPost from "$lib/components/InstagramPost.svelte";
     import YouTubeCommunityPost from "$lib/components/YouTubeCommunityPost.svelte";
-    import { GITHUB_URL } from "../../config/config";
-    import { LogoYoutube, LogoTwitter, LogoInstagram, FaceDissatisfied } from "carbon-icons-svelte";
+    import { LogoYoutube, LogoTwitter, LogoInstagram } from "carbon-icons-svelte";
     import { type Information, type InformationResource } from "@prisma/client";
     import * as Tabs from "$lib/components/ui/tabs";
     import TwitterPost from "./TwitterPost.svelte";
@@ -39,22 +38,22 @@
         </Tabs.List>
         <Tabs.Content value="youtube">
             <div class="flex flex-col gap-y-4">
-                {#each youtubeCommunityPosts as youtube}
-                    <YouTubeCommunityPost post={youtube} />
+                {#each youtubeCommunityPosts as youtube, index}
+                    <YouTubeCommunityPost post={youtube} loading={index < 2 ? "eager" : "lazy"} />
                 {/each}
             </div>
         </Tabs.Content>
         <Tabs.Content value="instagram">
             <div class="flex flex-col gap-y-4">
-                {#each instagramPosts as instagram}
-                    <InstagramPost post={instagram} />
+                {#each instagramPosts as instagram, index}
+                    <InstagramPost post={instagram} loading={index < 2 ? "eager" : "lazy"} />
                 {/each}
             </div>
         </Tabs.Content>
         <Tabs.Content value="twitter">
             <div class="flex flex-col gap-y-4">
-                {#each twitterPosts as twitter}
-                    <TwitterPost post={twitter} />
+                {#each twitterPosts as twitter, index}
+                    <TwitterPost post={twitter} loading={index < 2 ? "eager" : "lazy"} />
                 {/each}
             </div>
         </Tabs.Content>

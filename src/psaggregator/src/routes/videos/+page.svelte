@@ -218,7 +218,7 @@
             </div>
         </div>
         <section class="grid grid-cols-2 gap-4 md:grid-cols-3 xl:grid-cols-5 {!matches && $VIDEO_COMPLEXE_VIEW ? '!grid-cols-1' : ''}">
-            {#each data.videos as video}
+            {#each data.videos as video, index}
                 {#if video.startDate}
                     {@const newMonth = checkMonth(video.startDate)}
                     {#if newMonth}
@@ -228,7 +228,10 @@
                     {/if}
                 {/if}
                 {#if $VIDEO_COMPLEXE_VIEW}
-                    <PsVideo {video} class="w-full {matches || $VIDEO_COMPLEXE_VIEW ? '' : '!text-sm'}" />
+                    <PsVideo
+                        {video}
+                        class="w-full {matches || $VIDEO_COMPLEXE_VIEW ? '' : '!text-sm'}"
+                        loading={index < 10 ? "eager" : "lazy"} />
                 {:else}
                     <a
                         href={$LINK_YOUTUBE && video.secondaryHref ? video.secondaryHref : video.href}
@@ -239,7 +242,8 @@
                             class="h-auto max-w-full transform rounded-lg transition-transform duration-500 hover:scale-110"
                             src={video.imageUri}
                             alt={video.title}
-                            title={video.title} />
+                            title={video.title}
+                            loading={index < 10 ? "eager" : "lazy"} />
                     </a>
                 {/if}
             {/each}

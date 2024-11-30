@@ -6,6 +6,7 @@
     import CdnImage from "./CDNImage.svelte";
 
     export let post: Information & { InformationResource: InformationResource[] };
+    export let loading: "lazy" | "eager" = "lazy";
 
     function titleCase(str: string | null) {
         if (!str) return "";
@@ -42,7 +43,7 @@
                                 src={resource.imageUri}
                                 alt={resource.remoteId}
                                 title={resource.id}
-                                loading="lazy" />
+                                {loading} />
                         {/if}
                     </div>
                 {/each}

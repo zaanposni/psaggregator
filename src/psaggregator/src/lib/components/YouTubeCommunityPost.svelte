@@ -6,6 +6,7 @@
     import CdnImage from "./CDNImage.svelte";
 
     export let post: Information;
+    export let loading: "lazy" | "eager" = "lazy";
 </script>
 
 <Card.Root>
@@ -15,7 +16,13 @@
         {/if}
         <div>{post.text}</div>
         {#if post.imageUri}
-            <CdnImage size="full" class="m-4 rounded-xl md:m-8" src={post.imageUri} alt={"community post attachment"} title={post.text} />
+            <CdnImage
+                size="full"
+                class="m-4 rounded-xl md:m-8"
+                src={post.imageUri}
+                alt={"community post attachment"}
+                title={post.text}
+                {loading} />
         {/if}
     </a>
 </Card.Root>

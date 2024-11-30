@@ -11,7 +11,7 @@
 <div class="flex h-full w-full items-center justify-center">
     <div class="flex flex-col items-center gap-8 lg:flex-row">
         <div>
-            <PsVideo class="w-[16rem] lg:w-[30rem]" video={data.video} />
+            <PsVideo class="w-[16rem] lg:w-[30rem]" video={data.video} loading="eager" />
         </div>
         <div class="flex flex-col-reverse gap-4 lg:flex-col">
             <Button

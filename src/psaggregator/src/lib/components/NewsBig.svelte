@@ -88,15 +88,15 @@
     });
 </script>
 
-<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 md:gap-8 md:p-8 xl:grid-cols-4">
+<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 md:gap-8 md:p-8 xl:grid-cols-3">
     <div>
         <div class="mb-2 ml-2 flex items-center text-2xl">
             <LogoYoutube size={32} class="mr-2" />
             YouTube
         </div>
         <div class="flex flex-col gap-y-4">
-            {#each youtubeCommunityPosts as youtube}
-                <YouTubeCommunityPost post={youtube} />
+            {#each youtubeCommunityPosts as youtube, index}
+                <YouTubeCommunityPost post={youtube} loading={index < 2 ? "eager" : "lazy"} />
             {/each}
         </div>
         {#if loading[ImportType.YouTube]}
@@ -109,8 +109,8 @@
             Instagram
         </div>
         <div class="flex flex-col gap-y-4">
-            {#each instagramPosts as instagram}
-                <InstagramPost post={instagram} />
+            {#each instagramPosts as instagram, index}
+                <InstagramPost post={instagram} loading={index < 2 ? "eager" : "lazy"} />
             {/each}
         </div>
         {#if loading[ImportType.Instagram]}
@@ -123,8 +123,8 @@
             Twitter
         </div>
         <div class="flex flex-col gap-y-4">
-            {#each twitterPosts as twitter}
-                <TwitterPost post={twitter} />
+            {#each twitterPosts as twitter, index}
+                <TwitterPost post={twitter} loading={index < 2 ? "eager" : "lazy"} />
             {/each}
         </div>
         {#if loading[ImportType.Twitter]}
