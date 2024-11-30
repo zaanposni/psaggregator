@@ -46,7 +46,7 @@ app.get("/cdn/:dir/:filename", async (req: Request<{ dir: string; filename: stri
     }
 
     // Validate parameters
-    const validFormats = ["avif", "webp", "jpg"];
+    const validFormats = ["avif", "jpg"];
     const validWidths = ["150", "300", "768", "1024", "original"];
 
     if (width && !validWidths.includes(width.toString())) {
@@ -57,11 +57,11 @@ app.get("/cdn/:dir/:filename", async (req: Request<{ dir: string; filename: stri
 
     if (format && !validFormats.includes(format.toString())) {
         logger.error(`Invalid format parameter: "${format}"`);
-        res.status(400).send("Invalid format parameter, must be one of: avif, webp, jpg");
+        res.status(400).send("Invalid format parameter, must be one of: avif, jpg");
         return;
     }
 
-    const targetFormat = (format as "avif" | "webp" | "jpg") || "jpg";
+    const targetFormat = (format as "avif" | "jpg") || "jpg";
     const targetWidth = width ? (width === "original" ? undefined : parseInt(width.toString())) : undefined;
 
     const originalFilePath = path.join(cdnFiles, filename);
