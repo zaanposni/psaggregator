@@ -47,11 +47,11 @@ app.get("/cdn/:dir/:filename", async (req: Request<{ dir: string; filename: stri
 
     // Validate parameters
     const validFormats = ["avif", "jpg"];
-    const validWidths = ["150", "300", "768", "1024", "original"];
+    const validWidths = ["300", "768", "original"];
 
     if (width && !validWidths.includes(width.toString())) {
         logger.error(`Invalid width parameter: "${width}"`);
-        res.status(400).send("Invalid width parameter, must be one of: 150, 300, 768, 1024, original");
+        res.status(400).send("Invalid width parameter, must be one of: 300, 768, original");
         return;
     }
 

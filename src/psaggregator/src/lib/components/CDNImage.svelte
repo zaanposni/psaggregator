@@ -36,13 +36,13 @@
         return "jpg"; // fallback
     }
 
-    function getPreferredImageSize(): "150" | "300" | "768" | "1024" {
+    function getPreferredImageSize(): "300" | "768" | "original" {
         if (!browser || !window || !window.matchMedia) {
             return "300";
         }
 
         if (size === "small") {
-            return "150";
+            return "300";
         } else if (size === "medium") {
             return "300";
         } else if (size === "large") {
@@ -53,7 +53,7 @@
             }
         } else if (size === "full") {
             if (window.matchMedia("(min-width: 1440px)").matches) {
-                return "1024";
+                return "original";
             } else {
                 return "768";
             }
