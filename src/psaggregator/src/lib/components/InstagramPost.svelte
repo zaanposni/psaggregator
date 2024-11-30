@@ -6,6 +6,7 @@
     import CdnImage from "./CDNImage.svelte";
 
     export let post: Information & { InformationResource: InformationResource[] };
+    export let loading: "lazy" | "eager" = "lazy";
 
     let video: HTMLVideoElement;
     $: isVideoOnly =
@@ -59,7 +60,13 @@
                 {/each}
             </div>
         {:else if post.imageUri}
-            <CdnImage size="large" class="m-4 rounded-xl md:m-8" src={post.imageUri} alt={"community post attachment"} title={post.text} />
+            <CdnImage
+                size="large"
+                class="m-4 rounded-xl md:m-8"
+                src={post.imageUri}
+                alt={"community post attachment"}
+                title={post.text}
+                {loading} />
         {/if}
     </div>
 </Card.Root>

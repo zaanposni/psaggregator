@@ -9,11 +9,105 @@
     import MediaQuery from "$lib/utils/MediaQuery.svelte";
     import InstagramPost from "$lib/components/InstagramPost.svelte";
     import TwitchEntry from "$lib/components/TwitchEntry.svelte";
-    import { version } from "$app/environment";
+    import { browser, version } from "$app/environment";
     import TwitterPost from "$lib/components/TwitterPost.svelte";
-    import { GITHUB_URL, MAIL_TO_URL } from "../config/config";
+    import { GITHUB_URL, LOW_DATA_MODE, MAIL_TO_URL } from "../config/config";
+    import { invalidateAll } from "$app/navigation";
+    import { onDestroy, onMount } from "svelte";
+    import FaviconNotification from "favicon-notification";
+    import type { ContentPiece, Information, ScheduledContentPiece } from "@prisma/client";
+    import moment from "moment";
 
     export let data: PageServerData;
+
+    let reloadInterval: number | NodeJS.Timeout | undefined = undefined;
+    let isNotificationVisible = false;
+
+    function findNewestDate() {
+        const dates = [
+            ...(data.today?.map((entry: ScheduledContentPiece) => moment(entry.startDate)) ?? []),
+            ...(data.youtubeCommunityPosts?.map((entry: Information) => moment(entry.date)) ?? []),
+            ...(data.instagramPosts?.map((entry: Information) => moment(entry.date)) ?? []),
+            ...(data.twitterPosts?.map((entry: Information) => moment(entry.date)) ?? []),
+            ...(data.redditPosts?.map((entry: RedditPost) => moment(entry.date)) ?? []),
+            ...(data.videos?.map((entry: ContentPiece) => moment(entry.startDate)) ?? []),
+            ...(data.upcomingStreams?.map((entry: ScheduledContentPiece) => moment(entry.startDate)) ?? []),
+            moment((data.twitchStatus as TwitchStatus)?.startedAt ?? 0)
+        ];
+
+        return Math.max(...dates);
+    }
+
+    async function reload() {
+        if ($LOW_DATA_MODE) return;
+
+        const currentLastDate = findNewestDate();
+        const currentLastUploadPlanEntriesWithLink = data.today.filter((entry: ScheduledContentPiece) => entry.href).length;
+
+        await invalidateAll();
+
+        const newLastDate = findNewestDate();
+        const newUploadPlanEntriesWithLink = data.today.filter((entry: ScheduledContentPiece) => entry.href).length;
+
+        if (
+            (currentLastDate !== newLastDate && currentLastDate && newLastDate) ||
+            currentLastUploadPlanEntriesWithLink !== newUploadPlanEntriesWithLink
+        ) {
+            isNotificationVisible = true;
+            try {
+                FaviconNotification.add();
+            } catch (e) {
+                console.error(e);
+            }
+        }
+    }
+
+    function onUserActive() {
+        if (!isNotificationVisible) return;
+
+        isNotificationVisible = false;
+        try {
+            FaviconNotification.remove();
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    function handleVisibilityChange() {
+        if (document.visibilityState === "visible") {
+            onUserActive();
+        }
+    }
+
+    function handleUserInteraction() {
+        onUserActive();
+    }
+
+    onMount(() => {
+        if (browser) {
+            reloadInterval = setInterval(reload, 1000 * 60 * 5);
+
+            FaviconNotification.init({
+                color: "#ff0000",
+                lineColor: "#000000",
+                url: "/favicon.png"
+            });
+
+            document.addEventListener("visibilitychange", handleVisibilityChange);
+            window.addEventListener("mousemove", handleUserInteraction);
+            window.addEventListener("focus", handleUserInteraction);
+        }
+    });
+
+    onDestroy(() => {
+        if (browser) {
+            if (reloadInterval) clearInterval(reloadInterval);
+
+            document.removeEventListener("visibilitychange", handleVisibilityChange);
+            window.removeEventListener("mousemove", handleUserInteraction);
+            window.removeEventListener("focus", handleUserInteraction);
+        }
+    });
 </script>
 
 <style lang="postcss">
@@ -69,8 +163,8 @@
                     YouTube
                 </div>
                 <div class="flex flex-col gap-2">
-                    {#each data.youtubeCommunityPosts as youtube}
-                        <YouTubeCommunityPost post={youtube} />
+                    {#each data.youtubeCommunityPosts as youtube, index}
+                        <YouTubeCommunityPost post={youtube} loading={index < 2 ? "eager" : "lazy"} />
                     {/each}
                 </div>
             </div>
@@ -80,8 +174,8 @@
                     Instagram
                 </div>
                 <div class="flex flex-col gap-2">
-                    {#each data.instagramPosts as instagram}
-                        <InstagramPost post={instagram} />
+                    {#each data.instagramPosts as instagram, index}
+                        <InstagramPost post={instagram} loading={index < 2 ? "eager" : "lazy"} />
                     {/each}
                 </div>
             </div>
@@ -91,8 +185,8 @@
                     Twitter
                 </div>
                 <div class="flex flex-col gap-2">
-                    {#each data.twitterPosts as twitter}
-                        <TwitterPost post={twitter} />
+                    {#each data.twitterPosts as twitter, index}
+                        <TwitterPost post={twitter} loading={index < 2 ? "eager" : "lazy"} />
                     {/each}
                 </div>
             </div>
@@ -102,15 +196,15 @@
                     Reddit
                 </div>
                 <div class="flex flex-col gap-2">
-                    {#each data.redditPosts.slice(0, matches ? 10 : 5) as reddit}
-                        <RedditPost entry={reddit} />
+                    {#each data.redditPosts.slice(0, matches ? 10 : 5) as reddit, index}
+                        <RedditPost entry={reddit} loading={index < 4 ? "eager" : "lazy"} />
                     {/each}
                 </div>
             </div>
             <div class="order-1 md:order-6">
                 <div class="mb-2 ml-2 flex items-center text-2xl">
                     <img alt="twitch" src="/twitch-logo.svg" class="mr-2 inline-block h-8 w-8" />
-                    Anstehende Streams
+                    Streams
                 </div>
                 <div class="flex flex-col gap-2">
                     {#each data.upcomingStreams as stream}

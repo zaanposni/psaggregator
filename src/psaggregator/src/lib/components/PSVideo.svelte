@@ -7,6 +7,7 @@
 
     export let video: ContentPiece;
     export let isSquare = false;
+    export let loading: "lazy" | "eager" = "lazy";
 
     let classes = "";
     export { classes as class };
@@ -43,7 +44,13 @@
     <Card.Root class="flex h-full w-full flex-col">
         <div class="block">
             <div class="relative aspect-video">
-                <CdnImage size="large" class="h-full w-full object-cover" src={video.imageUri} alt={video.title} title={video.title} />
+                <CdnImage
+                    size="large"
+                    class="h-full w-full object-cover"
+                    src={video.imageUri}
+                    alt={video.title}
+                    title={video.title}
+                    {loading} />
                 <div class="overlap"></div>
                 {#if humanReadableMinutes !== null && humanReadableSeconds !== null}
                     <span class="absolute bottom-0 right-0 m-2 text-xs font-bold text-white"

@@ -184,62 +184,70 @@
 
 <MediaQuery query="(min-width: 768px)" let:matches>
     {#if active}
-        <div class="absolute left-0 top-0 z-10 flex h-full w-full flex-col bg-black">
+        <div
+            class="max-w-screen absolute left-0 top-0 z-10 flex h-screen max-h-screen w-screen flex-col overflow-hidden bg-black pt-12 lg:pt-12">
             <div
-                class="story-container flex h-full w-full flex-col overflow-hidden lg:mx-auto lg:w-1/2"
+                class="story-container max-w-screen flex h-screen max-h-screen w-screen flex-col overflow-hidden lg:mx-auto lg:w-1/2"
                 class:pause={touchStartX}
                 on:touchstart={touchStartHandler}
                 on:touchend={touchEndHandler}>
-                <div class="progress-container flex w-full px-2 pt-4" bind:this={progressContainer}>
-                    {#each stories as story, index}
-                        {@const duration =
-                            story.InformationResource?.length && story.InformationResource[0].videoDuration
-                                ? story.InformationResource[0].videoDuration
-                                : 15}
-                        <div
-                            style="animation-duration: {duration}s"
-                            class:active={currentIndex === index}
-                            class:passed={currentIndex > index}
-                            class="progress"
-                            on:animationend={playNext}
-                            on:click={() => {
-                                playSpecific(index);
-                            }}
-                            on:keydown={void 0}
-                            role="button"
-                            tabindex="0">
-                        </div>
-                    {/each}
-                </div>
-                <div class="mt-2 flex w-full items-center justify-between px-2">
-                    <div class="flex items-center gap-x-2">
-                        <img src="{filterKey}.jpg" alt={filterKey} class="h-12 w-12 rounded-full object-cover" />
-                        <span class="text-sm font-bold text-white">{titleCase(filterKey)}</span>
+                <div class="max-w-screen lg:max-w-1/2 absolute top-12 z-10 w-screen lg:top-0 lg:w-1/2">
+                    <div class="progress-container flex w-full max-w-full px-2 pt-4" bind:this={progressContainer}>
+                        {#each stories as story, index}
+                            {@const duration =
+                                story.InformationResource?.length && story.InformationResource[0].videoDuration
+                                    ? story.InformationResource[0].videoDuration
+                                    : 15}
+                            <div
+                                style="animation-duration: {duration}s"
+                                class:active={currentIndex === index}
+                                class:passed={currentIndex > index}
+                                class="progress"
+                                on:animationend={playNext}
+                                on:click={() => {
+                                    playSpecific(index);
+                                }}
+                                on:keydown={void 0}
+                                role="button"
+                                tabindex="0">
+                            </div>
+                        {/each}
                     </div>
-                    <div class="flex items-center gap-x-2">
-                        {#if selectedStory && selectedStory.InformationResource?.length && selectedStory.InformationResource[0].videoUri}
-                            <button
-                                on:click={(e) => {
-                                    video.muted = !video.muted;
-                                    e.stopPropagation();
-                                }}>
-                                {#if video}
-                                    {#if video.muted}
-                                        <VolumeMute class="h-8 w-8" />
-                                    {:else}
-                                        <VolumeUp class="h-8 w-8" />
+                    <div class="mt-2 flex w-full items-center justify-between px-2">
+                        <div class="flex items-center gap-x-2">
+                            <img
+                                src="{filterKey}.jpg"
+                                alt={filterKey}
+                                class="aspect-square h-12 w-12 rounded-full object-cover"
+                                width="64"
+                                height="64" />
+                            <span class="text-sm font-bold text-white">{titleCase(filterKey)}</span>
+                        </div>
+                        <div class="flex items-center gap-x-2">
+                            {#if selectedStory && selectedStory.InformationResource?.length && selectedStory.InformationResource[0].videoUri}
+                                <button
+                                    on:click={(e) => {
+                                        video.muted = !video.muted;
+                                        e.stopPropagation();
+                                    }}>
+                                    {#if video}
+                                        {#if video.muted}
+                                            <VolumeMute class="h-8 w-8" />
+                                        {:else}
+                                            <VolumeUp class="h-8 w-8" />
+                                        {/if}
                                     {/if}
-                                {/if}
+                                </button>
+                            {/if}
+                            <button on:click={() => (active = false)}>
+                                <CloseLarge class="h-8 w-8" />
                             </button>
-                        {/if}
-                        <button on:click={() => (active = false)}>
-                            <CloseLarge class="h-8 w-8" />
-                        </button>
+                        </div>
                     </div>
                 </div>
                 <div
                     bind:this={storyView}
-                    class="flex h-full w-full items-center justify-center overflow-y-auto py-2 md:py-8"
+                    class="flex w-full justify-center overflow-hidden"
                     on:click={clickImageHandler}
                     on:keydown={void 0}
                     role="button"
@@ -253,14 +261,14 @@
                                 loop
                                 muted
                                 playsinline
-                                class="h-full w-full object-contain"></video>
+                                class="rounded-[20px] object-contain"></video>
                         {:else}
                             <CdnImage
                                 size="full"
                                 src={selectedStory.imageUri}
                                 alt={selectedStory.text}
                                 title={selectedStory.text}
-                                class="h-full w-full object-contain" />
+                                class="rounded-[20px] object-contain" />
                         {/if}
                     {/if}
                 </div>
@@ -278,7 +286,7 @@
             on:keydown={void 0}
             role="button"
             tabindex="0">
-            <img class="h-full w-full rounded-full object-cover" src="{filterKey}.jpg" alt={filterKey} />
+            <img class="h-full w-full rounded-full object-cover" src="{filterKey}.jpg" alt={filterKey} width="64" height="64" />
         </div>
     {/if}
 </MediaQuery>
