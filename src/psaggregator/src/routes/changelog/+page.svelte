@@ -16,6 +16,15 @@
 </style>
 
 <div class="flex-col p-4">
+    <h2 class="mb-2 text-2xl font-bold">Version 1.19.0</h2>
+    <div class="changelog-contents w-full grow overflow-y-auto lg:w-1/2">
+        <h3 class="mb-2 text-xl font-bold">Überarbeitungen</h3>
+        <div>
+            <span>Verbesserte Ladezeiten</span>
+            <span>Weitere Optimierungen wurden vorgenommen, um die Ladezeiten zu verbessern. </span>
+        </div>
+    </div>
+
     <h2 class="mb-2 text-2xl font-bold">Version 1.18.0</h2>
     <div class="changelog-contents w-full grow overflow-y-auto lg:w-1/2">
         <h3 class="mb-2 text-xl font-bold">Überarbeitungen</h3>
