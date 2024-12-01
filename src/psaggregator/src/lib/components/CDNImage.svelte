@@ -40,6 +40,13 @@
     }
 
     async function calculateImageSrc(src: string | null | undefined) {
+        if (!src) return;
+
+        if (src.startsWith("http")) {
+            imageSrc = src;
+            return;
+        }
+
         imageSrc = `${src}?width=${getPreferredImageSize()}`;
     }
 
