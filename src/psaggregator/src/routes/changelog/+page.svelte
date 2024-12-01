@@ -16,6 +16,15 @@
 </style>
 
 <div class="flex-col p-4">
+    <h2 class="mb-2 text-2xl font-bold">Version 1.19.1</h2>
+    <div class="changelog-contents w-full grow overflow-y-auto lg:w-1/2">
+        <h3 class="mb-2 text-xl font-bold">Überarbeitungen</h3>
+        <div>
+            <span>Twitter-Import</span>
+            <span>Ein Problem beim Twitter-Import wurde behoben. Tweets sollten nun wieder korrekt importiert werden.</span>
+        </div>
+    </div>
+
     <h2 class="mb-2 text-2xl font-bold">Version 1.19.0</h2>
     <div class="changelog-contents w-full grow overflow-y-auto lg:w-1/2">
         <h3 class="mb-2 text-xl font-bold">Neue Features</h3>

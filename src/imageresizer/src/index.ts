@@ -21,7 +21,7 @@ app.get("/_health", (_, res) => {
 
 app.get("/cdn/:dir/:filename", async (req: Request<{ dir: string; filename: string }>, res: Response) => {
     let { dir, filename } = req.params;
-    const { width, format } = req.query;
+    const { width } = req.query;
 
     if (!filename) {
         logger.error("Missing filename parameter");
@@ -46,7 +46,6 @@ app.get("/cdn/:dir/:filename", async (req: Request<{ dir: string; filename: stri
     }
 
     // Validate parameters
-    const validFormats = ["avif", "jpg"];
     const validWidths = ["300", "768", "original"];
 
     if (width && !validWidths.includes(width.toString())) {
@@ -55,36 +54,21 @@ app.get("/cdn/:dir/:filename", async (req: Request<{ dir: string; filename: stri
         return;
     }
 
-    if (format && !validFormats.includes(format.toString())) {
-        logger.error(`Invalid format parameter: "${format}"`);
-        res.status(400).send("Invalid format parameter, must be one of: avif, jpg");
-        return;
-    }
-
-    const targetFormat = (format as "avif" | "jpg") || "jpg";
     const targetWidth = width ? (width === "original" ? undefined : parseInt(width.toString())) : undefined;
 
-    const originalFilePath = path.join(cdnFiles, filename);
-    if (!fs.existsSync(originalFilePath)) {
-        logger.error(`Original Resource not found: "${originalFilePath}"`);
-        res.status(404).send("Resource not found");
-        return;
-    }
-
     // convert image to specified format and size
-    let specificFileName = filename;
-    if (targetWidth !== undefined || targetFormat !== "jpg") {
-        if (targetWidth) {
-            specificFileName = `${filename.split(".")[0]}-w${targetWidth}.${targetFormat}`;
-        } else {
-            specificFileName = `${filename.split(".")[0]}.${targetFormat}`;
-        }
-    }
-
+    const originalFilePath = path.join(cdnFiles, filename);
+    const specificFileName = targetWidth === undefined ? filename : `${filename.split(".")[0]}-w${targetWidth}.jpg`;
     const specificFilePath = path.join(cdnFiles, specificFileName);
     logger.info(`Serving image: "${specificFilePath}"`);
 
     if (!fs.existsSync(specificFilePath)) {
+        if (specificFileName === filename && !fs.existsSync(originalFilePath)) {
+            logger.error(`Original Resource not found: "${originalFilePath}"`);
+            res.status(404).send("Resource not found");
+            return;
+        }
+
         logger.info(`Generating image: "${specificFilePath}" from "${originalFilePath}"`);
 
         try {
@@ -93,17 +77,17 @@ app.get("/cdn/:dir/:filename", async (req: Request<{ dir: string; filename: stri
                 image.resize(targetWidth);
             }
 
-            image.toFormat(targetFormat, { quality: 100 });
+            image.toFormat("jpg", { quality: 100 });
 
             await image.toFile(specificFilePath);
         } catch (error) {
-            logger.error(`Failed to generate image: "${specificFilePath}"`);
+            logger.error(`Failed to generate image: "${specificFilePath}"`, error);
             res.status(500).send("Failed to generate image");
             return;
         }
     }
 
-    res.contentType(`image/${targetFormat}`);
+    res.contentType(`image/jpg`);
     res.sendFile(specificFilePath);
 });
 

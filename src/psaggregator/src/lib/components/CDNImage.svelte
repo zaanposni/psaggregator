@@ -13,29 +13,6 @@
 
     let imageSrc = "";
 
-    function supportsAVIF() {
-        return new Promise((resolve) => {
-            const avifImage =
-                "data:image/avif;base64,AAAAIGZ0eXBhdmlmAAAAAGF2aWZtaWYxbWlhZk1BMUIAAADybWV0YQAAAAAAAAAoaGRscgAAAAAAAAAAcGljdAAAAAAAAAAAAAAAAGxpYmF2aWYAAAAADnBpdG0AAAAAAAEAAAAeaWxvYwAAAABEAAABAAEAAAABAAABGgAAAB0AAAAoaWluZgAAAAAAAQAAABppbmZlAgAAAAABAABhdjAxQ29sb3IAAAAAamlwcnAAAABLaXBjbwAAABRpc3BlAAAAAAAAAAIAAAACAAAAEHBpeGkAAAAAAwgICAAAAAxhdjFDgQ0MAAAAABNjb2xybmNseAACAAIAAYAAAAAXaXBtYQAAAAAAAAABAAEEAQKDBAAAACVtZGF0EgAKCBgANogQEAwgMg8f8D///8WfhwB8+ErK42A=";
-            const img = new Image();
-            img.onload = () => resolve(true);
-            img.onerror = () => resolve(false);
-            img.src = avifImage;
-        });
-    }
-
-    async function getPreferredImageFormat() {
-        if (!browser || !window || !window.matchMedia) {
-            return "jpg";
-        }
-
-        if (await supportsAVIF()) {
-            return "avif";
-        }
-
-        return "jpg"; // fallback
-    }
-
     function getPreferredImageSize(): "300" | "768" | "original" {
         if (!browser || !window || !window.matchMedia) {
             return "300";
@@ -63,7 +40,7 @@
     }
 
     async function calculateImageSrc(src: string | null | undefined) {
-        imageSrc = `${src}?format=${await getPreferredImageFormat()}&width=${getPreferredImageSize()}`;
+        imageSrc = `${src}?width=${getPreferredImageSize()}`;
     }
 
     $: browser && calculateImageSrc(src);
