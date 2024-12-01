@@ -138,7 +138,7 @@ async def twitter():
 
     console.log("Fetching last tweets of list...")
 
-    contents = app.get_list_tweets(LIST_ID)
+    contents = await app.get_list_tweets(LIST_ID)
     for content in contents:
         if isinstance(content, Tweet):
             await handle_tweet(content, db)

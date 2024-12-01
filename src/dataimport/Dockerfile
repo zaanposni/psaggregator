@@ -8,30 +8,25 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 # Install Firefox
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends firefox-esr && \
-    rm -rf /var/lib/apt/lists/*
+    apt-get install -y --no-install-recommends firefox-esr
 
 # Install GeckoDriver
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends wget unzip && \
+RUN apt-get install -y --no-install-recommends wget unzip && \
     wget https://github.com/mozilla/geckodriver/releases/download/v0.30.0/geckodriver-v0.30.0-linux64.tar.gz && \
     tar -xvzf geckodriver-v0.30.0-linux64.tar.gz && \
     rm geckodriver-v0.30.0-linux64.tar.gz && \
     chmod +x geckodriver && \
     mv geckodriver /usr/local/bin/ && \
-    apt-get remove -y wget unzip && \
-    rm -rf /var/lib/apt/lists/*
+    apt-get remove -y wget unzip
 
-# Install rsyslog
-RUN apt-get update && apt-get install -y rsyslog
+# Install deps
+RUN apt-get install -y rsyslog cron dos2unix libmagic1
+
+# Cleanup
+RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+
 COPY rsyslog.conf /etc/rsyslog.conf
 RUN chmod 644 /etc/rsyslog.conf
-
-# Install cron
-RUN apt-get update && apt-get install -y cron
-
-# Install dos2unix
-RUN apt-get update && apt-get install -y dos2unix
 
 COPY . /app
 
