@@ -268,7 +268,8 @@
                                 src={selectedStory.imageUri}
                                 alt={selectedStory.text}
                                 title={selectedStory.text}
-                                class="rounded-[20px] object-contain" />
+                                class="rounded-[20px] object-contain"
+                                loading="eager" />
                         {/if}
                     {/if}
                 </div>

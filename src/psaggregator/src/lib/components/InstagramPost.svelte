@@ -55,7 +55,7 @@
                             src={resource.imageUri}
                             alt={resource.remoteId}
                             title={resource.remoteId}
-                            loading="lazy" />
+                            {loading} />
                     </div>
                 {/each}
             </div>
