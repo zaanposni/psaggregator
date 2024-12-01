@@ -184,14 +184,13 @@
 
 <MediaQuery query="(min-width: 768px)" let:matches>
     {#if active}
-        <div
-            class="max-w-screen absolute left-0 top-0 z-10 flex h-screen max-h-screen w-screen flex-col overflow-hidden bg-black pt-12 lg:pt-12">
+        <div class="max-w-screen absolute left-0 top-0 z-10 flex h-screen max-h-screen w-screen flex-col overflow-hidden bg-black lg:pt-12">
             <div
                 class="story-container max-w-screen flex h-screen max-h-screen w-screen flex-col overflow-hidden lg:mx-auto lg:w-1/2"
                 class:pause={touchStartX}
                 on:touchstart={touchStartHandler}
                 on:touchend={touchEndHandler}>
-                <div class="max-w-screen lg:max-w-1/2 absolute top-12 z-10 w-screen lg:top-0 lg:w-1/2">
+                <div class="max-w-screen lg:max-w-1/2 absolute top-0 z-10 w-screen lg:w-1/2">
                     <div class="progress-container flex w-full max-w-full px-2 pt-4" bind:this={progressContainer}>
                         {#each stories as story, index}
                             {@const duration =
