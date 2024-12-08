@@ -29,9 +29,7 @@
             ...(data.youtubeCommunityPosts?.map((entry: Information) => moment(entry.date)) ?? []),
             ...(data.instagramPosts?.map((entry: Information) => moment(entry.date)) ?? []),
             ...(data.twitterPosts?.map((entry: Information) => moment(entry.date)) ?? []),
-            ...(data.redditPosts?.map((entry: RedditPost) => moment(entry.date)) ?? []),
             ...(data.videos?.map((entry: ContentPiece) => moment(entry.startDate)) ?? []),
-            ...(data.upcomingStreams?.map((entry: ScheduledContentPiece) => moment(entry.startDate)) ?? []),
             moment((data.twitchStatus as TwitchStatus)?.startedAt ?? 0)
         ];
 
