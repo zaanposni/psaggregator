@@ -16,6 +16,21 @@
 </style>
 
 <div class="flex-col p-4">
+    <h2 class="mb-2 text-2xl font-bold">Version 1.19.2</h2>
+    <div class="changelog-contents w-full grow overflow-y-auto lg:w-1/2">
+        <h3 class="mb-2 text-xl font-bold">Überarbeitungen</h3>
+        <div>
+            <span>Richtige Videodauer</span>
+            <span>Die Videodauer wird für Videos länger als eine Stunde nun korrekt angezeigt.</span>
+        </div>
+        <div>
+            <span>YouTube-Verlinkung im Uploadplan</span>
+            <span
+                >Der Uploadplan verlinkt nun auch auf YouTube, wenn die Option in den Einstellungen aktiviert ist und das Video auf YouTube
+                verfügbar ist.</span>
+        </div>
+    </div>
+
     <h2 class="mb-2 text-2xl font-bold">Version 1.19.1</h2>
     <div class="changelog-contents w-full grow overflow-y-auto lg:w-1/2">
         <h3 class="mb-2 text-xl font-bold">Überarbeitungen</h3>
