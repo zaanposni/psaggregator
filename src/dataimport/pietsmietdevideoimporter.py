@@ -3,6 +3,8 @@ import os
 import json
 import asyncio
 from uuid import uuid4
+from PIL import Image
+from io import BytesIO
 
 from rich.console import Console
 from databases import Database
@@ -128,14 +130,31 @@ async def stuff() -> asyncio.coroutine:
                     f"Try redownloading thumbnail for {content['remoteId']}...",
                     style="bright_magenta",
                 )
+
+                filename_id = uuid4()
                 try:
                     thumbnail = requests.get(content["imageUri"]).content
-                    filename = f"{uuid4()}.jpg"
-                    with open(f"/app/cdn/psde/{filename}", "wb") as f:
+                    with open(f"/app/cdn/psde/{filename_id}.jpg", "wb") as f:
                         f.write(thumbnail)
-                    newImageUri = f"/cdn/psde/{filename}"
+                    newImageUri = f"/cdn/psde/{filename_id}.jpg"
                 except Exception as e:
                     console.log(f"Error downloading thumbnail: {e}", style="bold red")
+
+                try:
+                    console.log(
+                        f"Resizing thumbnail for {content['remoteId']}...",
+                        style="bright_magenta",
+                    )
+                    image = Image.open(BytesIO(thumbnail))
+                    width, height = 300, int((300 / image.width) * image.height)
+                    resized_300 = image.resize((width, height))
+                    resized_300.save(f"/app/cdn/psde/{filename_id}-w300.jpg")
+
+                    width, height = 768, int((768 / image.width) * image.height)
+                    resized_768 = image.resize((width, height))
+                    resized_768.save(f"/app/cdn/psde/{filename_id}-w768.jpg")
+                except Exception as e:
+                    console.log(f"Error resizing thumbnail: {e}", style="bold red")
 
             await db.execute(
                 UPDATE_STATEMENT,
@@ -156,15 +175,35 @@ async def stuff() -> asyncio.coroutine:
             )
 
             if content["imageUri"] != None:
+                filename_id = uuid4()
                 try:
+                    console.log(
+                        f"Downloading thumbnail for {content['remoteId']}...",
+                        style="bright_magenta",
+                    )
                     thumbnail = requests.get(content["imageUri"]).content
-                    filename = f"{uuid4()}.jpg"
-                    with open(f"/app/cdn/psde/{filename}", "wb") as f:
+                    with open(f"/app/cdn/psde/{filename_id}.jpg", "wb") as f:
                         f.write(thumbnail)
-                    content["imageUri"] = f"/cdn/psde/{filename}"
+                    content["imageUri"] = f"/cdn/psde/{filename_id}.jpg"
                 except Exception as e:
                     console.log(f"Error downloading thumbnail: {e}", style="bold red")
                     content["imageUri"] = content["imageUri"]
+
+                try:
+                    console.log(
+                        f"Resizing thumbnail for {content['remoteId']}...",
+                        style="bright_magenta",
+                    )
+                    image = Image.open(BytesIO(thumbnail))
+                    width, height = 300, int((300 / image.width) * image.height)
+                    resized_300 = image.resize((width, height))
+                    resized_300.save(f"/app/cdn/psde/{filename_id}-w300.jpg")
+
+                    width, height = 768, int((768 / image.width) * image.height)
+                    resized_768 = image.resize((width, height))
+                    resized_768.save(f"/app/cdn/psde/{filename_id}-w768.jpg")
+                except Exception as e:
+                    console.log(f"Error resizing thumbnail: {e}", style="bold red")
 
             await db.execute(
                 INSERT_STATEMENT,

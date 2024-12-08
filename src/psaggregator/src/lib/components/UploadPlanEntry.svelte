@@ -5,6 +5,7 @@
     import Sparkle from "./Sparkle.svelte";
     import * as Card from "$lib/components/ui/card";
     import { Button } from "./ui/button";
+    import { LINK_YOUTUBE } from "../../config/config";
 
     export let entry: ScheduledContentPiece;
 </script>
@@ -34,7 +35,7 @@
             <div class="grow" />
         {/if}
         {#if entry.href}
-            <Button variant="default" href={entry.href} target="_blank">
+            <Button variant="default" href={$LINK_YOUTUBE && entry.secondaryHref ? entry.secondaryHref : entry.href} target="_blank">
                 <span class="mr-2">
                     <PlayFilledAlt />
                 </span>

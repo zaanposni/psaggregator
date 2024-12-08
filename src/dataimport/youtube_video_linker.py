@@ -25,7 +25,8 @@ channel_ids = [
 collection_url = "https://www.googleapis.com/youtube/v3/search?part=snippet&order=date&maxResults=50&channelId={}&type=video&key={}"
 youtube_url_template = "https://youtu.be/{}"
 
-UPDATE_STATEMENT = "UPDATE ContentPiece SET description = :description, secondaryHref = :secondaryHref WHERE id = :id"
+UPDATE_STATEMENT_CONTENTPIECE = "UPDATE ContentPiece SET description = :description, secondaryHref = :secondaryHref WHERE id = :id AND type = 'PSVideo'"
+UPDATE_STATEMENT_PLAN = "UPDATE ScheduledContentPiece SET description = :description, secondaryHref = :secondaryHref WHERE remoteId = :remoteId AND type = 'PSVideo'"
 
 
 def replace_emojis_with_question_mark(text):
@@ -74,27 +75,44 @@ async def youtube():
                 "upperBoundary": one_week_after.strftime("%Y-%m-%d %H:%M:%S"),
             }
 
+            description = video["snippet"]["description"]
+            secondaryHref = youtube_url_template.format(video["id"]["videoId"])
+
             result = await db.fetch_one(query=query, values=values)
             if not result:
                 console.log(f"Could not find a matching video for '{title}'")
                 continue
-            if result.description is not None or result.secondaryHref is not None:
+
+            if result.description is None and result.secondaryHref is None:
+                values = {
+                    "id": result.id,
+                    "description": description,
+                    "secondaryHref": secondaryHref,
+                }
+
                 console.log(
-                    f"ContentPiece {result.id} already has a description or secondaryHref"
+                    f"Updating ContentPiece {result.id} with secondaryHref {secondaryHref}"
                 )
-                continue
+                await db.execute(query=UPDATE_STATEMENT_CONTENTPIECE, values=values)
+            else:
+                console.log(
+                    f"ContentPiece {result.id} already has a description and secondaryHref. Skipping update"
+                )
 
-            description = video["snippet"]["description"]
-            secondaryHref = youtube_url_template.format(video["id"]["videoId"])
-
-            values = {
-                "id": result.id,
-                "description": description,
-                "secondaryHref": secondaryHref,
-            }
-
-            console.log(f"Updating {result.id} with secondaryHref {secondaryHref}")
-            await db.execute(query=UPDATE_STATEMENT, values=values)
+            if result.remoteId:
+                values = {
+                    "remoteId": result.remoteId,
+                    "description": description,
+                    "secondaryHref": secondaryHref,
+                }
+                console.log(
+                    f"Updating ScheduledContentPiece {result.remoteId} with secondaryHref {secondaryHref}"
+                )
+                await db.execute(query=UPDATE_STATEMENT_PLAN, values=values)
+            else:
+                console.log(
+                    f"ContentPiece {result.id} does not have a remoteId. Skipping ScheduledContentPiece update"
+                )
 
     await db.disconnect()
     console.log("Done")

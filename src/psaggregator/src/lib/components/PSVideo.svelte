@@ -12,7 +12,8 @@
     let classes = "";
     export { classes as class };
 
-    $: humanReadableMinutes = video.duration ? Math.floor(video.duration / 60) : null;
+    $: humanReadableHours = video.duration ? Math.floor(video.duration / 3600) : null;
+    $: humanReadableMinutes = video.duration ? Math.floor((video.duration % 3600) / 60) : null;
     $: humanReadableSeconds = video.duration ? video.duration % 60 : null;
 </script>
 
@@ -54,7 +55,9 @@
                 <div class="overlap"></div>
                 {#if humanReadableMinutes !== null && humanReadableSeconds !== null}
                     <span class="absolute bottom-0 right-0 m-2 text-xs font-bold text-white"
-                        >{("00" + humanReadableMinutes).slice(-2)}:{("00" + humanReadableSeconds).slice(-2)}</span>
+                        >{#if humanReadableHours}{("00" + humanReadableHours).slice(-2)}:{/if}{("00" + humanReadableMinutes).slice(-2)}:{(
+                            "00" + humanReadableSeconds
+                        ).slice(-2)}</span>
                 {/if}
             </div>
         </div>
