@@ -5,7 +5,7 @@
     import { browser } from "$app/environment";
     import PsVideo from "$lib/components/PSVideo.svelte";
     import MediaQuery from "$lib/utils/MediaQuery.svelte";
-    import { LINK_YOUTUBE, LINK_YOUTUBE_KEY, VIDEO_COMPLEXE_VIEW, VIDEO_COMPLEXE_VIEW_KEY } from "../../config/config";
+    import { VIDEO_COMPLEXE_VIEW, VIDEO_COMPLEXE_VIEW_KEY } from "../../config/config";
     import Checkbox from "$lib/components/ui/checkbox/checkbox.svelte";
     import Label from "$lib/components/ui/label/label.svelte";
     import type { ContentPiece } from "@prisma/client";
@@ -202,19 +202,6 @@
                         }} />
                     <Label for="video-complexe-view">Komplexe Ansicht</Label>
                 </div>
-                <div class="mr-4 flex items-center gap-x-1 md:gap-x-2">
-                    <Checkbox
-                        id="link-youtube"
-                        bind:checked={$LINK_YOUTUBE}
-                        on:click={(e) => {
-                            if (browser) {
-                                setTimeout(() => {
-                                    localStorage.setItem(LINK_YOUTUBE_KEY, $LINK_YOUTUBE.toString());
-                                }, 1000);
-                            }
-                        }} />
-                    <Label for="link-youtube">YouTube-Verlinkung</Label>
-                </div>
             </div>
         </div>
         <section class="grid grid-cols-2 gap-4 md:grid-cols-3 xl:grid-cols-5 {!matches && $VIDEO_COMPLEXE_VIEW ? '!grid-cols-1' : ''}">
@@ -234,7 +221,7 @@
                         loading={index < 10 ? "eager" : "lazy"} />
                 {:else}
                     <a
-                        href={$LINK_YOUTUBE && video.secondaryHref ? video.secondaryHref : video.href}
+                        href={video.importedFrom === "YouTube" ? video.href : video.secondaryHref || video.href}
                         target="_blank"
                         class="overflow-hidden">
                         <CdnImage

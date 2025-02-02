@@ -17,6 +17,7 @@
     import FaviconNotification from "favicon-notification";
     import type { ContentPiece, Information, ScheduledContentPiece } from "@prisma/client";
     import moment from "moment";
+    import NewsSmall from "$lib/components/NewsSmall.svelte";
 
     export let data: PageServerData;
 
@@ -117,102 +118,89 @@
     .scrollable::-webkit-scrollbar {
         width: 0px; /* For Chrome, Safari, and Opera */
     }
-    .dashboardcontainer > div:not(:first-child) {
-        @apply mt-4;
-    }
-
-    @media (min-width: 768px) {
-        .dashboardcontainer > div:not(:first-child) {
-            @apply mt-8;
-        }
-    }
 </style>
 
 <MediaQuery query="(min-width: 768px)" let:matches>
-    <div class="dashboardcontainer p-4 md:p-8">
-        <div class="flex flex-col-reverse gap-y-4 md:flex-row md:items-start md:gap-x-8 md:gap-y-0">
-            <div class="shrink-0 grow">
-                <div class="mb-2 ml-2 flex items-center text-2xl">
-                    <List size={32} class="mr-2" />
-                    Uploadplan
-                </div>
-                <div class="flex shrink-0 grow flex-col gap-2">
-                    {#each data.today as content}
-                        <UploadPlanEntry entry={content} />
-                    {:else}
-                        <div class="flex items-center">Bisher konnte heute kein Uploadplan importiert werden.</div>
-                    {/each}
-                </div>
-            </div>
-            {#if data.twitchStatus}
-                <div class="flex w-full shrink-0 flex-col md:w-80">
+    <div class="grid w-full grid-cols-1 gap-4 p-4 md:gap-8 md:p-8">
+        {#if data.twitchStatus}
+            <div class="flex w-full justify-center">
+                <div class="md:w-80">
                     <div class="mb-2 ml-2 flex items-center text-2xl">
                         <img alt="twitch" src="/twitch-logo.svg" class="mr-2 inline-block h-8 w-8" />
                         Twitch
                     </div>
                     <TwitchStatus twitch={data.twitchStatus} />
                 </div>
-            {/if}
-        </div>
-        <div class="grid grid-cols-1 gap-x-8 gap-y-4 md:grid-cols-2 md:gap-y-8 xl:grid-cols-5">
-            <div class="order-2">
-                <div class="mb-2 ml-2 flex items-center text-2xl">
-                    <LogoYoutube size={32} class="mr-2" />
-                    YouTube
+            </div>
+        {/if}
+        {#if matches}
+            <div class="grid grid-cols-1 gap-x-8 gap-y-4 md:grid-cols-2 md:gap-y-8 xl:grid-cols-5">
+                <div class="order-2">
+                    <div class="mb-2 ml-2 flex items-center text-2xl">
+                        <LogoYoutube size={32} class="mr-2" />
+                        YouTube
+                    </div>
+                    <div class="flex flex-col gap-2">
+                        {#each data.youtubeCommunityPosts as youtube, index}
+                            <YouTubeCommunityPost post={youtube} loading={index < 2 ? "eager" : "lazy"} />
+                        {/each}
+                    </div>
                 </div>
-                <div class="flex flex-col gap-2">
-                    {#each data.youtubeCommunityPosts as youtube, index}
-                        <YouTubeCommunityPost post={youtube} loading={index < 2 ? "eager" : "lazy"} />
-                    {/each}
+                <div class="order-3">
+                    <div class="mb-2 ml-2 flex items-center text-2xl">
+                        <LogoInstagram size={32} class="mr-2" />
+                        Instagram
+                    </div>
+                    <div class="flex flex-col gap-2">
+                        {#each data.instagramPosts as instagram, index}
+                            <InstagramPost post={instagram} loading={index < 2 ? "eager" : "lazy"} />
+                        {/each}
+                    </div>
+                </div>
+                <div class="order-4">
+                    <div class="mb-2 ml-2 flex items-center text-2xl">
+                        <LogoTwitter size={32} class="mr-2" />
+                        Twitter
+                    </div>
+                    <div class="flex flex-col gap-2">
+                        {#each data.twitterPosts as twitter, index}
+                            <TwitterPost post={twitter} loading={index < 2 ? "eager" : "lazy"} />
+                        {/each}
+                    </div>
+                </div>
+                <div class="order-5">
+                    <div class="mb-2 ml-2 flex items-center text-2xl">
+                        <img alt="reddit" src="/reddit-logo.svg" class="mr-2 inline-block h-8 w-8" />
+                        Reddit
+                    </div>
+                    <div class="flex flex-col gap-2">
+                        {#each data.redditPosts.slice(0, matches ? 10 : 5) as reddit, index}
+                            <RedditPost entry={reddit} loading={index < 4 ? "eager" : "lazy"} />
+                        {/each}
+                    </div>
+                </div>
+                <div class="order-1 md:order-6">
+                    <div class="mb-2 ml-2 flex items-center text-2xl">
+                        <img alt="twitch" src="/twitch-logo.svg" class="mr-2 inline-block h-8 w-8" />
+                        Streams
+                    </div>
+                    <div class="flex flex-col gap-2">
+                        {#each data.upcomingStreams as stream}
+                            <TwitchEntry entry={stream} />
+                        {:else}
+                            <div class="flex items-center">Momentan sind keine geplanten Streams bekannt.</div>
+                        {/each}
+                    </div>
                 </div>
             </div>
-            <div class="order-3">
-                <div class="mb-2 ml-2 flex items-center text-2xl">
-                    <LogoInstagram size={32} class="mr-2" />
-                    Instagram
-                </div>
-                <div class="flex flex-col gap-2">
-                    {#each data.instagramPosts as instagram, index}
-                        <InstagramPost post={instagram} loading={index < 2 ? "eager" : "lazy"} />
-                    {/each}
-                </div>
-            </div>
-            <div class="order-4">
-                <div class="mb-2 ml-2 flex items-center text-2xl">
-                    <LogoTwitter size={32} class="mr-2" />
-                    Twitter
-                </div>
-                <div class="flex flex-col gap-2">
-                    {#each data.twitterPosts as twitter, index}
-                        <TwitterPost post={twitter} loading={index < 2 ? "eager" : "lazy"} />
-                    {/each}
-                </div>
-            </div>
-            <div class="order-5">
-                <div class="mb-2 ml-2 flex items-center text-2xl">
-                    <img alt="reddit" src="/reddit-logo.svg" class="mr-2 inline-block h-8 w-8" />
-                    Reddit
-                </div>
-                <div class="flex flex-col gap-2">
-                    {#each data.redditPosts.slice(0, matches ? 10 : 5) as reddit, index}
-                        <RedditPost entry={reddit} loading={index < 4 ? "eager" : "lazy"} />
-                    {/each}
-                </div>
-            </div>
-            <div class="order-1 md:order-6">
-                <div class="mb-2 ml-2 flex items-center text-2xl">
-                    <img alt="twitch" src="/twitch-logo.svg" class="mr-2 inline-block h-8 w-8" />
-                    Streams
-                </div>
-                <div class="flex flex-col gap-2">
-                    {#each data.upcomingStreams as stream}
-                        <TwitchEntry entry={stream} />
-                    {:else}
-                        <div class="flex items-center">Momentan sind keine geplanten Streams bekannt.</div>
-                    {/each}
-                </div>
-            </div>
-        </div>
+        {:else}
+            <NewsSmall
+                youtubeCommunityPosts={data.youtubeCommunityPosts}
+                instagramPosts={data.instagramPosts}
+                twitterPosts={data.twitterPosts}
+                redditPosts={data.redditPosts}
+                streams={data.upcomingStreams} />
+        {/if}
         <div>
             <div class="mb-2 ml-2 flex items-center text-2xl">
                 <VideoPlayer size={32} class="mr-2" />

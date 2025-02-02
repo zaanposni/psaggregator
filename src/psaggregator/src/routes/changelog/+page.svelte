@@ -1,3 +1,8 @@
+<script lang="ts">
+    import { Button } from "$lib/components/ui/button";
+    import { FavoriteFilled } from "carbon-icons-svelte";
+</script>
+
 <style lang="postcss">
     .changelog-contents > div {
         @apply mb-2 flex flex-col;
@@ -16,6 +21,33 @@
 </style>
 
 <div class="flex-col p-4">
+    <h2 class="mb-2 text-2xl font-bold">Version 1.20.0 - Abschaltung pietsmiet.de</h2>
+    <Button class="mb-2" href="https://cdn.zaanposni.com/api/files/psaggregator2025/info.html" target="_blank" rel="noopener noreferrer">
+        <span class="mr-2">
+            <FavoriteFilled />
+        </span>
+        <span>Mehr Informationen</span>
+    </Button>
+    <div class="changelog-contents w-full grow overflow-y-auto lg:w-1/2">
+        <h3 class="mb-2 text-xl font-bold">Überarbeitungen</h3>
+        <div>
+            <span>Video-Importe</span>
+            <span>Videos werden jetzt von YouTube importiert, da pietsmiet.de abgeschaltet wurde.</span>
+            <span>Alte Videos zeigen teilweise noch auf pietsmiet.de hier müssen noch alle YouTube-Links hinzugefügt werden.</span>
+        </div>
+        <div>
+            <span>News-Startseite</span>
+            <span>Die Startseite zeigt auf kleinen Geräten die News nun kompakter an und ermöglicht so einen besseren Überblick.</span>
+        </div>
+        <h3 class="mb-2 text-xl font-bold">Bestehende Probleme</h3>
+        <div>
+            <span>Uploadplan und Streamplan</span>
+            <span
+                >Der Uploadplan und Streamplan stehen nun nicht mehr auf pietsmiet.de zur Verfügung. Es wird noch eine Lösung gesucht.</span>
+            <span>Vermutlich werde ich die Bilder direkt irgendwo anzeigen.</span>
+        </div>
+    </div>
+
     <h2 class="mb-2 text-2xl font-bold">Version 1.19.2</h2>
     <div class="changelog-contents w-full grow overflow-y-auto lg:w-1/2">
         <h3 class="mb-2 text-xl font-bold">Überarbeitungen</h3>

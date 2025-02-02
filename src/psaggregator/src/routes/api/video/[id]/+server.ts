@@ -5,8 +5,7 @@ export async function GET({ params }) {
     const data = await prisma.contentPiece.findFirst({
         where: {
             AND: {
-                type: "PSVideo",
-                importedFrom: "PietSmietDE"
+                type: "PSVideo"
             },
             OR: [{ id: params.id }, { remoteId: params.id }, { href: params.id }, { secondaryHref: params.id }]
         }

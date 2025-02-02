@@ -7,8 +7,6 @@
         SHOW_ABSOLUTE_DATES_KEY,
         VIDEO_COMPLEXE_VIEW,
         VIDEO_COMPLEXE_VIEW_KEY,
-        LINK_YOUTUBE,
-        LINK_YOUTUBE_KEY,
         LOW_DATA_MODE,
         LOW_DATA_MODE_KEY
     } from "../../config/config";
@@ -61,28 +59,6 @@
                 </Label>
                 <p class="text-muted-foreground text-sm">
                     Zeige Videos in einer komplexen Ansicht an, die mehr Informationen enthält (betrifft Videos-Unterseite)
-                </p>
-            </div>
-        </div>
-        <div class="items-top flex space-x-2">
-            <Checkbox
-                id="link-youtube"
-                checked={$LINK_YOUTUBE}
-                on:click={() => {
-                    LINK_YOUTUBE.set(!$LINK_YOUTUBE);
-                    if (browser) {
-                        localStorage.setItem(LINK_YOUTUBE_KEY, $LINK_YOUTUBE.toString());
-                    }
-                }} />
-            <div class="grid gap-1.5 leading-none">
-                <Label
-                    for="link-youtube"
-                    class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-                    Verlinkung zu YouTube
-                </Label>
-                <p class="text-muted-foreground text-sm">
-                    Soweit verfügbar, sind Videos mit einem Link zu YouTube versehen. Wenn diese Option deaktiviert ist, wird stattdessen
-                    auf pietsmiet.de verlinkt.
                 </p>
             </div>
         </div>
