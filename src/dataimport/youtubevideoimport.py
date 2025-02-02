@@ -4,7 +4,7 @@ import asyncio
 from uuid import uuid4
 from PIL import Image
 from io import BytesIO
-from datetime import datetime
+from datetime import datetime, timezone
 
 from rich.console import Console
 from databases import Database
@@ -23,7 +23,7 @@ youtube_key = os.getenv("YOUTUBE_API_KEY")
 if not youtube_key:
     raise Exception("YOUTUBE_API_KEY not set")
 
-PS_DE_CUT_OFF_DATE = datetime(2025, 2, 2, 0, 0, 0)
+PS_DE_CUT_OFF_DATE = datetime(2025, 2, 2, 0, 0, 0, tzinfo=timezone.utc)
 
 channel_ids = [
     "UCqwGaUvq_l0RKszeHhZ5leA",  # PietSmiet
