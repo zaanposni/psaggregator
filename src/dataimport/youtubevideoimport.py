@@ -100,7 +100,7 @@ async def youtube():
             filename_id = uuid4()
             try:
                 thumbnail = requests.get(yt_thumbnail_url).content
-                with open(f"./app/cdn/ytv/{filename_id}.jpg", "wb") as f:
+                with open(f"/app/cdn/ytv/{filename_id}.jpg", "wb") as f:
                     f.write(thumbnail)
                 imageUri = f"/cdn/ytv/{filename_id}.jpg"
             except imageUri as e:
@@ -115,11 +115,11 @@ async def youtube():
                 image = Image.open(BytesIO(thumbnail))
                 width, height = 300, int((300 / image.width) * image.height)
                 resized_300 = image.resize((width, height))
-                resized_300.save(f"./app/cdn/ytv/{filename_id}-w300.jpg")
+                resized_300.save(f"/app/cdn/ytv/{filename_id}-w300.jpg")
 
                 width, height = 768, int((768 / image.width) * image.height)
                 resized_768 = image.resize((width, height))
-                resized_768.save(f"./app/cdn/ytv/{filename_id}-w768.jpg")
+                resized_768.save(f"/app/cdn/ytv/{filename_id}-w768.jpg")
             except Exception as e:
                 console.log(f"Error resizing thumbnail: {e}", style="bold red")
 
