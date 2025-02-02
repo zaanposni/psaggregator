@@ -118,43 +118,21 @@
     .scrollable::-webkit-scrollbar {
         width: 0px; /* For Chrome, Safari, and Opera */
     }
-    .dashboardcontainer > div:not(:first-child) {
-        @apply mt-4;
-    }
-
-    @media (min-width: 768px) {
-        .dashboardcontainer > div:not(:first-child) {
-            @apply mt-8;
-        }
-    }
 </style>
 
 <MediaQuery query="(min-width: 768px)" let:matches>
-    <div class="dashboardcontainer p-4 md:p-8">
-        <div class="flex flex-col-reverse gap-y-4 md:flex-row md:items-start md:gap-x-8 md:gap-y-0">
-            <div class="shrink-0 grow">
-                <div class="mb-2 ml-2 flex items-center text-2xl">
-                    <List size={32} class="mr-2" />
-                    Uploadplan
-                </div>
-                <div class="flex shrink-0 grow flex-col gap-2">
-                    {#each data.today as content}
-                        <UploadPlanEntry entry={content} />
-                    {:else}
-                        <div class="flex items-center">Bisher konnte heute kein Uploadplan importiert werden.</div>
-                    {/each}
-                </div>
-            </div>
-            {#if data.twitchStatus}
-                <div class="flex w-full shrink-0 flex-col md:w-80">
+    <div class="grid w-full grid-cols-1 gap-4 p-4 md:gap-8 md:p-8">
+        {#if data.twitchStatus}
+            <div class="flex w-full justify-center">
+                <div class="md:w-80">
                     <div class="mb-2 ml-2 flex items-center text-2xl">
                         <img alt="twitch" src="/twitch-logo.svg" class="mr-2 inline-block h-8 w-8" />
                         Twitch
                     </div>
                     <TwitchStatus twitch={data.twitchStatus} />
                 </div>
-            {/if}
-        </div>
+            </div>
+        {/if}
         {#if matches}
             <div class="grid grid-cols-1 gap-x-8 gap-y-4 md:grid-cols-2 md:gap-y-8 xl:grid-cols-5">
                 <div class="order-2">
