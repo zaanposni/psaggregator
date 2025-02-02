@@ -30,7 +30,6 @@ export async function GET({ url }) {
     const data = await prisma.contentPiece.findMany({
         where: {
             type: "PSVideo",
-            importedFrom: "PietSmietDE",
             startDate: {
                 gt: newSince ? newSince.toDate() : undefined
             }
