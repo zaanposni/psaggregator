@@ -122,7 +122,7 @@
 
 <MediaQuery query="(min-width: 768px)" let:matches>
     <div class="grid w-full grid-cols-1 gap-4 p-4 md:gap-8 md:p-8">
-        {#if data.twitchStatus}
+        {#if !matches && data.twitchStatus}
             <div class="flex w-full justify-center">
                 <div class="md:w-80">
                     <div class="mb-2 ml-2 flex items-center text-2xl">
@@ -182,8 +182,13 @@
                 <div class="order-1 md:order-6">
                     <div class="mb-2 ml-2 flex items-center text-2xl">
                         <img alt="twitch" src="/twitch-logo.svg" class="mr-2 inline-block h-8 w-8" />
-                        Streams
+                        Twitch
                     </div>
+                    {#if data.twitchStatus}
+                        <div class="mb-4">
+                            <TwitchStatus twitch={data.twitchStatus} />
+                        </div>
+                    {/if}
                     <div class="flex flex-col gap-2">
                         {#each data.upcomingStreams as stream}
                             <TwitchEntry entry={stream} />

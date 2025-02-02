@@ -69,7 +69,7 @@
 <MediaQuery query="(min-width: 768px)" let:matches>
     <div style="display: contents" class="h-full overflow-hidden">
         <div class="flex h-full w-full flex-col overflow-hidden">
-            <BigHeader />
+            <BigHeader twitchStatus={data.twitchStatus} />
             {#each data.announcements as announcement (announcement.id)}
                 <div out:slide>
                     <Alert.Root class="bg-primary flex items-center justify-between gap-x-2 rounded-none border-none">
