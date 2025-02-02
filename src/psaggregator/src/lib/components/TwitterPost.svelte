@@ -15,14 +15,18 @@
 </script>
 
 <Card.Root>
-    <a class="flex flex-col gap-x-4 p-4" href={post.href} target="_blank">
+    <div class="flex flex-col gap-x-4 p-4">
         <div class="mb-2 flex justify-between">
             <span>{titleCase(post.additionalInfo)}</span>
             {#if post.date}
                 <span class="text-sm">{dateFormat(post.date, $SHOW_ABSOLUTE_DATES)}</span>
             {/if}
         </div>
-        <div class="mb-4">{post.text}</div>
+        <div class="mb-4">
+            <a href={post.href} target="_blank">
+                {post.text}
+            </a>
+        </div>
         {#if post.InformationResource.filter((x) => x.imageUri || x.videoUri).length != 0}
             <div class="flex w-full gap-2 overflow-x-auto scroll-smooth pb-2">
                 {#each post.InformationResource.filter((x) => x.imageUri || x.videoUri) as resource}
@@ -49,5 +53,5 @@
                 {/each}
             </div>
         {/if}
-    </a>
+    </div>
 </Card.Root>

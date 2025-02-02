@@ -10,11 +10,15 @@
 </script>
 
 <Card.Root>
-    <a class="flex flex-col gap-x-4 p-4" href={post.href} target="_blank">
+    <div class="flex flex-col gap-x-4 p-4">
         {#if post.date}
             <div class="mb-2 text-sm">{dateFormat(post.date, $SHOW_ABSOLUTE_DATES)}</div>
         {/if}
-        <div>{post.text}</div>
+        <div>
+            <a href={post.href} target="_blank">
+                {post.text}
+            </a>
+        </div>
         {#if post.imageUri}
             <CdnImage
                 size="full"
@@ -24,5 +28,5 @@
                 title={post.text}
                 {loading} />
         {/if}
-    </a>
+    </div>
 </Card.Root>
