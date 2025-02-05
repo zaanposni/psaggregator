@@ -197,7 +197,9 @@
                         {#each data.upcomingStreams as stream}
                             <TwitchEntry entry={stream} />
                         {:else}
-                            <div class="flex items-center">Momentan sind keine geplanten Streams bekannt.</div>
+                            {#if !data.youtubeStreamplanPost}
+                                <div class="flex items-center">Momentan sind keine geplanten Streams bekannt.</div>
+                            {/if}
                         {/each}
                     </div>
                 </div>

@@ -14,7 +14,7 @@
     <div class="flex flex-col gap-x-4 p-4">
         <div class="mb-2 flex items-center gap-2">
             <Badge>BETA</Badge>
-            <div class="text-primary">Vermutlich aktueller Streamplan</div>
+            <div class="text-primary">Vermutlicher Streamplan</div>
         </div>
         {#if post.date}
             <div class="mb-2 text-sm">{dateFormat(post.date, $SHOW_ABSOLUTE_DATES)}</div>

@@ -98,7 +98,9 @@
                     {#each streams ?? [] as stream}
                         <TwitchEntry entry={stream} />
                     {:else}
-                        <div class="flex items-center">Momentan sind keine geplanten Streams bekannt.</div>
+                        {#if !youtubeStreamplanPost}
+                            <div class="flex items-center">Momentan sind keine geplanten Streams bekannt.</div>
+                        {/if}
                     {/each}
                 </div>
             </Tabs.Content>
