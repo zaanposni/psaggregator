@@ -8,12 +8,14 @@
     import RedditPost from "./RedditPost.svelte";
     import type { RedditPost as RedditPostType } from "@prisma/client";
     import TwitchEntry from "./TwitchEntry.svelte";
+    import YouTubeCommunityPostStreamplan from "./YouTubeCommunityPostStreamplan.svelte";
 
     export let youtubeCommunityPosts: Array<Information & { InformationResource: InformationResource[] }>;
     export let instagramPosts: Array<Information & { InformationResource: InformationResource[] }>;
     export let twitterPosts: Array<Information & { InformationResource: InformationResource[] }>;
     export let redditPosts: RedditPostType[] | undefined = undefined;
     export let streams: ScheduledContentPiece[] | undefined = undefined;
+    export let youtubeStreamplanPost: Information | undefined = undefined;
 </script>
 
 <style>
@@ -87,10 +89,13 @@
                 </div>
             </Tabs.Content>
         {/if}
-        {#if streams}
+        {#if streams || youtubeStreamplanPost}
             <Tabs.Content value="streams">
                 <div class="flex flex-col gap-y-4">
-                    {#each streams as stream}
+                    {#if youtubeStreamplanPost}
+                        <YouTubeCommunityPostStreamplan post={youtubeStreamplanPost} loading="eager" />
+                    {/if}
+                    {#each streams ?? [] as stream}
                         <TwitchEntry entry={stream} />
                     {:else}
                         <div class="flex items-center">Momentan sind keine geplanten Streams bekannt.</div>

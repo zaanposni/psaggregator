@@ -58,6 +58,10 @@ model ContentPiece {
     type           ContentType
 }
 
+model IgnoreYouTubeVideos {
+    remoteId String @id
+}
+
 model Information {
     id                  String                @id @default(uuid())
     remoteId            String?

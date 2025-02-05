@@ -18,6 +18,7 @@
     import type { ContentPiece, Information, ScheduledContentPiece } from "@prisma/client";
     import moment from "moment";
     import NewsSmall from "$lib/components/NewsSmall.svelte";
+    import YouTubeCommunityPostStreamplan from "$lib/components/YouTubeCommunityPostStreamplan.svelte";
 
     export let data: PageServerData;
 
@@ -190,6 +191,9 @@
                         </div>
                     {/if}
                     <div class="flex flex-col gap-2">
+                        {#if data.youtubeStreamplanPost}
+                            <YouTubeCommunityPostStreamplan post={data.youtubeStreamplanPost} loading="eager" />
+                        {/if}
                         {#each data.upcomingStreams as stream}
                             <TwitchEntry entry={stream} />
                         {:else}
@@ -204,7 +208,8 @@
                 instagramPosts={data.instagramPosts}
                 twitterPosts={data.twitterPosts}
                 redditPosts={data.redditPosts}
-                streams={data.upcomingStreams} />
+                streams={data.upcomingStreams}
+                youtubeStreamplanPost={data.youtubeStreamplanPost} />
         {/if}
         <div>
             <div class="mb-2 ml-2 flex items-center text-2xl">

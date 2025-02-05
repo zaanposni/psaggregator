@@ -71,6 +71,12 @@ async def youtube():
 
             remoteId = video["id"]["videoId"]
 
+            query = f"SELECT * FROM IgnoreYouTubeVideos WHERE remoteId = :remoteId"
+            result = await db.fetch_one(query=query, values={"remoteId": remoteId})
+            if result:
+                console.log(f"{remoteId} is in ignore list", style="bold red")
+                continue
+
             query = f"SELECT * FROM ContentPiece WHERE remoteId = :remoteId AND importedFrom = 'YouTube'"
             result = await db.fetch_one(query=query, values={"remoteId": remoteId})
             if result:
@@ -88,8 +94,13 @@ async def youtube():
             duration = isodate.parse_duration(raw_duration).total_seconds()
 
             if duration <= 300:
+                insert_query = (
+                    "INSERT INTO IgnoreYouTubeVideos (remoteId) VALUES (:remoteId)"
+                )
+                await db.execute(insert_query, values={"remoteId": remoteId})
+
                 console.log(
-                    f"Skipping video '{title}' because it is shorter than 5 minutes",
+                    f"Skipping video '{title}' because it is shorter than 5 minutes. Added to ignore list. Duration: {duration}",
                     style="bold red",
                 )
                 continue
