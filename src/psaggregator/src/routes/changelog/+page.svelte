@@ -39,12 +39,16 @@
             <span>News-Startseite</span>
             <span>Die Startseite zeigt auf kleinen Geräten die News nun kompakter an und ermöglicht so einen besseren Überblick.</span>
         </div>
+        <div>
+            <span>Beta-Feature: Streamplan</span>
+            <span
+                >Der Streamplan wird nun automatisch erkannt und in der Twitch-Kategorie angezeigt. Es kann vereinzelt noch zu einer
+                falschen Erkennung kommen. Bitte Fehler melden.</span>
+        </div>
         <h3 class="mb-2 text-xl font-bold">Bestehende Probleme</h3>
         <div>
             <span>Uploadplan und Streamplan</span>
-            <span
-                >Der Uploadplan und Streamplan stehen nun nicht mehr auf pietsmiet.de zur Verfügung. Es wird noch eine Lösung gesucht.</span>
-            <span>Vermutlich werde ich die Bilder direkt irgendwo anzeigen.</span>
+            <span>Der Uploadplan steht nun nicht mehr auf pietsmiet.de zur Verfügung. Es wird noch eine Lösung gesucht.</span>
         </div>
     </div>
 
