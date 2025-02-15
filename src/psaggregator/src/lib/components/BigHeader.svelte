@@ -58,9 +58,6 @@
                             <span>Donate</span>
                         </a>
                     {/if}
-                    <a href="https://pietsmiet.de" target="_blank">
-                        <span>pietsmiet.de</span>
-                    </a>
                     {#if !matches && LEGAL_URL}
                         <a href={LEGAL_URL} target="_blank">
                             <span>Legal</span>
