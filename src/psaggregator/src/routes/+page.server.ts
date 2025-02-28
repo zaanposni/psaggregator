@@ -5,7 +5,7 @@ export async function load() {
     const upperBound = moment().endOf("day").toDate();
     const lowerBound = moment().startOf("day").toDate();
 
-    const lowerBoundYoutubeStreamplan = moment().startOf("day").subtract(1, "week").toDate();
+    const lowerBoundYoutubeStreamplan = moment().startOf("day").subtract(2, "week").toDate();
 
     const [today, videos, upcomingStreams, redditPosts, youtubeCommunityPosts, instagramPosts, twitterPosts, youtubeStreamplanPost] =
         await Promise.all([
