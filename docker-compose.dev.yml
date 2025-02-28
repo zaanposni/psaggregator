@@ -14,7 +14,7 @@ services:
             - "127.0.0.1:3306:3306"
 
     youtube-api:
-        image: benjaminloison/youtube-operational-api
+        image: ceramicwhite/youtube-operational-api
         container_name: youtube-api
         restart: unless-stopped
         ports:

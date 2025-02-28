@@ -25,7 +25,6 @@ channel_id = "UCqwGaUvq_l0RKszeHhZ5leA"
 collection_url = (
     f"{server_base_url}/channels?part=community&id={channel_id}&include=snippet"
 )
-ressource_url = server_base_url + "/community?part=snippet&id={}"
 direct_url = "https://www.youtube.com/channel/" + channel_id + "/community?lb={}"
 
 INSERT_STATEMENT = """
@@ -53,10 +52,6 @@ async def youtube():
             console.log(f"{yt['id']} already in database", style="bold red")
             continue
 
-        details = requests.get(ressource_url.format(yt["id"])).json()["items"][0][
-            "snippet"
-        ]
-
         text = ""
         thumbnailUri = None
         date = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
@@ -77,9 +72,12 @@ async def youtube():
                 "%Y-%m-%d %H:%M:%S"
             )
 
-        if "images" in details:
+        if "images" in yt:
             try:
-                thumbnailUri = details["images"][0]["thumbnails"][-1]["url"]
+                thumbnailUri = yt["images"][0]["thumbnails"][-1]["url"]
+                thumbnailUri = thumbnailUri.split("-c-fcrop64")[
+                    0
+                ]  # remove cdn param to get original aspect ratio
             except IndexError:
                 pass
             except KeyError:
