@@ -21,6 +21,15 @@
 </style>
 
 <div class="flex-col p-4">
+    <h2 class="mb-2 text-2xl font-bold">Version 1.20.1</h2>
+    <div class="changelog-contents w-full grow overflow-y-auto lg:w-1/2">
+        <h3 class="mb-2 text-xl font-bold">Überarbeitungen</h3>
+        <div>
+            <span>YouTube-Community Import</span>
+            <span>Der Import der YouTube-Community-Posts funktioniert nun wieder.</span>
+        </div>
+    </div>
+
     <h2 class="mb-2 text-2xl font-bold">Version 1.20.0 - Abschaltung pietsmiet.de</h2>
     <Button class="mb-2" href="https://cdn.zaanposni.com/api/files/psaggregator2025/info.html" target="_blank" rel="noopener noreferrer">
         <span class="mr-2">
