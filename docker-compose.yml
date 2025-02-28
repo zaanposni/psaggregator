@@ -101,7 +101,7 @@ services:
             - imageresizer
 
     youtube-api:
-        image: benjaminloison/youtube-operational-api
+        image: ceramicwhite/youtube-operational-api
         container_name: youtube-api
         restart: unless-stopped
         expose:
