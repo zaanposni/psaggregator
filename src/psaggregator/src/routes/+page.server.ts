@@ -143,9 +143,14 @@ export async function load() {
                         gt: lowerBoundYoutubeStreamplan
                     }
                 },
-                orderBy: {
-                    date: "desc"
-                }
+                orderBy: [
+                    {
+                        date: "desc"
+                    },
+                    {
+                        imageUri: "desc"
+                    }
+                ]
             })
         ]);
 
