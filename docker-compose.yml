@@ -26,7 +26,6 @@ services:
         environment:
             - PRIVATE_DATABASE_URL=${DATABASE_URL}
             - PRIVATE_API_ANALYTICS_KEY=${API_ANALYTICS_KEY}
-            - PRIVATE_API_HOSTNAME=${API_HOSTNAME}
             - PUBLIC_LEGAL_URL=${LEGAL_URL}
             - PUBLIC_UMAMI_ID=${UMAMI_ID}
             - PUBLIC_KOFI_USERNAME=${KOFI_USERNAME}
