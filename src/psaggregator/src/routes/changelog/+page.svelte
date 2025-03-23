@@ -21,6 +21,17 @@
 </style>
 
 <div class="flex-col p-4">
+    <h2 class="mb-2 text-2xl font-bold">Version 1.20.2</h2>
+    <div class="changelog-contents w-full grow overflow-y-auto lg:w-1/2">
+        <h3 class="mb-2 text-xl font-bold">Überarbeitungen</h3>
+        <div>
+            <span>Erkennung Streamplan</span>
+            <span
+                >Die Erkennung des Streamplans wurde verbessert. YouTube-Community-Posts mit Bildern werden jetzt bevorzugt. Danke für das
+                Feedback.</span>
+        </div>
+    </div>
+
     <h2 class="mb-2 text-2xl font-bold">Version 1.20.1</h2>
     <div class="changelog-contents w-full grow overflow-y-auto lg:w-1/2">
         <h3 class="mb-2 text-xl font-bold">Überarbeitungen</h3>
